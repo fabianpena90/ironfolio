@@ -1,5 +1,18 @@
 .archive {
   position: absolute;
-  bottom: 75%;
-  left: 45%;
+  top: 15%;
+  left: 35vw;
+}
+.archiveTableHead {
+  padding: 20px;
+  text-align: center;
+}
+.MuiTableSortLabel-root {
+  font-size: 1.5rem;
+}
+.MuiTableCell-alignLeft {
+  text-align: center !important;
+}
+.MuiTableCell-paddingNone:last-child {
+  padding: 20px !important;
 }
