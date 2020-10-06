@@ -12,12 +12,11 @@ function App() {
   return (
     <div>
     <NavBar />
-    <Switch>
-      {/* <Route exact path="/" render={() =>  <NavBar />} /> */}
-      <Route exact path="/archive" render={() =>  <Archive />} />
-      <Route exact path="/favorites" render={() =>  <Favorites />} />
-    </Switch>
-    <Footer />
+      <Switch>
+        <Route exact path="/archive" render={() => <Archive />} />
+        <Route exact path="/favorites" render={() =>  <Favorites />} />
+      </Switch>
+      <Footer />
     </div>
   );
 }
