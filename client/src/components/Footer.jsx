@@ -4,9 +4,11 @@ import "./Footer.css";
 function Footer(props) {
   const year = new Date().getFullYear();
   return (
-    <footer>
-      <p>Copyright © {year}</p>
-    </footer>
+    <div>
+      <footer>
+        <p>Copyright © {year}</p>
+      </footer>
+    </div>
   );
 }
 
