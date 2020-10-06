@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Archive from "./components/Archive";
+import Favorites from "./components/Favorites";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
     <Switch>
       {/* <Route exact path="/" render={() =>  <NavBar />} /> */}
       <Route exact path="/archive" render={() =>  <Archive />} />
+      <Route exact path="/favorites" render={() =>  <Favorites />} />
     </Switch>
     <Footer />
     </div>
