@@ -23,7 +23,7 @@ const NavBar = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="xl">
+    <div maxWidth="xl">
       <div className="navTopBarContainer">
         <div className="logo">
           <h1>Ironfolio</h1>
@@ -48,7 +48,7 @@ const NavBar = () => {
           </MenuList>
         </Paper>
       </div>
-    </Container>
+    </div>
   );
 };
 
