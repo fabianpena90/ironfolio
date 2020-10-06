@@ -13,3 +13,21 @@
 .navTopBarContainer .profilePic {
   margin-right: 20px;
 }
+
+.navBarLinks {
+  color: #000 !important;
+}
+
+.navBarLinks:hover {
+  text-decoration: none !important;
+  color: #000 !important;
+}
+
+.navBarLinkLogo {
+  color: #000 !important;
+}
+
+.navBarLinkLogo:hover {
+  text-decoration: none !important;
+  color: #000 !important;
+}

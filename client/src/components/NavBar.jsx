@@ -7,6 +7,8 @@ import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Container from "@material-ui/core/Container";
+import Link from '@material-ui/core/Link';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +28,7 @@ const NavBar = () => {
     <div maxWidth="xl">
       <div className="navTopBarContainer">
         <div className="logo">
-          <h1>Ironfolio</h1>
+          <Link className="navBarLinkLogo" href="./"><h1>Ironfolio</h1></Link>
         </div>
         <div className="profilePic">
           <Avatar src="/broken-image.jpg" />
@@ -36,15 +38,15 @@ const NavBar = () => {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList>
-            <MenuItem>Profile</MenuItem>
+            <Link href='./profile' className="navBarLinks"><MenuItem>Profile</MenuItem></Link>
             <Divider />
-            <MenuItem>Archive</MenuItem>
+            <Link className="navBarLinks" href='./archive'><MenuItem>Archive</MenuItem></Link>
             <Divider />
-            <MenuItem>Favorites</MenuItem>
+            <Link className="navBarLinks" href='./favorites'><MenuItem>Favorites</MenuItem></Link>
             <Divider />
-            <MenuItem>IronQueue</MenuItem>
+            <Link className="navBarLinks" href='https://iqueue.netlify.app/' target='_blank'><MenuItem>IronQueue</MenuItem></Link>
             <Divider />
-            <MenuItem>Logout</MenuItem>
+            <Link className="navBarLinks" href='./logout'><MenuItem>Logout</MenuItem></Link>
           </MenuList>
         </Paper>
       </div>
