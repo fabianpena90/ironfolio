@@ -10,12 +10,11 @@ import Archive from "./components/Archive";
 function App() {
   return (
     <div>
-    <NavBar />
-    <Switch>
-      {/* <Route exact path="/" render={() =>  <NavBar />} /> */}
-      <Route exact path="/archive" render={() =>  <Archive />} />
-    </Switch>
-    <Footer />
+      <NavBar />
+      <Switch>
+        <Route exact path="/archive" render={() => <Archive />} />
+      </Switch>
+      <Footer />
     </div>
   );
 }
