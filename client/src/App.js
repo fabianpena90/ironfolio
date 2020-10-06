@@ -12,7 +12,7 @@ function App() {
     <div>
     <NavBar />
     <Switch>
-      <Route exact path="/" render={() =>  <NavBar />} />
+      {/* <Route exact path="/" render={() =>  <NavBar />} /> */}
       <Route exact path="/archive" render={() =>  <Archive />} />
     </Switch>
     <Footer />
