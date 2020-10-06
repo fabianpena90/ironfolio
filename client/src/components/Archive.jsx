@@ -1,9 +1,12 @@
 import React from 'react';
+import './Archive.css'
+
+// Importing components
 
 function Archive(props) {
   return (
-    <div>
-      <h1>Archive</h1>
+    <div className="archive">
+      <h1>Welcome Student</h1>
     </div>
   );
 }

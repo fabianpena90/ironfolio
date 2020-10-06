@@ -25,7 +25,7 @@ const NavBar = () => {
   const classes = useStyles();
 
   return (
-    <div maxWidth="xl">
+    <div >
       <div className="navTopBarContainer">
         <div className="logo">
           <Link className="navBarLinkLogo" href="./"><h1>Ironfolio</h1></Link>
