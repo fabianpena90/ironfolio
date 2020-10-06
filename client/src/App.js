@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/archive" render={() => <Archive />} />
         <Route exact path="/favorites" render={() =>  <Favorites />} />
       </Switch>
-      <Footer />
+    <Footer />
     </div>
   );
 }
