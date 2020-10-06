@@ -2,5 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5vh;
+  height: 10vh;
+  background-color: grey;
+}
+
+.navTopBarContainer .logo {
+  margin-left: 20px;
+}
+
+.navTopBarContainer .profilePic {
+  margin-right: 20px;
 }
