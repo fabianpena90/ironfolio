@@ -12,6 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 
 
 function createData(name) {
@@ -171,7 +172,7 @@ function Archive() {
     <Container maxWidth="xl">
     <div className="archive">
       <div className={classes.root}>
-        <Paper className={classes.paper}>
+      <Paper className={classes.paper}>
           <TableContainer>
             <Table
               className={classes.table}
@@ -217,7 +218,7 @@ function Archive() {
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
-        </Paper>
+        </Paper>        
       </div>
     </div>
     </Container>

@@ -33,11 +33,33 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const useStyles = makeStyles({
-  table: {
+const useStyles = makeStyles((theme) => ({
+  root: {
     width: "50vw",
   },
-});
+  paper: {
+    width: "100%",
+    marginBottom: theme.spacing(2),
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: "rect(0 0 0 0)",
+    height: 1,
+    margin: -1,
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    top: 20,
+    width: 1,
+  },
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}));
 
 function createData(projectName, description, projectURL) {
   return { projectName, description, projectURL };

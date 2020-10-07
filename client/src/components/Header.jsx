@@ -7,9 +7,9 @@ function Header(props) {
   return (
       <div className="navTopBarContainer">
         <div className="logo">
-          <Link className="navBarLinkLogo" href="./">
+          <a className="navBarLinkLogo" href="./profile">
             <h1>Ironfolio</h1>
-          </Link>
+          </a>
         </div>
         <div className="profilePic">
           <Avatar src="/broken-image.jpg" />

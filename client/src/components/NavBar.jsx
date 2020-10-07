@@ -14,6 +14,7 @@ import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded"
 import ContactSupportRoundedIcon from "@material-ui/icons/ContactSupportRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import Link from "@material-ui/core/Link";
+import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,10 +32,10 @@ const NavBar = () => {
 
   return (
     // <Container maxWidth="xl">
-    <div>
+    <div >
       <div className={classes.root}>
         <Paper className={classes.paper}>
-          <MenuList>
+          <MenuList className="navbarContainer">
             <Link href="/profile" className="navBarLinks">
               <MenuItem>
                 <AccountBoxRoundedIcon className="menuIcon" />
