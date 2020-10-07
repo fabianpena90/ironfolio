@@ -4,6 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
+// import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import AccountBoxRoundedIcon from "@material-ui/icons/AccountBoxRounded";
@@ -29,18 +30,8 @@ const NavBar = () => {
   const classes = useStyles();
 
   return (
+    // <Container maxWidth="xl">
     <div>
-      <div className="navTopBarContainer">
-        <div className="logo">
-          <Link className="navBarLinkLogo" href="./">
-            <h1>Ironfolio</h1>
-          </Link>
-        </div>
-        <div className="profilePic">
-          <Avatar src="/broken-image.jpg" />
-        </div>
-      </div>
-
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList>
@@ -93,7 +84,8 @@ const NavBar = () => {
           </MenuList>
         </Paper>
       </div>
-    </div>
+      </div>
+      // </Container>
   );
 };
 

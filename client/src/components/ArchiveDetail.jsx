@@ -85,7 +85,7 @@ function ArchiveDetail(props) {
                   {row.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a href={row.website}>Website</a>
+                  <a href={row.website} target="_blank">Website</a>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

@@ -9,10 +9,12 @@ import Archive from "./components/Archive";
 import ArchiveDetail from "./components/ArchiveDetail";
 import Favorites from "./components/Favorites";
 import AddNew from "./components/AddNew";
+import Header from "./components/Header";
 
 function App() {
   return (
     <div>
+      <Header />
       <NavBar />
       <Switch>
         <Route exact path="/newproject" render={() => <AddNew />} />

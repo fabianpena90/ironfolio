@@ -11,6 +11,8 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
+import Container from "@material-ui/core/Container";
+
 
 function createData(name) {
   return { name };
@@ -164,6 +166,9 @@ function Archive() {
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
+
+
+    <Container maxWidth="xl">
     <div className="archive">
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -215,6 +220,7 @@ function Archive() {
         </Paper>
       </div>
     </div>
+    </Container>
   );
 }
 

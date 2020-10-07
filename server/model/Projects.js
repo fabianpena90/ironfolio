@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const projectsSchema = new Schema({
   project:  [String],
-  website: {String, require: true},
+  website: {String},
   description: {body: [String], date: Date}
 });
 
