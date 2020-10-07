@@ -2,7 +2,7 @@ import React, { Component, Fragment, useState, useEffect } from "react";
 import { Switch, Route, NavLink, useHistory } from "react-router-dom";
 import "./App.css";
 //Importing Components
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import Archive from "./components/Archive";
 import ArchiveDetail from "./components/ArchiveDetail";
@@ -70,7 +70,7 @@ function App() {
         {!user && <GoogleAuthLogin setUser={setUser} />}
         <NotificationContainer />
       </TheContext.Provider>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
