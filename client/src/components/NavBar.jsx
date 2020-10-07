@@ -43,21 +43,21 @@ const NavBar = () => {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList>
-            <Link href="./profile" className="navBarLinks">
+            <Link href="/profile" className="navBarLinks">
               <MenuItem>
                 <AccountBoxRoundedIcon className="menuIcon" />
                 Profile
               </MenuItem>
             </Link>
             <Divider />
-            <Link className="navBarLinks" href="./archive">
+            <Link className="navBarLinks" href="/archive">
               <MenuItem>
                 <ArchiveRoundedIcon className="menuIcon" />
                 Archive
               </MenuItem>
             </Link>
             <Divider />
-            <Link className="navBarLinks" href="./favorites">
+            <Link className="navBarLinks" href="/favorites">
               <MenuItem>
                 <FavoriteBorderRoundedIcon className="menuIcon" />
                 Favorites
