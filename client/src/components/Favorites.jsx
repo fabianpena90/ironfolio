@@ -1,5 +1,5 @@
-import React from 'react';
-import './Favorites.css'
+import React from "react";
+import "./Favorites.css";
 // Material UI
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -9,8 +9,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import IconButton from '@material-ui/core/IconButton';
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import IconButton from "@material-ui/core/IconButton";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -61,10 +61,10 @@ const rows = [
   ),
   createData(
     "MIA 2020",
-    "Fabian Pena", 
-    "Ghost Town", 
+    "Fabian Pena",
+    "Ghost Town",
     "https://ghost-town.netlify.app/"
-    ),
+  ),
   createData(
     "MIA 2020",
     "Sebastian Grana",
@@ -102,10 +102,14 @@ function Favorites(props) {
                   {row.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a href={row.projectURL} target="_blank">Website</a>
+                  <a href={row.projectURL} target="_blank">
+                    Website
+                  </a>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <IconButton><FavoriteBorderIcon /></IconButton>
+                  <IconButton>
+                    <FavoriteBorderIcon />
+                  </IconButton>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

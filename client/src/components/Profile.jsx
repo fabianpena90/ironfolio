@@ -1,5 +1,5 @@
-import React from 'react';
-import './Profile.css'
+import React from "react";
+import "./Profile.css";
 // Material UI
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -9,11 +9,10 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
-
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Button from "@material-ui/core/Button";
+import EditIcon from "@material-ui/icons/Edit";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -33,11 +32,33 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const useStyles = makeStyles({
-  table: {
+const useStyles = makeStyles((theme) => ({
+  root: {
     width: "50vw",
   },
-});
+  paper: {
+    width: "100%",
+    marginBottom: theme.spacing(2),
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: "rect(0 0 0 0)",
+    height: 1,
+    margin: -1,
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    top: 20,
+    width: 1,
+  },
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}));
 
 function createData(projectName, description, projectURL) {
   return { projectName, description, projectURL };
@@ -60,7 +81,7 @@ const rows = [
     "https://xenodochial-nightingale-702408.netlify.app/"
   ),
   createData(
-    "Ghost Town", 
+    "Ghost Town",
     "Projects Description goes here",
     "https://ghost-town.netlify.app/"
   ),
@@ -70,7 +91,6 @@ const rows = [
     "https://sheltered-eyrie-18420.herokuapp.com/"
   ),
 ];
-
 
 function Profile(props) {
   const classes = useStyles();
@@ -101,18 +121,24 @@ function Profile(props) {
                   {row.projectURL}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                <Button
+                  <Button
                     variant="contained"
                     color="primary"
                     className={classes.button}
-                    startIcon={<EditIcon />}>Edit</Button>
+                    startIcon={<EditIcon />}
+                  >
+                    Edit
+                  </Button>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                <Button
+                  <Button
                     variant="contained"
                     color="secondary"
                     className={classes.button}
-                    startIcon={<DeleteIcon />}>Delete</Button>
+                    startIcon={<DeleteIcon />}
+                  >
+                    Delete
+                  </Button>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
