@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const passport = require("../config/passport");
+// const passport = require("../config/passport");
 const jwt = require("jsonwebtoken");
-const Projects = require("../models/Movie");
+// const Projects = require("../models/Movie");
 
 router.post("/signup", (req, res, next) => {
   User.register(req.body, req.body.password)
@@ -36,12 +36,12 @@ router.get("/user", verifyToken, (req, res, next) => {
   });
 });
 
-router.post("/login", passport.authenticate("local"), (req, res, next) => {
-  const { user } = req;
-  jwt.sign({ user }, "secretkey", { expiresIn: "30min" }, (err, token) => {
-    res.status(200).json({ ...user._doc, token });
-  });
-});
+// router.post("/login", passport.authenticate("local"), (req, res, next) => {
+//   const { user } = req;
+//   jwt.sign({ user }, "secretkey", { expiresIn: "30min" }, (err, token) => {
+//     res.status(200).json({ ...user._doc, token });
+//   });
+// });
 
 router.get("/logout", (req, res, next) => {
   req.logout();
@@ -96,15 +96,15 @@ router.post("/AddTheMovieToTheDatabase", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      console.log("Fabian Was Here")
+      console.log("Fabian Was Here");
       let movie = req.body;
       movie.userId = authData.user._id;
       Movies.create(movie).then((WereAddingAMovie) => {
         res.json({ WereAddingAMovie });
       });
     }
-  })
-})
+  });
+});
 
 router.get("/getMyMovies", verifyToken, (req, res) => {
   // console.log(req, res);
@@ -116,11 +116,14 @@ router.get("/getMyMovies", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      console.log(authData.user._id, " Use this to get all movies from this user")
+      console.log(
+        authData.user._id,
+        " Use this to get all movies from this user"
+      );
       Movies.find({ userId: authData.user._id }).then((theirMovies) => {
-        res.json({ theirMovies })
-      })
+        res.json({ theirMovies });
+      });
     }
   });
-})
+});
 module.exports = router;
