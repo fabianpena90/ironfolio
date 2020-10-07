@@ -1,5 +1,6 @@
 import React from "react";
 import "./Archive.css";
+import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -127,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Archive() {
+function Archive() {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
@@ -189,7 +190,7 @@ export default function Archive() {
                     return (
                       <TableRow>
                         <TableCell component="th" scope="row" padding="20px">
-                          {row.name}
+                          <Link to="/archiveDetails">{row.name}</Link>
                         </TableCell>
                       </TableRow>
                     );
@@ -216,3 +217,6 @@ export default function Archive() {
     </div>
   );
 }
+
+
+export default Archive
