@@ -8,12 +8,14 @@ import NavBar from "./components/NavBar";
 import Archive from "./components/Archive";
 import ArchiveDetail from "./components/ArchiveDetail";
 import Favorites from "./components/Favorites";
+import AddNew from "./components/AddNew";
 
 function App() {
   return (
     <div>
       <NavBar />
       <Switch>
+        <Route exact path="/newproject" render={() => <AddNew />} />
         <Route exact path="/archive" render={() => <Archive />} />
         <Route
           exact
