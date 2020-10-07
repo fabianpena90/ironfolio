@@ -1,6 +1,8 @@
 footer {
-  position: absolute;
-
+  display: sticky;
   text-align: center;
-  background-color: grey;
+  bottom: 0;
+  right: 0;
+  height: 2.5rem;
+  width: 100%;
 }
