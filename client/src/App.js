@@ -18,7 +18,10 @@ import TheContext from "./TheContext";
 import actions from "./api/index";
 import GoogleAuth from "./components/auth/GoogleAuth";
 import GoogleAuthLogin from "./components/auth/GoogleAuthLogin";
-import { NotificationContainer, NotificationManager, } from "react-notifications";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 
 function App() {
   let [user, setUser] = useState(null);
@@ -39,35 +42,33 @@ function App() {
 
   const history = useHistory();
 
-
   return (
-    
     <div>
-    <TheContext.Provider value={{ history, user, setUser }}>
-    {user?.email}      
-      <Header />
-      <div className="container">
-        <div>
-          <NavBar />
+      <TheContext.Provider value={{ history, user, setUser }}>
+        {user?.email}
+        <Header />
+        <div className="container">
+          <div>
+            <NavBar />
+          </div>
+          <div className="body">
+            <Switch>
+              <Route exact path="/profile" render={() => <Profile />} />
+              <Route exact path="/newproject" render={() => <AddNew />} />
+              <Route exact path="/archive" render={() => <Archive />} />
+              <Route
+                exact
+                path="/archive/:id"
+                render={(props) => <ArchiveDetail {...props} />}
+              />
+              <Route exact path="/favorites" render={() => <Favorites />} />
+              {/* <Route component={NotFound} /> */}
+            </Switch>
+          </div>
         </div>
-        <div className="body">
-          <Switch>
-            <Route exact path="/profile" render={() => <Profile />} />
-            <Route exact path="/newproject" render={() => <AddNew />} />
-            <Route exact path="/archive" render={() => <Archive />} />
-            <Route
-              exact
-              path="/archive/:id"
-              render={(props) => <ArchiveDetail {...props} />}
-            />
-            <Route exact path="/favorites" render={() => <Favorites />} />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </div>
-      {!user && <GoogleAuth setUser={setUser} />}
-      {!user && <GoogleAuthLogin setUser={setUser} />}
-      <NotificationContainer />
+        {!user && <GoogleAuth setUser={setUser} />}
+        {!user && <GoogleAuthLogin setUser={setUser} />}
+        <NotificationContainer />
       </TheContext.Provider>
       {/* <Footer /> */}
     </div>
