@@ -61,7 +61,7 @@ const rows = [
   ),
 ];
 
-export default function ArchiveDetail(props) {
+function ArchiveDetail(props) {
   const classes = useStyles();
   return (
     <div className="archiveDetail">
@@ -85,7 +85,7 @@ export default function ArchiveDetail(props) {
                   {row.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a href="{row.website}">Website</a>
+                  <a href={row.website}>Website</a>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
@@ -95,3 +95,5 @@ export default function ArchiveDetail(props) {
     </div>
   );
 }
+
+export default ArchiveDetail;
