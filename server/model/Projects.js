@@ -1,10 +1,16 @@
 const { Schema, model } = require("mongoose");
 
 const projectsSchema = new Schema({
-  project:  [String],
-  website: {String},
-  description: {body: [String], date: Date}
-});
+  projectName:  String,
+  website: String,
+  description: String,
+  studentsID: [{type: Schema.Types.ObjectId, ref: "User"}]
+},
+{
+  timestamps: true,
+  versionKey: false,
+}
+);
 
 
 const Projects = mongoose.model('Projects', projectsSchema);
