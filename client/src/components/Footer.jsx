@@ -3,11 +3,7 @@ import "./Footer.css";
 
 function Footer(props) {
   const year = new Date().getFullYear();
-  return (
-    <footer>
-      <p>Copyright © {year}</p>
-    </footer>
-  );
+  return <footer>Copyright © {year}</footer>;
 }
 
 export default Footer;

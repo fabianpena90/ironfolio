@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
     width: "50vw",
   },
   paper: {
-    width: "80%",
+    width: "100%",
     marginBottom: theme.spacing(2),
   },
   visuallyHidden: {

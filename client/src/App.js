@@ -11,12 +11,12 @@ import Favorites from "./components/Favorites";
 function App() {
   return (
     <div>
-    <NavBar />
+      <NavBar />
       <Switch>
         <Route exact path="/archive" render={() => <Archive />} />
-        <Route exact path="/favorites" render={() =>  <Favorites />} />
+        <Route exact path="/favorites" render={() => <Favorites />} />
       </Switch>
-    <Footer />
+      <Footer />
     </div>
   );
 }
