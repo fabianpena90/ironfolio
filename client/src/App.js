@@ -10,6 +10,7 @@ import ArchiveDetail from "./components/ArchiveDetail";
 import Favorites from "./components/Favorites";
 import AddNew from "./components/AddNew";
 import Header from "./components/Header";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Header />
       <NavBar />
       <Switch>
+        <Route exact path="/profile" render={() => <Profile />} />
         <Route exact path="/newproject" render={() => <AddNew />} />
         <Route exact path="/archive" render={() => <Archive />} />
         <Route
