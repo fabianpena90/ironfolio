@@ -7,6 +7,7 @@ import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import AccountBoxRoundedIcon from "@material-ui/icons/AccountBoxRounded";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 import ArchiveRoundedIcon from "@material-ui/icons/ArchiveRounded";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 import ContactSupportRoundedIcon from "@material-ui/icons/ContactSupportRounded";
@@ -49,6 +50,14 @@ const NavBar = () => {
                 Profile
               </MenuItem>
             </Link>
+            <Divider />
+            <Link href="/newproject" className="navBarLinks">
+              <MenuItem>
+                <AddBoxIcon className="menuIcon" />
+                Add new project
+              </MenuItem>
+            </Link>
+            <Divider />
             <Divider />
             <Link className="navBarLinks" href="/archive">
               <MenuItem>
