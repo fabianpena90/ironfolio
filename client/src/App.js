@@ -10,7 +10,8 @@ import Favorites from "./components/Favorites";
 import AddNew from "./components/AddNew";
 import Header from "./components/Header";
 import Profile from "./components/Profile";
-import NotFound from "./components/404/NotFound.js";
+import NotFound from "./components/404/NotFound";
+import SelectClass from "./components/SelectClass";
 // Auth Components
 import TheContext from "./TheContext";
 import actions from "./api/index";
@@ -38,7 +39,11 @@ function App() {
   return user === null || // if statement to see if user is register or not. if it is page will go to the profile
     user === undefined || // if not, 404 will display
     JSON.stringify(user) === "{}" ? (
-    <div>
+    <div className="google">
+      <div className="header">
+        <h1>IRONFOLIO</h1>
+        <p>Where you can create and collaborate...</p>
+      </div>
       {!user && <GoogleAuth setUser={setUser} />}
       {!user && <GoogleAuthLogin setUser={setUser} />}
       {JSON.stringify(user) === "{}" && <Route component={NotFound} />}
@@ -46,6 +51,7 @@ function App() {
     </div>
   ) : (
     <div>
+      {console.log(user)}
       {/* <TheContext.Provider value={{ history, user, setUser }}> */}
       <Header />
       <div className="container">
@@ -54,6 +60,7 @@ function App() {
           ``
         </div>
         <div className="body">
+          <SelectClass user={user} />
           <Switch>
             <Route exact path="/profile" render={() => <Profile />} />
             <Route exact path="/newproject" render={() => <AddNew />} />

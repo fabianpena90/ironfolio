@@ -7,6 +7,7 @@ const userSchema = new Schema(
     name: String,
     googleId: String,
     imageUrl: String,
+
     userType: {
       type: String,
       enum: ["student", "admin"],

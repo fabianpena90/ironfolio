@@ -13,3 +13,7 @@ display: flex;
 justify-content: center;
 margin: 30% 0;
 }
+
+.header {
+  text-align: center
+}

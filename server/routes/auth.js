@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const passport = require("../config/passport");
 const jwt = require("jsonwebtoken");
-// const Projects = require("../models/Movie");
+const Classes = require("../models/Class");
 
 router.post("/signup", (req, res, next) => {
   User.register(req.body, req.body.password)
@@ -77,12 +77,12 @@ function verifyToken(req, res, next) {
 
 // Put all movie routes below here:
 
-// router.get("/getAllMovies", (req, res) => {
-//   Movies.find().then((movies) => {
-//     console.log(movies);
-//     res.json({ movies });
-//   });
-// });
+router.get("/getAllClasses", (req, res) => {
+  Classes.find().then((selectClass) => {
+    console.log(selectClass);
+    res.json({ selectClass });
+  });
+});
 
 // router.get("/getTheMovie", (req, res) => {
 //   Movies.findById(req.query.MovieIdFromClient).then((oneMovie) => {
