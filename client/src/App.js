@@ -43,11 +43,10 @@ function App() {
   return (
     <div>
       <TheContext.Provider value={{ history, user, setUser }}>
-        {user?.email}
         <Header />
         <div className="container">
           <div>
-            <NavBar />
+            <NavBar setUser={setUser} />
           </div>
           <div className="body">
             <Switch>
@@ -65,15 +64,11 @@ function App() {
             </Switch>
           </div>
         </div>
+        {user?.email}
         {!user && <GoogleAuth setUser={setUser} />}
         {!user && <GoogleAuthLogin setUser={setUser} />}
         <NotificationContainer />
       </TheContext.Provider>
-
-      {/* Added this button for testing purposes */}
-      <NavLink onClick={logOut} to="/">
-        Log Out
-      </NavLink>
       <Footer />
     </div>
   );

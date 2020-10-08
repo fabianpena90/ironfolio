@@ -15,6 +15,7 @@ import ContactSupportRoundedIcon from "@material-ui/icons/ContactSupportRounded"
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import Link from "@material-ui/core/Link";
 import Hidden from "@material-ui/core/Hidden";
+import actions from "../api/index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,12 +28,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = () => {
+const NavBar = (props) => {
   const classes = useStyles();
+
+  const logOut = async () => {
+    let res = await actions.logOut();
+    props.setUser(null);
+  };
 
   return (
     // <Container maxWidth="xl">
-    <div >
+    <div>
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList className="navbarContainer">
@@ -76,7 +82,7 @@ const NavBar = () => {
               </MenuItem>
             </Link>
             <Divider />
-            <Link className="navBarLinks" href="./logout">
+            <Link className="navBarLinks" onClick={logOut} to="/">
               <MenuItem>
                 <ExitToAppRoundedIcon className="menuIcon" />
                 Logout
@@ -85,8 +91,8 @@ const NavBar = () => {
           </MenuList>
         </Paper>
       </div>
-      </div>
-      // </Container>
+    </div>
+    // </Container>
   );
 };
 
