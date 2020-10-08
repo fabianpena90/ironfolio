@@ -7,12 +7,11 @@ const userSchema = new Schema(
     name: String,
     googleId: String,
     imageUrl: String,
-    projects: [{type: Schema.Types.ObjectId, ref: "Project"}],
     userType: {
       type: String,
-      enum : ['student','admin'],
-      default: 'student'
-  }
+      enum: ["student", "admin"],
+      default: "student",
+    },
   },
   {
     timestamps: true,
