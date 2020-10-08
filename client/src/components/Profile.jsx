@@ -14,6 +14,9 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -96,6 +99,8 @@ const rows = [
 function Profile(props) {
   const classes = useStyles();
   const [selectClass, setSelectClass] = useState([]);
+  const [assignClass, setAssignClass] = useState([]);
+
   useEffect(() => {
     async function getClasses() {
       // let res = await axios.get("http://localhost:5000/api/getAllMovies")
@@ -105,6 +110,9 @@ function Profile(props) {
     }
     getClasses();
   }, []);
+  function preventDefault(e) {
+    e.preventDefault();
+  }
 
   function showClass() {
     return selectClass.map((eachClass) => {
@@ -122,9 +130,28 @@ function Profile(props) {
 
   if (props.user.class === "Test") {
     return (
-      <>
-        <select>{showClass()}</select>
-      </>
+      <form onSubmit={preventDefault}>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel htmlFor="outlined-age-native-simple">
+            Select Class
+          </InputLabel>
+          <Select
+            native
+            onChange={(e) => {
+              setAssignClass(e.target.value);
+            }}
+            label="selectClass"
+            inputProps={{
+              name: "selectClass",
+              id: "outlined-selectClass-native-simple",
+            }}
+          >
+            <option aria-label="None" value="" />
+            {showClass()}
+          </Select>
+          <Button variant="contained">Default</Button>
+        </FormControl>
+      </form>
     );
   }
   // getClasses();
