@@ -5,7 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
-// const passport = require("./config/passport");
+const passport = require("./config/passport");
 
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/ironfolioExample";
@@ -43,8 +43,8 @@ app.use(
 //   })
 // );
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 

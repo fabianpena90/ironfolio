@@ -69,6 +69,11 @@ function App() {
         {!user && <GoogleAuthLogin setUser={setUser} />}
         <NotificationContainer />
       </TheContext.Provider>
+
+      {/* Added this button for testing purposes */}
+      <NavLink onClick={logOut} to="/">
+        Log Out
+      </NavLink>
       <Footer />
     </div>
   );

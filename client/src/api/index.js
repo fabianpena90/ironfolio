@@ -44,18 +44,17 @@ const actions = {
     window.localStorage.removeItem("token");
     return await API.get("/logout", resetHead());
   },
-  getAllTheFilmsNOW: async () => {
-    return await API.get("/getAllMovies");
-  },
-  AddTheMovie: async (data) => {
-    console.log(data)
-    return await API.post("/AddTheMovieToTheDatabase", data, resetHead());
-  },
-  getProfileMovies: async () => {
-    console.log('test test')
-    return await API.get("/getMyMovies")
-  }
-
+  // getAllTheFilmsNOW: async () => {
+  //   return await API.get("/getAllMovies");
+  // },
+  // AddTheMovie: async (data) => {
+  //   console.log(data)
+  //   return await API.post("/AddTheMovieToTheDatabase", data, resetHead());
+  // },
+  // getProfileMovies: async () => {
+  //   console.log('test test')
+  //   return await API.get("/getMyMovies")
+  // }
 };
 
 API.interceptors.response.use(
