@@ -22,16 +22,3 @@ const userSchema = new Schema(
 userSchema.plugin(PLM, { usernameField: "email" });
 
 module.exports = model("User", userSchema);
-
-// {
-//   email: String,
-//   name: String,
-//   googleId: String,
-//   imageUrl: String,
-//   projects: [{ type: Schema.Types.ObjectId, ref: "Project" }],
-//   userType: {
-//     type: String,
-//     enum: ["student", "admin"],
-//     default: "user",
-//   },
-// }
