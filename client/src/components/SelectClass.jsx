@@ -12,7 +12,7 @@ function SelectClass(props) {
       async function getClasses() {
       // let res = await axios.get("http://localhost:5000/api/getAllMovies")
       let res = await actions.getAllClasses()
-      console.log(res.data.selectClass, "Fabnian & Rabiul are the shit!");
+      console.log(res.data.selectClass, "Fabian & Rabiul are the shit!");
       // setSelectClass(res.data);
     }
     getClasses()

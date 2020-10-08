@@ -79,7 +79,7 @@ function verifyToken(req, res, next) {
 
 router.get("/getAllClasses", (req, res) => {
   Classes.find().then((selectClass) => {
-    console.log(selectClass);
+    console.log(selectClass, "Fabian & Rabiul built this");
     res.json({ selectClass });
   });
 });
