@@ -35,8 +35,8 @@ function App() {
 
   const history = useHistory();
 
-  return user === null ||
-    user === undefined ||
+  return user === null || // if statement to see if user is register or not. if it is page will go to the profile
+    user === undefined || // if not, 404 will display
     JSON.stringify(user) === "{}" ? (
     <div>
       {!user && <GoogleAuth setUser={setUser} />}

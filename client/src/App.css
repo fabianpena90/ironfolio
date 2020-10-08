@@ -7,3 +7,9 @@
 .body {
   margin-left: 10%;
 }
+
+.google {
+display: flex;
+justify-content: center;
+margin: 30% 0;
+}
