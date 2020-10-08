@@ -13,8 +13,6 @@ import Profile from "./components/Profile";
 import NotFound from "./components/404/NotFound.js";
 // Auth Components
 import TheContext from "./TheContext";
-import SignUp from "./components/auth/SignUp";
-import LogIn from "./components/auth/LogIn";
 import actions from "./api/index";
 import GoogleAuth from "./components/auth/GoogleAuth";
 import GoogleAuthLogin from "./components/auth/GoogleAuthLogin";
@@ -61,16 +59,7 @@ function App() {
                 path="/archive/:id"
                 render={(props) => <ArchiveDetail {...props} />}
               />
-              <Route
-                exact
-                path="/sign-up"
-                render={(props) => <SignUp {...props} setUser={setUser} />}
-              />
-              <Route
-                exact
-                path="/log-in"
-                render={(props) => <LogIn {...props} setUser={setUser} />}
-              />
+
               <Route exact path="/favorites" render={() => <Favorites />} />
               {/* <Route component={NotFound} /> */}
             </Switch>
