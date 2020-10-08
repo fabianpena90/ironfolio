@@ -56,8 +56,8 @@ function App() {
       <Header />
       <div className="container">
         <div>
+          {user?.email}
           <NavBar setUser={setUser} />
-          ``
         </div>
         <div className="body">
           <SelectClass user={user} />
@@ -75,7 +75,6 @@ function App() {
           </Switch>
         </div>
       </div>
-      {user?.email}
       {/* </TheContext.Provider> */}
       <Footer />
       <NotificationContainer />

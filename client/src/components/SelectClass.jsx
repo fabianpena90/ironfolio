@@ -1,27 +1,38 @@
-import React, {useState, useEffect} from 'react';
-import actions from '../api/index'
+import React, { useState, useEffect } from "react";
+import actions from "../api/index";
 
 function SelectClass(props) {
-  const [selectClass, setSelectClass] = useState("");
-   console.log('test ')
-  //  if(props.user.class === ""){
-  //   <select>
-  //     <option>MIA</option>
-  //   </select>
-  // }
-      async function getClasses() {
-      // let res = await axios.get("http://localhost:5000/api/getAllMovies")
-      let res = await actions.getAllClasses()
-      console.log(res.data.selectClass, "Fabian & Rabiul are the shit!");
-      // setSelectClass(res.data);
-    }
-    getClasses()
+  const [selectClass, setSelectClass] = useState([]);
+  console.log("test ");
 
-  return (
-    <div>
+  useEffect(() => {
+    async function getClasses() {
+      // let res = await axios.get("http://localhost:5000/api/getAllMovies")
+      let res = await actions.getAllClasses();
+      console.log(res.data.selectClass, "Fabnian & Rabiul are the shit!");
+      setSelectClass(res.data?.selectClass);
+    }
+    getClasses();
+  }, []);
+
+  function displayClass() {
+    if (props.user.class === "Test") {
       
-    </div>
-  );
+      return selectClass.map((eachClass) => {
+        console.log(eachClass);
+        return (
+          <div>
+          <select>
+            <option>{eachClass.location}</option>
+          </select>
+          </div>
+
+        ) 
+      });
+      // getClasses();
+    }
+  }
+  return <div>{displayClass()}</div>;
 }
 
 export default SelectClass;
