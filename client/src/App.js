@@ -23,7 +23,7 @@ import {
 
 function App() {
   let [user, setUser] = useState(null);
-
+  console.log(user);
   useEffect(() => {
     async function getUser() {
       let user = await actions.getUser();
@@ -51,33 +51,37 @@ function App() {
   ) : (
     <div>
       {console.log(user)}
-      {/* <TheContext.Provider value={{ history, user, setUser }}> */}
-      <Header />
-      <div className="container">
-        <div>
-          {user?.email}
-          <NavBar setUser={setUser} />
-        </div>
-        <div className="body">
-          <Switch>
-            <Route
-              exact
-              path="/profile"
-              render={() => <Profile user={user} />}
-            />
-            <Route exact path="/newproject" render={() => <AddNew />} />
-            <Route exact path="/archive" render={() => <Archive />} />
-            <Route
-              exact
-              path="/archive/:id"
-              render={(props) => <ArchiveDetail {...props} />}
-            />
+      <TheContext.Provider value={{ history, user, setUser }}>
+        <Header />
+        <div className="container">
+          <div>
+            {user?.email}
+            <NavBar setUser={setUser} history={history} />
+          </div>
+          <div className="body">
+            <Switch>
+              <Route
+                exact
+                path="/profile"
+                render={() => <Profile user={user} />}
+              />
+              <Route exact path="/newproject" render={() => <AddNew />} />
+              <Route
+                exact
+                path="/archive"
+                render={(props) => <Archive {...props} />}
+              />
+              <Route
+                exact
+                path="/archive/:id"
+                render={(props) => <ArchiveDetail {...props} />}
+              />
 
-            <Route exact path="/favorites" render={() => <Favorites />} />
-          </Switch>
+              <Route exact path="/favorites" render={() => <Favorites />} />
+            </Switch>
+          </div>
         </div>
-      </div>
-      {/* </TheContext.Provider> */}
+      </TheContext.Provider>
       <Footer />
       <NotificationContainer />
     </div>

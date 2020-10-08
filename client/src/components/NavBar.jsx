@@ -33,6 +33,7 @@ const NavBar = (props) => {
   const logOut = async () => {
     let res = await actions.logOut();
     props.setUser(null);
+    props.history.push("/");
   };
 
   return (
@@ -81,7 +82,7 @@ const NavBar = (props) => {
               </MenuItem>
             </Link>
             <Divider />
-            <Link className="navBarLinks" onClick={logOut} to="/">
+            <Link className="navBarLinks" onClick={logOut}>
               <MenuItem>
                 <ExitToAppRoundedIcon className="menuIcon" />
                 Logout

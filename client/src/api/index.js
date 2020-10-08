@@ -47,6 +47,10 @@ const actions = {
   getAllClasses: async () => {
     return await API.get("/getAllClasses");
   },
+
+  setClass: async (data) => {
+    return await API.post("/addClass", data, resetHead());
+  },
   // AddTheMovie: async (data) => {
   //   console.log(data)
   //   return await API.post("/AddTheMovieToTheDatabase", data, resetHead());

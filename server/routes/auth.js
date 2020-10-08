@@ -26,7 +26,7 @@ router.get("/user", verifyToken, (req, res, next) => {
       res.status(403).json(err);
     } else {
       // res.status(200).json(authData.user)
-      console.log(authData.user, "Fabian & Rabiul built this :)");
+      //console.log(authData.user, "Fabian & Rabiul built this :)");
       User.findById(authData.user._id)
         .then((user) => {
           res.status(200).json(user);
@@ -79,7 +79,7 @@ function verifyToken(req, res, next) {
 
 router.get("/getAllClasses", (req, res) => {
   Classes.find().then((selectClass) => {
-    console.log(selectClass, "Fabian & Rabiul built this");
+    //console.log(selectClass, "Fabian & Rabiul built this");
     res.json({ selectClass });
   });
 });
@@ -91,20 +91,28 @@ router.get("/getAllClasses", (req, res) => {
 //   console.log(req.query.MovieIdFromClient);
 // });
 
-// router.post("/AddTheMovieToTheDatabase", verifyToken, (req, res) => {
-//   jwt.verify(req.token, "secretkey", (err, authData) => {
-//     if (err) {
-//       res.status(403).json(err);
-//     } else {
-//       console.log("Fabian Was Here");
-//       let movie = req.body;
-//       movie.userId = authData.user._id;
-//       Movies.create(movie).then((WereAddingAMovie) => {
-//         res.json({ WereAddingAMovie });
-//       });
-//     }
-//   });
-// });
+router.post("/addClass", verifyToken, (req, res) => {
+  console.log("From Line 95: ", req.body);
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    console.log("From Line 97: ", authData);
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      User.findByIdAndUpdate(
+        authData.user._id,
+        { class: req.body.assignClass },
+        { new: true }
+      ).then((user) => {
+        res.json({ user });
+      });
+      // let student = req.body;
+      // student.class = authData.user._id;
+      // User.find(movie).then((WereAddingAMovie) => {
+      //   res.json({ WereAddingAMovie });
+      // });
+    }
+  });
+});
 
 // router.get("/getMyMovies", verifyToken, (req, res) => {
 //   // console.log(req, res);

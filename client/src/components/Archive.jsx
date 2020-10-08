@@ -13,6 +13,7 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import TheContext from "../TheContext";
 
 function createData(name) {
   return { name };
@@ -143,7 +144,12 @@ function Archive() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-
+  const { user, history } = React.useContext(TheContext);
+  console.log(user, history);
+  if (!user.email) {
+    console.log("FIREEEEEEEEEEEEEEEEED");
+    history.push("/login");
+  }
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.name);
