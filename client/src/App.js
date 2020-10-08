@@ -36,10 +36,8 @@ function App() {
   const history = useHistory();
 
   console.log(user);
-  return user === null ||
-    user === undefined ||
-    JSON.stringify(user) === "{}" ? (
-    <div>
+  return user === null || user === undefined || JSON.stringify(user) === "{}" ? (
+    <div className= "google">
       {!user && <GoogleAuth setUser={setUser} history={history} />}
       {!user && <GoogleAuthLogin setUser={setUser} />}
       <NotificationContainer />
@@ -53,6 +51,7 @@ function App() {
             <NavBar setUser={setUser} />
           </div>
           <div className="body">
+        {user?.name}
             <Switch>
               <Route exact path="/profile" render={() => <Profile />} />
               <Route exact path="/newproject" render={() => <AddNew />} />
@@ -68,7 +67,6 @@ function App() {
             </Switch>
           </div>
         </div>
-        {user?.email}
       </TheContext.Provider>
       <Footer />
       <NotificationContainer />
