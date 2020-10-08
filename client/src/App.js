@@ -35,39 +35,40 @@ function App() {
 
   const history = useHistory();
 
-  console.log(user);
-  return user === null || user === undefined || JSON.stringify(user) === "{}" ? (
-    <div className= "google">
+  return user === null || // if statement to see if user is register or not. if it is page will go to the profile 
+    user === undefined || // if not, 404 will display
+    JSON.stringify(user) === "{}" ? (
+    <div className="google">
       {!user && <GoogleAuth setUser={setUser} history={history} />}
       {!user && <GoogleAuthLogin setUser={setUser} />}
+      {JSON.stringify(user) === "{}" && <Route component={NotFound} />}
       <NotificationContainer />
     </div>
   ) : (
     <div>
-      <TheContext.Provider value={{ history, user, setUser }}>
-        <Header />
-        <div className="container">
-          <div>
-            <NavBar setUser={setUser} />
-          </div>
-          <div className="body">
-        {user?.name}
-            <Switch>
-              <Route exact path="/profile" render={() => <Profile />} />
-              <Route exact path="/newproject" render={() => <AddNew />} />
-              <Route exact path="/archive" render={() => <Archive />} />
-              <Route
-                exact
-                path="/archive/:id"
-                render={(props) => <ArchiveDetail {...props} />}
-              />
-
-              <Route exact path="/favorites" render={() => <Favorites />} />
-              {/* <Route component={NotFound} /> */}
-            </Switch>
-          </div>
+      {/* <TheContext.Provider value={{ history, user, setUser }}> */}
+      <Header />
+      <div className="container">
+        <div>
+          <NavBar setUser={setUser} />
         </div>
-      </TheContext.Provider>
+        <div className="body">
+          <Switch>
+            <Route exact path="/profile" render={() => <Profile />} />
+            <Route exact path="/newproject" render={() => <AddNew />} />
+            <Route exact path="/archive" render={() => <Archive />} />
+            <Route
+              exact
+              path="/archive/:id"
+              render={(props) => <ArchiveDetail {...props} />}
+            />
+
+            <Route exact path="/favorites" render={() => <Favorites />} />
+          </Switch>
+        </div>
+      </div>
+      {user?.email}
+      {/* </TheContext.Provider> */}
       <Footer />
       <NotificationContainer />
     </div>
