@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
+import actions from "../api/index";
 // Material UI
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -94,59 +95,94 @@ const rows = [
 
 function Profile(props) {
   const classes = useStyles();
-  return (
-    <div className="archiveDetail">
-      <h1>My Projects</h1>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Project Name</StyledTableCell>
-              <StyledTableCell>Description</StyledTableCell>
-              <StyledTableCell>Website / URL</StyledTableCell>
-              <StyledTableCell align="right">Edit</StyledTableCell>
-              <StyledTableCell align="right">Delete</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.projectName}>
-                <StyledTableCell component="th" scope="row">
-                  {row.projectName}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.description}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.projectURL}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    startIcon={<EditIcon />}
-                  >
-                    Edit
-                  </Button>
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    className={classes.button}
-                    startIcon={<DeleteIcon />}
-                  >
-                    Delete
-                  </Button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
-  );
+  const [selectClass, setSelectClass] = useState([]);
+  useEffect(() => {
+    async function getClasses() {
+      // let res = await axios.get("http://localhost:5000/api/getAllMovies")
+      let res = await actions.getAllClasses();
+      console.log(res.data.selectClass, "Fabnian & Rabiul are the shit!");
+      setSelectClass(res.data?.selectClass);
+    }
+    getClasses();
+  }, []);
+
+  function showClass() {
+    return selectClass.map((eachClass) => {
+      return (
+        <option>
+          {eachClass.location}
+          {"---"}
+          {eachClass.month}
+          {"---"}
+          {eachClass.year}
+        </option>
+      );
+    });
+  }
+
+  if (props.user.class === "Test") {
+    return (
+      <>
+        <select>{showClass()}</select>
+      </>
+    );
+  }
+  // getClasses();
+  else {
+    return (
+      <div className="archiveDetail">
+        <h1>My Projects</h1>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Project Name</StyledTableCell>
+                <StyledTableCell>Description</StyledTableCell>
+                <StyledTableCell>Website / URL</StyledTableCell>
+                <StyledTableCell align="right">Edit</StyledTableCell>
+                <StyledTableCell align="right">Delete</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <StyledTableRow key={row.projectName}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.projectName}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.description}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.projectURL}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      startIcon={<EditIcon />}
+                    >
+                      Edit
+                    </Button>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      className={classes.button}
+                      startIcon={<DeleteIcon />}
+                    >
+                      Delete
+                    </Button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+    );
+  }
 }
 
 export default Profile;

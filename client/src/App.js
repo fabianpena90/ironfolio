@@ -11,7 +11,6 @@ import AddNew from "./components/AddNew";
 import Header from "./components/Header";
 import Profile from "./components/Profile";
 import NotFound from "./components/404/NotFound";
-import SelectClass from "./components/SelectClass";
 // Auth Components
 import TheContext from "./TheContext";
 import actions from "./api/index";
@@ -60,9 +59,12 @@ function App() {
           <NavBar setUser={setUser} />
         </div>
         <div className="body">
-          <SelectClass user={user} />
           <Switch>
-            <Route exact path="/profile" render={() => <Profile />} />
+            <Route
+              exact
+              path="/profile"
+              render={() => <Profile user={user} />}
+            />
             <Route exact path="/newproject" render={() => <AddNew />} />
             <Route exact path="/archive" render={() => <Archive />} />
             <Route
