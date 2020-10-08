@@ -26,7 +26,7 @@ router.get("/user", verifyToken, (req, res, next) => {
       res.status(403).json(err);
     } else {
       // res.status(200).json(authData.user)
-      console.log(authData.user, "yolo");
+      console.log(authData.user, "Fabian and Rabiul");
       User.findById(authData.user._id)
         .then((user) => {
           res.status(200).json(user);

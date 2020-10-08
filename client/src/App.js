@@ -39,7 +39,7 @@ function App() {
     user === undefined ||
     JSON.stringify(user) === "{}" ? (
     <div>
-      {!user && <GoogleAuth setUser={setUser} history={history} />}
+      {!user && <GoogleAuth setUser={setUser} />}
       {!user && <GoogleAuthLogin setUser={setUser} />}
       {JSON.stringify(user) === "{}" && <Route component={NotFound} />}
       <NotificationContainer />
@@ -51,6 +51,7 @@ function App() {
       <div className="container">
         <div>
           <NavBar setUser={setUser} />
+          ``
         </div>
         <div className="body">
           <Switch>
