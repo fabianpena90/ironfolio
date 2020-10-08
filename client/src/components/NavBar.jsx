@@ -14,7 +14,6 @@ import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded"
 import ContactSupportRoundedIcon from "@material-ui/icons/ContactSupportRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import Link from "@material-ui/core/Link";
-import Hidden from "@material-ui/core/Hidden";
 import actions from "../api/index";
 
 const useStyles = makeStyles((theme) => ({

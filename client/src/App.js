@@ -33,14 +33,18 @@ function App() {
     getUser();
   }, []);
 
-  const logOut = async () => {
-    let res = await actions.logOut();
-    setUser(null);
-  };
-
   const history = useHistory();
 
-  return (
+  console.log(user);
+  return user === null ||
+    user === undefined ||
+    JSON.stringify(user) === "{}" ? (
+    <div>
+      {!user && <GoogleAuth setUser={setUser} history={history} />}
+      {!user && <GoogleAuthLogin setUser={setUser} />}
+      <NotificationContainer />
+    </div>
+  ) : (
     <div>
       <TheContext.Provider value={{ history, user, setUser }}>
         <Header />
@@ -65,11 +69,9 @@ function App() {
           </div>
         </div>
         {user?.email}
-        {!user && <GoogleAuth setUser={setUser} />}
-        {!user && <GoogleAuthLogin setUser={setUser} />}
-        <NotificationContainer />
       </TheContext.Provider>
       <Footer />
+      <NotificationContainer />
     </div>
   );
 }
