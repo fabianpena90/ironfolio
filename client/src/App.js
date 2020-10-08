@@ -36,11 +36,11 @@ function App() {
 
   const history = useHistory();
 
-  return user === null || // if statement to see if user is register or not. if it is page will go to the profile 
+  return user === null || // if statement to see if user is register or not. if it is page will go to the profile
     user === undefined || // if not, 404 will display
     JSON.stringify(user) === "{}" ? (
     <div className="google">
-      <div className='header'>
+      <div className="header">
         <h1>IRONFOLIO</h1>
         <p>Where you can create and collaborate...</p>
       </div>
@@ -50,15 +50,17 @@ function App() {
       <NotificationContainer />
     </div>
   ) : (
-    <div>{console.log(user)}
+    <div>
+      {console.log(user)}
       {/* <TheContext.Provider value={{ history, user, setUser }}> */}
       <Header />
       <div className="container">
         <div>
           <NavBar setUser={setUser} />
+          ``
         </div>
         <div className="body">
-        <SelectClass user={user}/>
+          <SelectClass user={user} />
           <Switch>
             <Route exact path="/profile" render={() => <Profile />} />
             <Route exact path="/newproject" render={() => <AddNew />} />

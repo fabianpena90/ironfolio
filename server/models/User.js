@@ -7,14 +7,12 @@ const userSchema = new Schema(
     name: String,
     googleId: String,
     imageUrl: String,
-    class: {type: String,
-      default: 'Mia'
-  },
+    class: { type: String, default: "Test" },
     userType: {
       type: String,
       enum: ["student", "admin"],
-      default: "student"
-    }
+      default: "student",
+    },
   },
   {
     timestamps: true,
