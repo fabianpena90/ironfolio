@@ -110,10 +110,13 @@ function Profile(props) {
     }
     getClasses();
   }, []);
+
   function preventDefault(e) {
-    e.preventDefault();
+    console.log(assignClass, "was me")
+    // e.preventDefault();
   }
 
+  console.log(assignClass)
   function showClass() {
     return selectClass.map((eachClass) => {
       return (
@@ -130,16 +133,14 @@ function Profile(props) {
 
   if (props.user.class === "Test") {
     return (
-      <form onSubmit={preventDefault}>
+      <form onSubmit={preventDefault} >
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel htmlFor="outlined-age-native-simple">
+          <InputLabel htmlFor="outlined-selectClass-native-simple">
             Select Class
           </InputLabel>
           <Select
             native
-            onChange={(e) => {
-              setAssignClass(e.target.value);
-            }}
+            onChange={(e) => {setAssignClass(e.target.value)}}
             label="selectClass"
             inputProps={{
               name: "selectClass",
@@ -149,8 +150,8 @@ function Profile(props) {
             <option aria-label="None" value="" />
             {showClass()}
           </Select>
-          <Button variant="contained">Default</Button>
         </FormControl>
+          <Button  variant="contained" size="large" type="submit">Submit</Button>
       </form>
     );
   }
