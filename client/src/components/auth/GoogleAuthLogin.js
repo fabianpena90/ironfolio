@@ -12,9 +12,10 @@ const responseGoogle = (props) => {
     actions
       .logIn(user)
       .then((user) => {
+        console.log(user);
         props.setUser({ ...user?.data });
       })
-      .catch( response => console.error(response));
+      .catch((response) => console.error(response));
   };
   return (
     <GoogleLogin
