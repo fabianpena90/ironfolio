@@ -17,16 +17,14 @@ const useStyles = makeStyles((theme) => ({
 
 const AddNew = () => {
   const classes = useStyles();
-  const [projects, setProjects] = useState([])
-  const [website, setWebsite] = useState([])
-  const [description, setDescription] = useState([])
+  const [projects, setProjects] = useState()
+  const [website, setWebsite] = useState()
+  const [description, setDescription] = useState()
 
-    function addProjects(e) {
-      // let res = await axios.get("http://localhost:5000/api/getAllMovies")
-      let res = actions.addProject({projects, website, description});
-      console.log(res, "Fabian & Rabiul are the shit!");
-      // e.preventDefault();
-    }
+  async function addProjects() {
+    let res = await actions.addProject({projects, website, description});
+    console.log(res, "Fabian & Rabiul are the shit!");
+  }
 
   const handleSubmit = (e) => {
     addProjects();
