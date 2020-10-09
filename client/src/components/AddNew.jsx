@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+    display: "flex",
+    flexDirection: "row",
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -40,10 +42,10 @@ const AddNew = () => {
   return (
     <div className="add-new">
     <h1>Add Your Projects</h1>
-    <div>
+    <div >
       <form action="">
       <FormControl className={classes.formControl} variant="outlined" onSubmit={handleSubmit}>
-      <InputLabel htmlFor="outlined-selectClass-native-simple">
+      <InputLabel className="addNewForm" htmlFor="outlined-selectClass-native-simple">
             Select Project
           </InputLabel>
           <Select
