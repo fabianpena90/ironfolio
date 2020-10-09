@@ -172,17 +172,10 @@ router.delete("/deleteProject", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // User.findByIdAndRemove(req.data)
-      //   .populate("projects")
-      //   .then((allProjects) => {
-      //     // console.log(a, "Testttsdsdadasdasdasdadadad");
-      //     res.json({ allProjects });
-      //   });
-      // Projects.find()
-      //   .populate("studentsID")
-      //   .then((projects) => {
-      //     res.json({ projects });
-      //   });
+      Projects.findByIdAndRemove(req.body.deleteProject).then((delProject) => {
+        console.log(delProject)
+        res.json({delProject})
+      })
       console.log(req.body, "DeleteItemssssssssssssssssssss");
     }
   });
