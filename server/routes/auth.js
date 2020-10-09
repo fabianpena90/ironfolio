@@ -161,7 +161,7 @@ router.get("/getStudentProjects", verifyToken, (req, res) => {
   });
 });
 
-router.post("/deleteProject", verifyToken, (req, res) => {
+router.delete("/deleteProject", verifyToken, (req, res) => {
   // console.log(req, res);
   // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
   //   res.json({ MyMovies });
