@@ -137,11 +137,6 @@ router.post("/newProject", verifyToken, (req, res) => {
 });
 
 router.get("/getStudentProjects", verifyToken, (req, res) => {
-  // console.log(req, res);
-  // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
-  //   res.json({ MyMovies });
-  // });
-  // console.log(req.query.MyMovieId);
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
@@ -161,22 +156,15 @@ router.get("/getStudentProjects", verifyToken, (req, res) => {
   });
 });
 
-router.delete("/deleteProject", verifyToken, (req, res) => {
-  // console.log(req, res);
-  // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
-  //   res.json({ MyMovies });
-  // });
-  // console.log(req.query.MyMovieId);
-  console.log(req.body);
+router.post("/deleteProject", verifyToken, (req, res) => {
+  console.log(req.body.deleteProject, "<<<<<<<<<<<<<<<<<<<<<<<<<");
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
       Projects.findByIdAndRemove(req.body.deleteProject).then((delProject) => {
-        console.log(delProject)
-        res.json({delProject})
-      })
-      console.log(req.body, "DeleteItemssssssssssssssssssss");
+        res.json({ delProject });
+      });
     }
   });
 });
