@@ -104,6 +104,7 @@ function Profile(props) {
   const classes = useStyles();
   const [selectClass, setSelectClass] = useState([]);
   const [assignClass, setAssignClass] = useState([]);
+  const [deleteProject, setDeleteProject] = useState()
 
   useEffect(() => {
     async function getClasses() {
@@ -117,6 +118,10 @@ function Profile(props) {
     }
     getClasses();
   }, []);
+
+  function handleDelete(e){
+    console.log(e.target.parentElement.value)
+  }
 
   function handleSubmit(e) {
     //e.preventDefault();
@@ -209,10 +214,12 @@ function Profile(props) {
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Button
+                    value={row._id}
                       variant="contained"
                       color="secondary"
                       className={classes.button}
                       startIcon={<DeleteIcon />}
+                      onClick={handleDelete}
                     >
                       Delete
                     </Button>
