@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Classes = require("../models/Class");
-const Teacher = require("../models/Teacher");
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/ironfolioExample";
 console.log("Connecting DB to ", MONGODB_URI);
@@ -33,14 +32,6 @@ const classes = [
   },
 ];
 
-// const teacher = [
-//   {
-//     name: "Fabian"
-//   },
-//   {
-//     name: "Rabiul"
-//   }
-// ];
 
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -49,6 +40,5 @@ mongoose
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
     );
     Classes.insertMany(classes);
-    // Teacher.insertMany(teacher);
   })
   .catch((err) => console.error("Error connecting to mongo", err));
