@@ -1,5 +1,3 @@
-/* .add-new {
-  position: absolute;
-  top: 35%;
-  left: 35vw;
-} */
+.MuiSelect-outlined.MuiSelect-outlined {
+  padding-right: 125px !important;
+}

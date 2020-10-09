@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+    display: "flex",
+    flexDirection: "row",
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -40,10 +42,10 @@ const AddNew = () => {
   return (
     <div className="add-new">
     <h1>Add Your Projects</h1>
-    <div>
-      <form >
+    <div >
+      <form action="">
       <FormControl className={classes.formControl} variant="outlined" onSubmit={handleSubmit}>
-      <InputLabel htmlFor="outlined-selectClass-native-simple">
+      <InputLabel className="addNewForm" htmlFor="outlined-selectClass-native-simple">
             Select Project
           </InputLabel>
           <Select
@@ -58,8 +60,11 @@ const AddNew = () => {
             }}
           >
             <option aria-label="None" value="" />
-            <option aria-label="None" value="1" >Fabian</option>
-            <option aria-label="None" value="2" >Rabiul</option>
+            <option aria-label="None" value="project1" >Project 1</option>
+            <option aria-label="None" value="project2" >Project 2</option>
+            <option aria-label="None" value="project3" >Project 3</option>
+            <option aria-label="None" value="project4" >Project 4</option>
+            <option aria-label="None" value="project5" >Project 5</option>
            
           </Select>
         <TextField onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />
