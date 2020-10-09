@@ -4,6 +4,7 @@ const User = require("../models/User");
 const passport = require("../config/passport");
 const jwt = require("jsonwebtoken");
 const Classes = require("../models/Class");
+const Projects = require("../models/Projects");
 
 router.post("/signup", (req, res, next) => {
   User.register(req.body, req.body.password)
@@ -84,8 +85,8 @@ router.get("/getAllClasses", (req, res) => {
   });
 });
 
-// router.get("/getTheMovie", (req, res) => {
-//   Movies.findById(req.query.MovieIdFromClient).then((oneMovie) => {
+// router.get("/getStudentProjects", (req, res) => {
+//   User.findById(req.query.MovieIdFromClient).then((oneMovie) => {
 //     res.json({ oneMovie });
 //   });
 //   console.log(req.query.MovieIdFromClient);
@@ -116,43 +117,47 @@ router.post("/newProject", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      let project = req.body.project;
-      User.findByIdAndUpdate(
-        authData.user._id,
-        {
-          [project]: {
-            name: req.body.projectName,
-            url: req.body.website,
-            description: req.body.description,
+      //let project = req.body.project;
+      let project = new Projects(req.body);
+      project.studentsID = authData.user._id;
+      project.save().then((newProject) => {
+        User.findByIdAndUpdate(
+          authData.user._id,
+          {
+            $push: { projects: newProject._id },
           },
-        },
-        { new: true }
-      ).then((project) => {
-        console.log("Fabian & Rabiul are the shit");
-        res.json({ project });
+          { new: true }
+        ).then((project) => {
+          console.log("Fabian & Rabiul are the shit");
+          res.json({ project });
+        });
       });
     }
   });
 });
 
-// router.get("/getMyMovies", verifyToken, (req, res) => {
-//   // console.log(req, res);
-//   // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
-//   //   res.json({ MyMovies });
-//   // });
-//   // console.log(req.query.MyMovieId);
-//   jwt.verify(req.token, "secretkey", (err, authData) => {
-//     if (err) {
-//       res.status(403).json(err);
-//     } else {
-//       console.log(
-//         authData.user._id,
-//         " Use this to get all movies from this user"
-//       );
-//       Movies.find({ userId: authData.user._id }).then((theirMovies) => {
-//         res.json({ theirMovies });
-//       });
-//     }
-//   });
-// });
+router.get("/getStudentProjects", verifyToken, (req, res) => {
+  // console.log(req, res);
+  // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
+  //   res.json({ MyMovies });
+  // });
+  // console.log(req.query.MyMovieId);
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      // User.findById(authData.user._id)
+      //   .populate("projects")
+      //   .then((theirMovies) => {
+      //     console.log(theirMovies, "Testttsdsdadasdasdasdadadad");
+      //     res.json({ theirMovies });
+      //   });
+      Projects.find()
+        .populate("studentsID")
+        .then((projects) => {
+          res.json({ projects });
+        });
+    }
+  });
+});
 module.exports = router;

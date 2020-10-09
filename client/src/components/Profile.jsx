@@ -111,6 +111,9 @@ function Profile(props) {
       let res = await actions.getAllClasses();
       console.log(res.data.selectClass, "Fabnian & Rabiul are the shit!");
       setSelectClass(res.data?.selectClass);
+
+      let des = await actions.getStudentProject();
+      console.log(des)
     }
     getClasses();
   }, []);

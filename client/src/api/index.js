@@ -53,6 +53,9 @@ const actions = {
   addProject: async (data) => {
     return await API.post("/newProject", data, resetHead());
   },
+  getStudentProject: async () => {
+    return await API.get("/getStudentProjects", resetHead());
+  },
   // AddTheMovie: async (data) => {
   //   console.log(data)
   //   return await API.post("/AddTheMovieToTheDatabase", data, resetHead());
