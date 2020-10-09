@@ -118,16 +118,17 @@ router.post("/newProject", verifyToken, (req, res) => {
     } else {
       User.findByIdAndUpdate(
         authData.user._id,
-        { user: { projects: {
-            project: req.body.project,  
-            projectName: req.body.projects,
+        {
+          "projects.$a": {
+            name: req.body.projectName,
             url: req.body.website,
             description: req.body.description,
-          }}
+          },
         },
+
         { new: true }
       ).then((project) => {
-        condolr.log('Fabian & Rabiul are the shit')
+        condolr.log("Fabian & Rabiul are the shit");
         res.json({ project });
       });
     }
