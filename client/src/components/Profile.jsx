@@ -112,8 +112,6 @@ function Profile(props) {
   }, []);
 
   function handleSubmit(e) {
-    console.log(assignClass, "was me???????????");
-
     //e.preventDefault();
 
     let res = actions.setClass({ assignClass });
