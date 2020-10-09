@@ -41,7 +41,7 @@ const AddNew = () => {
     <div className="add-new">
     <h1>Add Your Projects</h1>
     <div>
-      <form action="">
+      <form >
       <FormControl className={classes.formControl} variant="outlined" onSubmit={handleSubmit}>
       <InputLabel htmlFor="outlined-selectClass-native-simple">
             Select Project
@@ -58,6 +58,8 @@ const AddNew = () => {
             }}
           >
             <option aria-label="None" value="" />
+            <option aria-label="None" value="1" >Fabian</option>
+            <option aria-label="None" value="2" >Rabiul</option>
            
           </Select>
         <TextField onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />
