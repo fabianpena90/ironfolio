@@ -92,9 +92,9 @@ router.get("/getAllClasses", (req, res) => {
 // });
 
 router.post("/addClass", verifyToken, (req, res) => {
-  console.log("From Line 95: ", req.body);
+  // console.log("From Line 95: ", req.body);
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    console.log("From Line 97: ", authData);
+    // console.log("From Line 97: ", authData);
     if (err) {
       res.status(403).json(err);
     } else {
@@ -104,6 +104,29 @@ router.post("/addClass", verifyToken, (req, res) => {
         { new: true }
       ).then((user) => {
         res.json({ user });
+      });
+      // let student = req.body;
+      // student.class = authData.user._id;
+      // User.find(movie).then((WereAddingAMovie) => {
+      //   res.json({ WereAddingAMovie });
+      // });
+    }
+  });
+});
+
+router.post("/newProject", verifyToken, (req, res) => {
+  console.log("From Line 118: ", req.body);
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    console.log("From Line 120: ", authData);
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      User.findByIdAndUpdate(
+        authData.user._id,
+        { projectName: req.body.projects}, { url: req.body.website}, {description: req.body.description},
+        { new: true }
+      ).then((project) => {
+        res.json({ project });
       });
       // let student = req.body;
       // student.class = authData.user._id;

@@ -55,7 +55,7 @@ function App() {
         <Header />
         <div className="container">
           <div>
-            {user?.email}
+            <h1 style={{textAlign: 'center'}}>Welcome {user?.name} <img src={user?.imageUrl} alt="profile pic" /></h1>
             <NavBar setUser={setUser} history={history} />
           </div>
           <div className="body">

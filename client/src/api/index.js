@@ -47,9 +47,11 @@ const actions = {
   getAllClasses: async () => {
     return await API.get("/getAllClasses");
   },
-
   setClass: async (data) => {
     return await API.post("/addClass", data, resetHead());
+  },
+  addProject: async (data) => {
+    return await API.post("/newProject", {data}, resetHead());
   },
   // AddTheMovie: async (data) => {
   //   console.log(data)
