@@ -147,7 +147,6 @@ function Archive() {
   const { user, history } = React.useContext(TheContext);
   console.log(user, history);
   if (!user.email) {
-    console.log("FIREEEEEEEEEEEEEEEEED");
     history.push("/login");
   }
   const handleSelectAllClick = (event) => {

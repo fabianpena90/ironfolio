@@ -62,6 +62,10 @@ const useStyles = makeStyles((theme) => ({
   body: {
     fontSize: 14,
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 250,
+  },
 }));
 
 function createData(projectName, description, projectURL) {
@@ -136,7 +140,7 @@ function Profile(props) {
   if (props.user.class === "Test") {
     return (
       <form onSubmit={handleSubmit}>
-        <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl className={classes.formControl} variant="outlined">
           <InputLabel htmlFor="outlined-selectClass-native-simple">
             Select Class
           </InputLabel>
@@ -151,13 +155,14 @@ function Profile(props) {
               id: "outlined-selectClass-native-simple",
             }}
           >
-            <option aria-label="None" value="" />
+            <option aria-label="" value="Test" />
             {showClass()}
           </Select>
-        </FormControl>
+        
         <Button variant="contained" size="large" type="submit">
           Submit
         </Button>
+        </FormControl>
       </form>
     );
   }
