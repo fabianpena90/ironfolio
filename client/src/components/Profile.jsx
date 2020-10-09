@@ -74,33 +74,32 @@ function Profile(props) {
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
   const [deleteProject, setDeleteProject] = useState([]);
-
+  
   useEffect(() => {
     async function getClasses() {
       // let res = await axios.get("http://localhost:5000/api/getAllMovies")
       let res = await actions.getAllClasses();
       //console.log(res.data.selectClass, "Fabnian & Rabiul are the shit!");
       setSelectClass(res.data?.selectClass);
-
+      
       let res2 = await actions.getStudentProject();
-     // console.log(des)
-     setProjects(res2.data.allProjects.projects)
+      console.log(res2)
+      setProjects(res2.data?.allProjects?.projects)
     }
     getClasses();
   }, []);
-
   function handleSubmit(e) {
     //e.preventDefault();
-
+    
     let res = actions.setClass({ assignClass });
     
   }
-
+  
   function handleDelete(e) {
     //setDeleteProject(e.target.parentElement.value)
     let res = actions.deleteProject({deleteProject})
   }
-
+  
   console.log(deleteProject);
   function showClass() {
     return selectClass.map((eachClass) => {
