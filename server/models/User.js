@@ -8,43 +8,37 @@ const userSchema = new Schema(
     googleId: String,
     imageUrl: String,
     class: { type: String, default: "Test" },
-    projectName: { type: String, default: "" },
-    url: { type: String, default: "" },
-    description: { type: String, default: "" },
     userType: {
       type: String,
       enum: ["student", "admin"],
       default: "student",
-      // },
-      // project1: { type: [String], default: null },
-      // project1Type: {
-      //   type: String,
-      //   enum: [null, "single", "team"],
-      //   default: null,
-      // },
-      // project2: { type: [String], default: null },
-      // project2Type: {
-      //   type: String,
-      //   enum: [null, "single", "team"],
-      //   default: null,
-      // },
-      // project3: { type: [String], default: null },
-      // project3Type: {
-      //   type: String,
-      //   enum: [null, "single", "team"],
-      //   default: null,
-      // },
-      // project4: { type: [String], default: null },
-      // project4Type: {
-      //   type: String,
-      //   enum: [null, "single", "team"],
-      //   default: null,
-      // },
-      // project5: { type: [String], default: null },
-      // project5Type: {
-      //   type: String,
-      //   enum: [null, "single", "team"],
-      //   default: null,
+    },
+    projects: {
+      project1: {
+        name: { type: String, default: "" },
+        url: { type: String, default: "" },
+        description: { type: String, default: "" },
+      },
+      project2: {
+        name: { type: String, default: "" },
+        url: { type: String, default: "" },
+        description: { type: String, default: "" },
+      },
+      project3: {
+        name: { type: String, default: "" },
+        url: { type: String, default: "" },
+        description: { type: String, default: "" },
+      },
+      project4: {
+        name: { type: String, default: "" },
+        url: { type: String, default: "" },
+        description: { type: String, default: "" },
+      },
+      project5: {
+        name: { type: String, default: "" },
+        url: { type: String, default: "" },
+        description: { type: String, default: "" },
+      },
     },
   },
   {
