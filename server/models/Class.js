@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const classSchema = new Schema({
   location:  String,
   month: String,
-  year: String
+  year: String,
+  // students: [{ type: Schema.Types.ObjectId, ref: "User" }]
 },
 {
   timestamps: true,

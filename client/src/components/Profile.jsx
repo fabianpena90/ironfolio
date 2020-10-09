@@ -89,6 +89,10 @@ function Profile(props) {
     getClasses();
   }, []);
 
+  function handleDelete(e){
+    console.log(e.target.parentElement.value)
+  }
+
   function handleSubmit(e) {
     //e.preventDefault();
 
