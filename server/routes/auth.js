@@ -57,7 +57,7 @@ function isAuth(req, res, next) {
 
 // Verify Token
 function verifyToken(req, res, next) {
-  console.log("verify");
+  //console.log("verify");
   // Get auth header value
   const bearerHeader = req.headers["authorization"];
   // Check if bearer is undefined
@@ -111,9 +111,9 @@ router.post("/addClass", verifyToken, (req, res) => {
 });
 
 router.post("/newProject", verifyToken, (req, res) => {
-  console.log("From Line 118: ", req.body);
+  // console.log("From Line 118: ", req.body);
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    console.log("From Line 120: ", authData.user);
+    // console.log("From Line 120: ", authData.user);
     if (err) {
       res.status(403).json(err);
     } else {
@@ -128,7 +128,7 @@ router.post("/newProject", verifyToken, (req, res) => {
           },
           { new: true }
         ).then((project) => {
-          console.log("Fabian & Rabiul are the shit");
+          // console.log("Fabian & Rabiul are the shit");
           res.json({ project });
         });
       });
@@ -146,18 +146,46 @@ router.get("/getStudentProjects", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // User.findById(authData.user._id)
-      //   .populate("projects")
-      //   .then((theirMovies) => {
-      //     console.log(theirMovies, "Testttsdsdadasdasdasdadadad");
-      //     res.json({ theirMovies });
-      //   });
-      Projects.find()
-        .populate("studentsID")
-        .then((projects) => {
-          res.json({ projects });
+      User.findById(authData.user._id)
+        .populate("projects")
+        .then((allProjects) => {
+          // console.log(a, "Testttsdsdadasdasdasdadadad");
+          res.json({ allProjects });
         });
+      // Projects.find()
+      //   .populate("studentsID")
+      //   .then((projects) => {
+      //     res.json({ projects });
+      //   });
     }
   });
 });
+
+router.post("/deleteProject", verifyToken, (req, res) => {
+  // console.log(req, res);
+  // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
+  //   res.json({ MyMovies });
+  // });
+  // console.log(req.query.MyMovieId);
+  console.log(req.body);
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      // User.findByIdAndRemove(req.data)
+      //   .populate("projects")
+      //   .then((allProjects) => {
+      //     // console.log(a, "Testttsdsdadasdasdasdadadad");
+      //     res.json({ allProjects });
+      //   });
+      // Projects.find()
+      //   .populate("studentsID")
+      //   .then((projects) => {
+      //     res.json({ projects });
+      //   });
+      console.log(req.body, "DeleteItemssssssssssssssssssss");
+    }
+  });
+});
+
 module.exports = router;

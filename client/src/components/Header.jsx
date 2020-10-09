@@ -8,7 +8,7 @@ import './Header.css'
 
 function Header(props) {
   const { user} = React.useContext(TheContext);
-  console.log(user)
+  //console.log(user)
 
   const useStyles = makeStyles((theme) => ({
     root: {
