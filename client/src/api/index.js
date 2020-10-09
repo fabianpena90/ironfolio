@@ -51,7 +51,7 @@ const actions = {
     return await API.post("/addClass", data, resetHead());
   },
   addProject: async (data) => {
-    return await API.post("/newProject", {data}, resetHead());
+    return await API.post("/newProject", data, resetHead());
   },
   // AddTheMovie: async (data) => {
   //   console.log(data)

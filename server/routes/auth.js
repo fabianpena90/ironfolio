@@ -75,7 +75,7 @@ function verifyToken(req, res, next) {
   }
 }
 
-// Put all movie routes below here:
+// Put all routes below here:
 
 router.get("/getAllClasses", (req, res) => {
   Classes.find().then((selectClass) => {
@@ -105,11 +105,6 @@ router.post("/addClass", verifyToken, (req, res) => {
       ).then((user) => {
         res.json({ user });
       });
-      // let student = req.body;
-      // student.class = authData.user._id;
-      // User.find(movie).then((WereAddingAMovie) => {
-      //   res.json({ WereAddingAMovie });
-      // });
     }
   });
 });
@@ -126,13 +121,9 @@ router.post("/newProject", verifyToken, (req, res) => {
         { projectName: req.body.projects}, { url: req.body.website}, {description: req.body.description},
         { new: true }
       ).then((project) => {
+        condolr.log('Fabian & Rabiul are the shit')
         res.json({ project });
       });
-      // let student = req.body;
-      // student.class = authData.user._id;
-      // User.find(movie).then((WereAddingAMovie) => {
-      //   res.json({ WereAddingAMovie });
-      // });
     }
   });
 });
