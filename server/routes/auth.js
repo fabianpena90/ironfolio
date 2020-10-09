@@ -123,7 +123,11 @@ router.post("/newProject", verifyToken, (req, res) => {
     } else {
       User.findByIdAndUpdate(
         authData.user._id,
-        { projectName: req.body.projects}, { url: req.body.website}, {description: req.body.description},
+        {
+          projectName: req.body.projects,
+          url: req.body.website,
+          description: req.body.description,
+        },
         { new: true }
       ).then((project) => {
         res.json({ project });
