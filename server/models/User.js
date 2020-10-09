@@ -8,6 +8,9 @@ const userSchema = new Schema(
     googleId: String,
     imageUrl: String,
     class: { type: String, default: "Test" },
+    projectName: { type: String, default: "" },
+    url: { type: String, default: "" },
+    description: { type: String, default: "" },
     userType: {
       type: String,
       enum: ["student", "admin"],
@@ -56,6 +59,11 @@ const userSchema = new Schema(
     //Projec3 Name, project1 type(enum[single,team])
     //Projec4 Name, project1 type(enum[single,team])
     //Projec5 Name, project1 type(enum[single,team])
+    project1Type: {
+      type: String,
+      enum: ["single", "team"],
+      default: "single",
+    },
   },
   {
     timestamps: true,
