@@ -167,11 +167,16 @@ router.post("/deleteProject", verifyToken, (req, res) => {
   //   res.json({ MyMovies });
   // });
   // console.log(req.query.MyMovieId);
-  console.log(req.body);
+  console.log(req.body.deleteProject, "<<<<<<<<<<<<<<<<<<<<<<<<<");
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
+      Projects.findByIdAndRemove(req.data.deleteProject, _id).then(
+        (delProject) => {
+          res.json({ delProject });
+        }
+      );
       // User.findByIdAndRemove(req.data)
       //   .populate("projects")
       //   .then((allProjects) => {
@@ -183,7 +188,6 @@ router.post("/deleteProject", verifyToken, (req, res) => {
       //   .then((projects) => {
       //     res.json({ projects });
       //   });
-      console.log(req.body, "DeleteItemssssssssssssssssssss");
     }
   });
 });

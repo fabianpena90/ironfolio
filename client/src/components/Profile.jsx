@@ -97,7 +97,8 @@ function Profile(props) {
   }
 
   function handleDelete(e) {
- setDeleteProject(e.target.parentElement)
+ setDeleteProject(e.target.parentElement.value)
+ console.log(deleteProject);
  let res = actions.deleteProject({deleteProject})
   }
 
