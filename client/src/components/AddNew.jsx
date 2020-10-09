@@ -36,14 +36,14 @@ const AddNew = () => {
 
   const handleSubmit = (e) => {
     addProjects();
-    e.preventDefault();
+    //e.preventDefault();
   }
 
   return (
     <div className="add-new">
     <h1>Add Your Projects</h1>
     <div >
-      <form action="">
+      <form onSubmit={handleSubmit}>
       <FormControl className={classes.formControl} variant="outlined" onSubmit={handleSubmit}>
       <InputLabel className="addNewForm" htmlFor="outlined-selectClass-native-simple">
             Select Project
@@ -59,7 +59,12 @@ const AddNew = () => {
               id: "outlined-selectClass-native-simple",
             }}
           >
-            <option aria-label="None" value="" />
+            <option aria-label="None" value=""/>
+            <option aria-label="None" value="project1">Project 1</option>
+            <option aria-label="None" value="project2">Project 2</option>
+            <option aria-label="None" value="project3">Project 3</option>
+            <option aria-label="None" value="project4">Project 4</option>
+            <option aria-label="None" value="project5">Project 5</option>
            
           </Select>
         <TextField onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />

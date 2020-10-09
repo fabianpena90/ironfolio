@@ -119,13 +119,16 @@ router.post("/newProject", verifyToken, (req, res) => {
       User.findByIdAndUpdate(
         authData.user._id,
         {
-          projectName: req.body.projects,
-          url: req.body.website,
-          description: req.body.description,
+          "projects.$a": {
+            name: req.body.projectName,
+            url: req.body.website,
+            description: req.body.description,
+          },
         },
+
         { new: true }
       ).then((project) => {
-        condolr.log('Fabian & Rabiul are the shit')
+        condolr.log("Fabian & Rabiul are the shit");
         res.json({ project });
       });
     }
