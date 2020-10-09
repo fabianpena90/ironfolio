@@ -23,11 +23,11 @@ import {
 
 function App() {
   let [user, setUser] = useState(null);
-  console.log(user);
+  //console.log(user);
   useEffect(() => {
     async function getUser() {
       let user = await actions.getUser();
-      console.log("user is", user);
+      //console.log("user is", user);
       setUser(user?.data);
     }
     getUser();
@@ -50,7 +50,7 @@ function App() {
     </div>
   ) : (
     <div>
-      {console.log(user)}
+      {/* {console.log(user)} */}
       <TheContext.Provider value={{ history, user, setUser }}>
         <Header />
         <div className="container">

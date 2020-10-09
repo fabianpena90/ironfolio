@@ -68,52 +68,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(projectName, description, projectURL) {
-  return { projectName, description, projectURL };
-}
-
-const rows = [
-  createData(
-    "Kaa -The Snake Game",
-    "Projects Description goes here",
-    "https://hungry-albattani-0b70e9.netlify.app/"
-  ),
-  createData(
-    "G.O.T",
-    "Projects Description goes here",
-    "https://rqsell.github.io/G-O-T/"
-  ),
-  createData(
-    "Ergheist Battle Tactics",
-    "Projects Description goes here",
-    "https://xenodochial-nightingale-702408.netlify.app/"
-  ),
-  createData(
-    "Ghost Town",
-    "Projects Description goes here",
-    "https://ghost-town.netlify.app/"
-  ),
-  createData(
-    "3D",
-    "Projects Description goes here",
-    "https://sheltered-eyrie-18420.herokuapp.com/"
-  ),
-];
-
 function Profile(props) {
   const classes = useStyles();
   const [selectClass, setSelectClass] = useState([]);
   const [assignClass, setAssignClass] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [deleteProject, setDeleteProject] = useState([]);
 
   useEffect(() => {
     async function getClasses() {
       // let res = await axios.get("http://localhost:5000/api/getAllMovies")
       let res = await actions.getAllClasses();
-      console.log(res.data.selectClass, "Fabnian & Rabiul are the shit!");
+      //console.log(res.data.selectClass, "Fabnian & Rabiul are the shit!");
       setSelectClass(res.data?.selectClass);
 
-      let des = await actions.getStudentProject();
-      console.log(des)
+      let res2 = await actions.getStudentProject();
+     // console.log(des)
+     setProjects(res2.data.allProjects.projects)
     }
     getClasses();
   }, []);
@@ -122,10 +93,15 @@ function Profile(props) {
     //e.preventDefault();
 
     let res = actions.setClass({ assignClass });
-    console.log(res);
+    
   }
 
-  console.log(assignClass);
+  function handleDelete(e) {
+ setDeleteProject(e.target.parentElement)
+ let res = actions.deleteProject({deleteProject})
+  }
+
+  console.log(deleteProject);
   function showClass() {
     return selectClass.map((eachClass) => {
       return (
@@ -186,8 +162,8 @@ function Profile(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.projectName}>
+              {projects.map((row) => (
+                <StyledTableRow key={row._id}>
                   <StyledTableCell component="th" scope="row">
                     {row.projectName}
                   </StyledTableCell>
@@ -195,7 +171,7 @@ function Profile(props) {
                     {row.description}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.projectURL}
+                    {row.website}
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Button
@@ -209,10 +185,12 @@ function Profile(props) {
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Button
+                      value={row._id}
                       variant="contained"
                       color="secondary"
                       className={classes.button}
                       startIcon={<DeleteIcon />}
+                      onClick={handleDelete}
                     >
                       Delete
                     </Button>
