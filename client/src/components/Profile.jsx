@@ -89,10 +89,6 @@ function Profile(props) {
     getClasses();
   }, []);
 
-  function handleDelete(e){
-    console.log(e.target.parentElement.value)
-  }
-
   function handleSubmit(e) {
     //e.preventDefault();
 
@@ -101,9 +97,8 @@ function Profile(props) {
   }
 
   function handleDelete(e) {
- setDeleteProject(e.target.parentElement.value)
- console.log(deleteProject);
- let res = actions.deleteProject({deleteProject})
+    //setDeleteProject(e.target.parentElement.value)
+    let res = actions.deleteProject({deleteProject})
   }
 
   console.log(deleteProject);
@@ -195,7 +190,7 @@ function Profile(props) {
                       color="secondary"
                       className={classes.button}
                       startIcon={<DeleteIcon />}
-                      onClick={handleDelete}
+                      onClick={(e) =>{actions.deleteProject({deleteProject: row._id})}}
                     >
                       Delete
                     </Button>

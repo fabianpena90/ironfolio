@@ -161,7 +161,7 @@ router.get("/getStudentProjects", verifyToken, (req, res) => {
   });
 });
 
-router.delete("/deleteProject", verifyToken, (req, res) => {
+router.post("/deleteProject", verifyToken, (req, res) => {
   // console.log(req, res);
   // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
   //   res.json({ MyMovies });
@@ -172,11 +172,9 @@ router.delete("/deleteProject", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      Projects.findByIdAndRemove(req.data.deleteProject, _id).then(
-        (delProject) => {
-          res.json({ delProject });
-        }
-      );
+      Projects.findByIdAndRemove(req.body.deleteProject).then((delProject) => {
+        res.json({ delProject });
+      });
       // User.findByIdAndRemove(req.data)
       //   .populate("projects")
       //   .then((allProjects) => {
