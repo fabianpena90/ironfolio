@@ -13,34 +13,33 @@ const userSchema = new Schema(
       enum: ["student", "admin"],
       default: "student",
     },
-    projects: {
-      project1: {
-        name: { type: String, default: "" },
-        url: { type: String, default: "" },
-        description: { type: String, default: "" },
-      },
-      project2: {
-        name: { type: String, default: "" },
-        url: { type: String, default: "" },
-        description: { type: String, default: "" },
-      },
-      project3: {
-        name: { type: String, default: "" },
-        url: { type: String, default: "" },
-        description: { type: String, default: "" },
-      },
-      project4: {
-        name: { type: String, default: "" },
-        url: { type: String, default: "" },
-        description: { type: String, default: "" },
-      },
-      project5: {
-        name: { type: String, default: "" },
-        url: { type: String, default: "" },
-        description: { type: String, default: "" },
-      },
+    project1: {
+      name: { type: String, default: "" },
+      url: { type: String, default: "" },
+      description: { type: String, default: "" },
+    },
+    project2: {
+      name: { type: String, default: "" },
+      url: { type: String, default: "" },
+      description: { type: String, default: "" },
+    },
+    project3: {
+      name: { type: String, default: "" },
+      url: { type: String, default: "" },
+      description: { type: String, default: "" },
+    },
+    project4: {
+      name: { type: String, default: "" },
+      url: { type: String, default: "" },
+      description: { type: String, default: "" },
+    },
+    project5: {
+      name: { type: String, default: "" },
+      url: { type: String, default: "" },
+      description: { type: String, default: "" },
     },
   },
+
   {
     timestamps: true,
     versionKey: false,
