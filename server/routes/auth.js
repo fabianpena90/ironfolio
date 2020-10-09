@@ -112,24 +112,24 @@ router.post("/addClass", verifyToken, (req, res) => {
 router.post("/newProject", verifyToken, (req, res) => {
   console.log("From Line 118: ", req.body);
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    console.log("From Line 120: ", authData);
+    console.log("From Line 120: ", authData.user);
     if (err) {
       res.status(403).json(err);
     } else {
+      let project = req.body.project;
       User.findByIdAndUpdate(
         authData.user._id,
-        {
-          "projects.$a": {
+        { 
+          [project]: {
             name: req.body.projectName,
             url: req.body.website,
             description: req.body.description,
-          },
+          }
         },
-
         { new: true }
       ).then((project) => {
-        condolr.log("Fabian & Rabiul are the shit");
-        res.json({ project });
+        console.log("Fabian & Rabiul are the shit");
+        res.json( project );
       });
     }
   });
