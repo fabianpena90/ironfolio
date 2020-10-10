@@ -11,6 +11,7 @@ import AddNew from "./components/AddNew";
 import Header from "./components/Header";
 import Profile from "./components/Profile";
 import NotFound from "./components/404/NotFound";
+import Testing from "./components/Testing";
 // Auth Components
 import TheContext from "./TheContext";
 import actions from "./api/index";
@@ -74,6 +75,11 @@ function App() {
                 exact
                 path="/archive/:id"
                 render={(props) => <ArchiveDetail {...props} />}
+              />
+              <Route
+                exact
+                path="/testing"
+                render={(props) => <Testing {...props} />}
               />
 
               <Route exact path="/favorites" render={() => <Favorites />} />
