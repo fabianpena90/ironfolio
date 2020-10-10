@@ -81,9 +81,7 @@ function Profile(props) {
   
   useEffect(() => {
     async function getClasses() {
-      // let res = await axios.get("http://localhost:5000/api/getAllMovies")
       let res = await actions.getAllClasses();
-      //console.log(res.data.selectClass, "Fabnian & Rabiul are the shit!");
       setSelectClass(res.data?.selectClass);
       
       let res2 = await actions.getStudentProject();
@@ -96,15 +94,18 @@ function Profile(props) {
     //e.preventDefault();
     let res = actions.setClass({ assignClass });
   }
-  
   function handleDelete(e) {
-    let res = actions.deleteProject({deleteProject: e.target.parentElement.value})
-    if(res){
-      history.goBack()
-    } 
+      let res = actions.deleteProject({deleteProject: e.target.parentElement.value})
+      if(res){
+        history.goBack()
+      } 
   }
+  function handleUpdate(e) {
+    console.log(e.target.parentElement.value)
+  }
+
   
-  console.log(deleteProject);
+ // console.log(deleteProject);
   function showClass() {
     return selectClass.map((eachClass) => {
       return (
@@ -176,12 +177,15 @@ function Profile(props) {
                   <StyledTableCell align="right">
                     {row.website}
                   </StyledTableCell>
+
                   <StyledTableCell align="right">
                     <Button
+                      value={row._id}
                       variant="contained"
                       color="primary"
                       className={classes.button}
                       startIcon={<EditIcon />}
+                      onClick={handleUpdate}
                     >
                       Edit
                     </Button>
@@ -199,6 +203,7 @@ function Profile(props) {
                     </Button>
                   </StyledTableCell>
                 </StyledTableRow>
+                
               ))}
             </TableBody>
           </Table>

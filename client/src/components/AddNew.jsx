@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import './AddNew.css'
 import actions from "../api/index";
+import TheContext from "../TheContext";
+
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -23,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddNew = () => {
   const classes = useStyles();
+  const { history } = React.useContext(TheContext);
   const [project, setProject] = useState()
   const [projectName, setProjectName] = useState()
   const [description, setDescription] = useState()
@@ -36,6 +39,7 @@ const AddNew = () => {
 
   const handleSubmit = (e) => {
     addProjects();
+    history.push('/profile')
     //e.preventDefault();
   }
 
