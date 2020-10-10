@@ -156,13 +156,34 @@ router.get("/getStudentProjects", verifyToken, (req, res) => {
   });
 });
 
+router.get("/getAllClassProject", verifyToken, (req, res) => {
+  console.log(req.body, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      // User.find(req.body.class)
+      //.populate("projects")
+      //.then((allProjects) => {
+      // console.log(a, "Testttsdsdadasdasdasdadadad");
+      //  res.json({ allProjects });
+      //  });
+      // Projects.find()
+      //   .populate("studentsID")
+      //   .then((projects) => {
+      //     res.json({ projects });
+      //   });
+    }
+  });
+});
+
 router.post("/deleteProject", verifyToken, (req, res) => {
   // console.log(req, res);
   // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
   //   res.json({ MyMovies });
   // });
   // console.log(req.query.MyMovieId);
-  console.log(req.body.deleteProject, "<<<<<<<<<<<<<");
+  // console.log(req.body.deleteProject, "<<<<<<<<<<<<<");
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);

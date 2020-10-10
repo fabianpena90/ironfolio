@@ -59,6 +59,11 @@ const actions = {
   deleteProject: async (data) => {
     return await API.post("/deleteProject", data, resetHead());
   },
+
+  getAllClassProjects: async (data) => {
+    console.log(data);
+    return await API.get("/getAllClassProject", data, resetHead());
+  },
   // AddTheMovie: async (data) => {
   //   console.log(data)
   //   return await API.post("/AddTheMovieToTheDatabase", data, resetHead());
