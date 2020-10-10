@@ -100,8 +100,14 @@ function Profile(props) {
         history.goBack()
       } 
   }
+  const editIndex = [...projects]
   function handleUpdate(e) {
     console.log(e.target.parentElement.value)
+    editIndex.map((eachProject) => {
+      if(eachProject.projectName) {
+        
+      }
+    })
   }
 
   
