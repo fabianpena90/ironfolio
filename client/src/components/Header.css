@@ -1,3 +1,11 @@
 .makeStyles-root-1 {
   align-items: center;
 }
+
+.navBarLinkLogo {
+  text-decoration: none;
+}
+
+.navBarLinkLogo h1:hover {
+  color: white;
+}
