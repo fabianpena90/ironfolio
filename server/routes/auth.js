@@ -186,29 +186,26 @@ router.post("/deleteProject", verifyToken, (req, res) => {
   // console.log(req.query.MyMovieId);
   // console.log(req.body.deleteProject, "<<<<<<<<<<<<<");
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    Projects.findByIdAndDelete(req.body.deleteProject, (err) =>{
-      console.log('deleting project', req.body.deleteProject)
-      if(err){
-          console.log(err);
-      } else {
-      
-        User.findByIdAndUpdate(
-          authData.user._id, 
-            { $pull: { projects: deleteProject} }, 
-            { new: true },(err) => {
-                if(err){
-                     console.log(err)
-                }
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      console.log(req.body.deleteProject);
+      User.findByIdAndUpdate(
+        authData.user._id,
+        {
+          $pull: { projects: req.body.deleteProject },
+        },
 
-                console.log('Project Deleted: ' + deleteProject)
-                // res.redirect('/dashboard#/projects');
-       })
-   }
-    
-
-      // Projects.findByIdAndRemove(req.body.deleteProject).then((delProject) => {
-      //   res.json({ delProject });
-      })})});
+        { new: true }
+      ).then((delProject) => {
+        res.json({ delProject });
+      });
+      Projects.findByIdAndRemove(req.body.deleteProject).then(() => {
+        // res.json({ delProject });
+      });
+    }
+  });
+});
 
 router.post("/editProject", verifyToken, (req, res) => {
   // console.log(req, res);
