@@ -104,7 +104,7 @@ function Profile(props) {
   function handleUpdate(e) {
     console.log(e.target.parentElement.value)
     editIndex.map((eachProject) => {
-      console.log(eachProject.projectName)
+      console(eachProject.projectName)
     })
   }
 
@@ -115,9 +115,9 @@ function Profile(props) {
       return (
         <option>
           {eachClass.location}
-          {"-"}
+          {"---"}
           {eachClass.month}
-          {"-"}
+          {"---"}
           {eachClass.year}
         </option>
       );
