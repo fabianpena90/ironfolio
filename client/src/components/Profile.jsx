@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import actions from "../api/index";
+import TheContext from "../TheContext";
+
 // Material UI
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -70,10 +72,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile(props) {
   const classes = useStyles();
+  const { history } = React.useContext(TheContext);
   const [selectClass, setSelectClass] = useState([]);
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [deleteProject, setDeleteProject] = useState([]);
+  const [editProjects, setEditProjects] = useState([]);
+  const [deleteProject] = useState([]);
   
   useEffect(() => {
     async function getClasses() {
@@ -90,14 +94,14 @@ function Profile(props) {
   }, []);
   function handleSubmit(e) {
     //e.preventDefault();
-    
     let res = actions.setClass({ assignClass });
-    
   }
   
   function handleDelete(e) {
-    //setDeleteProject(e.target.parentElement.value)
-    let res = actions.deleteProject({deleteProject})
+    let res = actions.deleteProject({deleteProject: e.target.parentElement.value})
+    if(res){
+      history.goBack()
+    } 
   }
   
   console.log(deleteProject);
@@ -189,7 +193,7 @@ function Profile(props) {
                       color="secondary"
                       className={classes.button}
                       startIcon={<DeleteIcon />}
-                      onClick={(e) =>{actions.deleteProject({deleteProject: row._id})}}
+                      onClick={handleDelete}
                     >
                       Delete
                     </Button>
