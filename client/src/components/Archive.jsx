@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./Archive.css";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,24 +14,10 @@ import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import TheContext from "../TheContext";
+import actions from "../api/index";
 
-function createData(name) {
-  return { name };
-}
 
-const rows = [
-  createData("MIA-AUG-2020"),
-  createData("MIA-AUG-2021"),
-  createData("MIA-AUG-2022"),
-  createData("MIA-OCT-2023"),
-  createData("MIA-OCT-2021"),
-  createData("MIA-AUG-2025"),
-  createData("MIA-AUG-2026"),
-  createData("MIA-AUG-2027"),
-  createData("MIA-OCT-2027"),
-  createData("MIA-AUG-2028"),
-  createData("MIA-AUG-2029"),
-];
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -138,14 +124,32 @@ function Archive() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [allClass, setAllClass] = useState([]);
+  let rows = [];
 
+  useEffect(() => {
+    async function getClasses() {
+      let res = await actions.getAllClasses();
+      setAllClass(res.data?.selectClass);
+    }
+    getClasses();
+  }, []);
+
+  let copyAllClasses = [...allClass]
+  copyAllClasses.map((eachClass)=>{
+    rows.push(createData(`${eachClass.location}`+"-"+`${eachClass.month}`+"-"+`${eachClass.year}`))
+  })
+  function createData(name) {
+    return { name };
+  }
+  
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
   const { user, history } = React.useContext(TheContext);
-  console.log(user, history);
+  //console.log(user, history);
   if (!user.email) {
     history.push("/login");
   }
@@ -198,7 +202,7 @@ function Archive() {
                       return (
                         <TableRow>
                           <TableCell component="th" scope="row" padding="20px">
-                            <Link to="/archiveDetails">{row.name}</Link>
+                            <Link className="listItem" href={`/archive/${row.name}`}>{row.name}</Link>
                           </TableCell>
                         </TableRow>
                       );
