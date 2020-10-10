@@ -156,18 +156,19 @@ router.get("/getStudentProjects", verifyToken, (req, res) => {
   });
 });
 
-router.get("/getAllClassProject", verifyToken, (req, res) => {
+router.post("/getAllClassProjects", verifyToken, (req, res) => {
   console.log(req.body, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // User.find(req.body.class)
-      //.populate("projects")
-      //.then((allProjects) => {
-      // console.log(a, "Testttsdsdadasdasdasdadadad");
-      //  res.json({ allProjects });
-      //  });
+      User.find(req.body)
+        .populate("projects")
+        .then((allProjects) => {
+          console.log(allProjects);
+          res.json({ allProjects });
+        });
       // Projects.find()
       //   .populate("studentsID")
       //   .then((projects) => {

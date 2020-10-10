@@ -115,9 +115,9 @@ function Profile(props) {
       return (
         <option>
           {eachClass.location}
-          {"---"}
+          {"-"}
           {eachClass.month}
-          {"---"}
+          {"-"}
           {eachClass.year}
         </option>
       );

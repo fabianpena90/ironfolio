@@ -11,6 +11,15 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import IconButton from "@material-ui/core/IconButton";
+import Checkbox from '@material-ui/core/Checkbox';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -66,28 +75,16 @@ const rows = [
 
 function ArchiveDetail(props) {
   const classes = useStyles();
+  
 
   
 useEffect(() => {
   async function getProjects() {
-    let res = actions.getAllClassProjects({class: props.match.params.id})
+    let res = await actions.getAllClassProjects({class : props.match.params.id})
+    console.log(res)
   }
   getProjects();
 },[])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <div className="archiveDetail">
@@ -99,6 +96,7 @@ useEffect(() => {
               <StyledTableCell>Name/Team Name</StyledTableCell>
               <StyledTableCell align="right">Project Name</StyledTableCell>
               <StyledTableCell align="right">Website</StyledTableCell>
+              <StyledTableCell align="right">Favorites</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -112,6 +110,12 @@ useEffect(() => {
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <a href={row.website} target="_blank">Website</a>
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                <FormControlLabel
+        control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
+        label=""
+      />
                 </StyledTableCell>
               </StyledTableRow>
             ))}
