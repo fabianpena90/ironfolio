@@ -32,6 +32,7 @@ const NavBar = (props) => {
 
   const logOut = async () => {
     let res = await actions.logOut();
+    window.confirm('Are you sure you want to log out?')
     props.setUser(null);
     props.history.push("/");
   };

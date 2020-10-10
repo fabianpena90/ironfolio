@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import actions from "../api/index";
+import TheContext from "../TheContext";
+
 // Material UI
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -70,10 +72,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile(props) {
   const classes = useStyles();
+  const { history } = React.useContext(TheContext);
   const [selectClass, setSelectClass] = useState([]);
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [deleteProject, setDeleteProject] = useState([]);
+  const [editProjects, setEditProjects] = useState([]);
+  const [deleteProject] = useState([]);
   
   useEffect(() => {
     async function getClasses() {
@@ -92,12 +96,18 @@ function Profile(props) {
   }
   function handleDelete(e) {
       let res = actions.deleteProject({deleteProject: e.target.parentElement.value})
-      // if(res){
-      //   history.goBack()
-      // } 
+      if(res){
+        history.goBack()
+      } 
   }
+  const editIndex = [...projects]
   function handleUpdate(e) {
     console.log(e.target.parentElement.value)
+    editIndex.map((eachProject) => {
+      if(eachProject.projectName) {
+        
+      }
+    })
   }
 
   

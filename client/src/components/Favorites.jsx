@@ -77,7 +77,7 @@ function Favorites(props) {
   const classes = useStyles();
   return (
     <div className="archiveDetail">
-      <h3>Project 2</h3>
+      <h3>Your Favorites</h3>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
