@@ -5,12 +5,12 @@ import {
   NotificationManager,
 } from "react-notifications";
 
-console.log(baseURL);
+//console.log(baseURL);
 
 const token = window.localStorage.getItem("token");
 let t = token ? token.substring(0, 15) : null;
 
-console.log("TOKEN", t, "NODE_ENV", process.env.NODE_ENV);
+//console.log("TOKEN", t, "NODE_ENV", process.env.NODE_ENV);
 
 let resetHead = () => {
   return {
@@ -59,10 +59,9 @@ const actions = {
   deleteProject: async (data) => {
     return await API.post("/deleteProject", data, resetHead());
   },
-
   getAllClassProjects: async (data) => {
     console.log(data);
-    return await API.get("/getAllClassProject", data, resetHead());
+    return await API.post("/getAllClassProjects", data, resetHead());
   },
   // AddTheMovie: async (data) => {
   //   console.log(data)
