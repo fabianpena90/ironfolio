@@ -85,7 +85,6 @@ function Profile(props) {
       setSelectClass(res.data?.selectClass);
       
       let res2 = await actions.getStudentProject();
-      console.log(res2)
       setProjects(res2.data?.allProjects?.projects)
     }
     getClasses();
@@ -115,9 +114,9 @@ function Profile(props) {
       return (
         <option>
           {eachClass.location}
-          {"---"}
+          {"-"}
           {eachClass.month}
-          {"---"}
+          {"-"}
           {eachClass.year}
         </option>
       );

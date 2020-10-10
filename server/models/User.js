@@ -14,6 +14,7 @@ const userSchema = new Schema(
       default: "student",
     },
     projects: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
+    favorites: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
     // cohort: [{ type: Schema.Types.ObjectId, ref: "Class" }],
   },
 

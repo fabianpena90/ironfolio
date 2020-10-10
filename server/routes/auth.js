@@ -189,8 +189,19 @@ router.post("/deleteProject", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      Projects.findByIdAndRemove(req.body.deleteProject).then((delProject) => {
+      console.log(req.body.deleteProject);
+      User.findByIdAndUpdate(
+        authData.user._id,
+        {
+          $pull: { projects: req.body.deleteProject },
+        },
+
+        { new: true }
+      ).then((delProject) => {
         res.json({ delProject });
+      });
+      Projects.findByIdAndRemove(req.body.deleteProject).then(() => {
+        // res.json({ delProject });
       });
     }
   });
