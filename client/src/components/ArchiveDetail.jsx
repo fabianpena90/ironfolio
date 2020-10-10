@@ -1,5 +1,8 @@
-import React from "react";
+import React,{ useState, useEffect} from "react";
 import "./ArchiveDetail.css";
+import actions from "../api/index";
+
+
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -63,6 +66,29 @@ const rows = [
 
 function ArchiveDetail(props) {
   const classes = useStyles();
+
+  
+useEffect(() => {
+  async function getProjects() {
+    let res = actions.getAllClassProjects({class: props.match.params.id})
+  }
+  getProjects();
+},[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="archiveDetail">
       <h3>Project 2</h3>

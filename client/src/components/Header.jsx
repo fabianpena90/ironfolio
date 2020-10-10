@@ -23,9 +23,7 @@ function Header(props) {
   return (
       <div className="navTopBarContainer">
         <div className="logo">
-          <a className="navBarLinkLogo" href="./profile">
             <h1>Ironfolio</h1>
-          </a>
         </div>
         <div className={classes.root}>
           <h3>{user?.name}</h3>
