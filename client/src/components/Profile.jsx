@@ -104,9 +104,7 @@ function Profile(props) {
   function handleUpdate(e) {
     console.log(e.target.parentElement.value)
     editIndex.map((eachProject) => {
-      if(eachProject.projectName) {
-        
-      }
+      console.log(eachProject.projectName)
     })
   }
 
