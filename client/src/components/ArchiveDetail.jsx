@@ -45,38 +45,11 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, projectName, website) {
-  return { name, projectName, website };
-}
-
-const rows = [
-  createData(
-    "Rabiul Alam",
-    "Kaa -The Snake Game",
-    "https://hungry-albattani-0b70e9.netlify.app/"
-  ),
-  createData(
-    "Rebecca, Ashtyn, Jada",
-    "G.O.T",
-    "https://rqsell.github.io/G-O-T/"
-  ),
-  createData(
-    "Matheus, Matthew",
-    "Ergheist Battle Tactics",
-    "https://xenodochial-nightingale-702408.netlify.app/"
-  ),
-  createData("Fabian Pena", "Ghost Town", "https://ghost-town.netlify.app/"),
-  createData(
-    "Sebastian Grana",
-    "3D",
-    "https://sheltered-eyrie-18420.herokuapp.com/"
-  ),
-];
 
 function ArchiveDetail(props) {
   const classes = useStyles();
   const [allProjects, setAllProjects]= useState([])
-  
+  const [trigger, setTrigger] = useState(false)
 
   
 useEffect(() => {
@@ -109,7 +82,7 @@ console.log(allProjects)
           <TableBody>
             {allProjects.map((row) => (
               row.projects.map((eachRow)=>(
-                <StyledTableRow key={row.name}>
+                <StyledTableRow key={eachRow._id}>
                 <StyledTableCell component="th" scope="row">
                   {eachRow.project}
                 </StyledTableCell>
@@ -127,11 +100,9 @@ console.log(allProjects)
                   <a href={eachRow.website} target="_blank">Website</a>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                <FormControlLabel
-        control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
-        label=""
-      />
-                </StyledTableCell>
+                
+                
+        <FavoriteBorder /><Favorite /></StyledTableCell>
               </StyledTableRow>
               ))
               

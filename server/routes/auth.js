@@ -213,7 +213,7 @@ router.post("/editProject", verifyToken, (req, res) => {
   //   res.json({ MyMovies });
   // });
   // console.log(req.query.MyMovieId);
-  console.log(req.body.deleteProject, "<<<<<<<<<<<<<");
+  // console.log(req.body.deleteProject, "<<<<<<<<<<<<<");
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
