@@ -23,51 +23,40 @@ const useStyles = makeStyles((theme) => ({
 
 function FormUpdate(props) {
   console.log(props.match.params.id)
-  const { history } = React.useContext(TheContext);
+  // const { history } = React.useContext(TheContext);
   const classes = useStyles();
 
   const [project, setProject] = useState()
   const [projectName, setProjectName] = useState()
   const [description, setDescription] = useState()
   const [website, setWebsite] = useState()
-  
+  console.log(projectName, description, website)
 
-  async function addProjects() {
-    let res2 = await actions.addProject({project, projectName, description, website});
+  async function editProjects() {
+    let res2 = await actions.editProject({projectId: props.match.params.id, projectName, description, website});
     console.log(res2, "Fabian & Rabiul are the shit!");
   }
+
+  const handleSubmit = (e) => {
+    // debugger
+    editProjects();
+    // history.push('/profile')
+    e.preventDefault();
+  }
+
 
   return (
     <div>
       <div className="add-new">
-    <h1>Add Your Projects</h1>
+    <h1>Edit Projects</h1>
     <div >
-      <form>
-      <FormControl className={classes.formControl} variant="outlined">
-      <InputLabel  htmlFor="outlined-selectClass-native-simple">
-            Select Project
-          </InputLabel>
-          <Select
-            native
-            label="selectClass"
-            inputProps={{
-              name: "selectClass",
-              id: "outlined-selectClass-native-simple",
-            }}
-          >
-            <option aria-label="None" value=""/>
-            <option aria-label="None" value="project1">Project 1</option>
-            <option aria-label="None" value="project2">Project 2</option>
-            <option aria-label="None" value="project3">Project 3</option>
-            <option aria-label="None" value="project4">Project 4</option>
-            <option aria-label="None" value="project5">Project 5</option>
-           
-          </Select>
-        <TextField required="true"  id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />
+      <form onSubmit={handleSubmit}>
+      <FormControl className={classes.formControl} variant="outlined" onSubmit={handleSubmit}>
+        <TextField onChange={(e) => setProjectName(e.target.value)} required="true"  id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />
         {/* <TextField required="true"  id="outlined-basic" name="description" label="Description" variant="outlined" /> */}
-        <TextField required="true" id="outlined-basic" name="website" label="Website" variant="outlined" />
-      </FormControl>
+        <TextField onChange={(e) => setWebsite(e.target.value)} required="true" id="outlined-basic" name="website" label="Website" variant="outlined" />
         <TextField
+        onChange={(e) => setDescription(e.target.value)}
           id="outlined-multiline-static"
           label="Description"
           name="description"
@@ -76,6 +65,7 @@ function FormUpdate(props) {
           variant="outlined"
           required="true"
         />
+      </FormControl>
         <Button size="large" variant="contained" type="submit">Submit</Button>
       </form>
       </div>
@@ -83,7 +73,6 @@ function FormUpdate(props) {
     </div>
   );
     </div>
-  );
-}
+  )};
 
 export default FormUpdate;
