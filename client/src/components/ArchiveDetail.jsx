@@ -75,41 +75,56 @@ const rows = [
 
 function ArchiveDetail(props) {
   const classes = useStyles();
+  const [allProjects, setAllProjects]= useState([])
   
 
   
 useEffect(() => {
   async function getProjects() {
     let res = await actions.getAllClassProjects({class : props.match.params.id})
-    console.log(res)
+    setAllProjects(res.data?.allProjects)
+    
   }
   getProjects();
 },[])
+console.log(allProjects)
+
+
 
   return (
     <div className="archiveDetail">
-      <h3>Project 2</h3>
+      <h3>Projects</h3>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
+              <StyledTableCell>Project #</StyledTableCell>
               <StyledTableCell>Name/Team Name</StyledTableCell>
               <StyledTableCell align="right">Project Name</StyledTableCell>
+              <StyledTableCell align="right">Description</StyledTableCell>
               <StyledTableCell align="right">Website</StyledTableCell>
               <StyledTableCell align="right">Favorites</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+            {allProjects.map((row) => (
+              row.projects.map((eachRow)=>(
+                <StyledTableRow key={row.name}>
+                <StyledTableCell component="th" scope="row">
+                  {eachRow.project}
+                </StyledTableCell>
+
                 <StyledTableCell component="th" scope="row">
                   {row.name}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {row.projectName}
+                  {eachRow.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a href={row.website} target="_blank">Website</a>
+                  {eachRow.description}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  <a href={eachRow.website} target="_blank">Website</a>
                 </StyledTableCell>
                 <StyledTableCell align="right">
                 <FormControlLabel
@@ -118,6 +133,8 @@ useEffect(() => {
       />
                 </StyledTableCell>
               </StyledTableRow>
+              ))
+              
             ))}
           </TableBody>
         </Table>
