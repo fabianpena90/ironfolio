@@ -11,6 +11,7 @@ import AddNew from "./components/AddNew";
 import Header from "./components/Header";
 import Profile from "./components/Profile";
 import NotFound from "./components/404/NotFound";
+import FormUpdate from "./components/FormUpdate";
 // Auth Components
 import TheContext from "./TheContext";
 import actions from "./api/index";
@@ -63,6 +64,11 @@ function App() {
                 exact
                 path="/profile"
                 render={() => <Profile user={user} />}
+              />
+              <Route
+                exact
+                path="/profile/:id"
+                render={(props) => <FormUpdate {...props}/>}
               />
               <Route exact path="/newproject" render={() => <AddNew />} />
               <Route
