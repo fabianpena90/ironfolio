@@ -53,6 +53,10 @@ const actions = {
   addProject: async (data) => {
     return await API.post("/newProject", data, resetHead());
   },
+  editProject: async (data) => {
+    console.log(data)
+    return await API.post("/formUpdate", data, resetHead());
+  },
   getStudentProject: async () => {
     return await API.get("/getStudentProjects", resetHead());
   },

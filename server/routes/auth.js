@@ -136,6 +136,25 @@ router.post("/newProject", verifyToken, (req, res) => {
   });
 });
 
+router.post("/formUpdate", verifyToken, (req, res) => {
+  // console.log("From Line 118: ", req.body);
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    // console.log("From Line 120: ", authData.user);
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      //let project = req.body.project;
+      console.log(req.body)
+      Projects.findByIdAndUpdate(req.body.projectId, {$push:{ projectName: req.body.projectName, description: req.body.description, website: req.body.website},
+      },
+        { new: true }, 
+      ).then((res) => {
+        console.log(res)
+      })
+    }
+  });
+});
+
 router.get("/getStudentProjects", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
