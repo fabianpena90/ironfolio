@@ -102,7 +102,7 @@ function Favorites(props) {
                   {row.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a href={row.projectURL} target="_blank">
+                  <a href={row.projectURL} target="_blank" rel="noopener noreferrer">
                     Website
                   </a>
                 </StyledTableCell>

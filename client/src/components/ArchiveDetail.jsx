@@ -1,7 +1,7 @@
 import React,{ useState, useEffect} from "react";
 import "./ArchiveDetail.css";
 import actions from "../api/index";
-
+import TheContext from "../TheContext";
 
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -49,8 +49,8 @@ const useStyles = makeStyles({
 function ArchiveDetail(props) {
   const classes = useStyles();
   const [allProjects, setAllProjects]= useState([])
-  const [trigger, setTrigger] = useState(false)
-
+  const { user } = React.useContext(TheContext);
+  console.log(user)
   
 useEffect(() => {
   async function getProjects() {
@@ -97,12 +97,12 @@ console.log(allProjects)
                   {eachRow.description}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a href={eachRow.website} target="_blank">Website</a>
+                  <a href={eachRow.website} rel="noopener noreferrer" target="_blank">Website</a>
                 </StyledTableCell>
                 <StyledTableCell align="right">
+                {user._id === row._id && user.favorites.includes(eachRow._id)?<Favorite />:<FavoriteBorder />}
                 
-                
-        <FavoriteBorder /><Favorite /></StyledTableCell>
+        </StyledTableCell>
               </StyledTableRow>
               ))
               
