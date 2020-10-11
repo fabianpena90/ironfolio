@@ -54,7 +54,7 @@ const actions = {
     return await API.post("/newProject", data, resetHead());
   },
   editProject: async (data) => {
-    console.log(data)
+    console.log(data);
     return await API.post("/formUpdate", data, resetHead());
   },
   getStudentProject: async () => {
@@ -66,6 +66,12 @@ const actions = {
   getAllClassProjects: async (data) => {
     console.log(data);
     return await API.post("/getAllClassProjects", data, resetHead());
+  },
+  deleteFavorites: async (data) => {
+    return await API.post("/deleteFavorites", data, resetHead());
+  },
+  addFavorites: async (data) => {
+    return await API.post("/addFavorites", data, resetHead());
   },
   // AddTheMovie: async (data) => {
   //   console.log(data)

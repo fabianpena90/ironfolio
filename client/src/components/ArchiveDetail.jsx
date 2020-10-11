@@ -50,18 +50,36 @@ function ArchiveDetail(props) {
   const classes = useStyles();
   const [allProjects, setAllProjects]= useState([])
   const { user } = React.useContext(TheContext);
-  console.log(user)
+  const [favorites, setFavorites] = useState([])
   
 useEffect(() => {
   async function getProjects() {
     let res = await actions.getAllClassProjects({class : props.match.params.id})
     setAllProjects(res.data?.allProjects)
-    
+    setFavorites(user.favorites)
   }
   getProjects();
 },[])
 console.log(allProjects)
+console.log(favorites)
 
+
+async function handleDeleteFavorites(e){
+  let targetProject = e.target?.parentElement.getAttribute('data')
+  
+ let res = await actions.deleteFavorites({targetProject})
+
+ setFavorites(res.data?.delFavorites.favorites)
+}
+
+async function handleAddFavorites(e){
+  //console.log(e.target)
+  let targetProject =e.target?.getAttribute('data')
+  //console.log(targetProject)
+ let res = await actions.addFavorites({targetProject})
+ setFavorites(res.data?.addFavorites.favorites)
+ console.log(res)
+}
 
 
   return (
@@ -100,7 +118,7 @@ console.log(allProjects)
                   <a href={eachRow.website} rel="noopener noreferrer" target="_blank">Website</a>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                {user._id === row._id && user.favorites.includes(eachRow._id)?<Favorite />:<FavoriteBorder />}
+                {user._id === row._id && favorites?.includes(eachRow._id)?<IconButton onClick={(e)=>{handleDeleteFavorites(e)}}><Favorite data={eachRow._id} color="secondary" /></IconButton>:<IconButton onClick={(e)=>{handleAddFavorites(e)}}><FavoriteBorder data={eachRow._id} /></IconButton>}
                 
         </StyledTableCell>
               </StyledTableRow>

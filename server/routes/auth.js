@@ -144,13 +144,20 @@ router.post("/formUpdate", verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       //let project = req.body.project;
-      console.log(req.body)
-      Projects.findByIdAndUpdate(req.body.projectId, {$push:{ projectName: req.body.projectName, description: req.body.description, website: req.body.website},
-      },
-        { new: true }, 
+      // console.log(req.body);
+      Projects.findByIdAndUpdate(
+        req.body.projectId,
+        {
+          $push: {
+            projectName: req.body.projectName,
+            description: req.body.description,
+            website: req.body.website,
+          },
+        },
+        { new: true }
       ).then((res) => {
-        console.log(res)
-      })
+        console.log(res);
+      });
     }
   });
 });
@@ -176,8 +183,6 @@ router.get("/getStudentProjects", verifyToken, (req, res) => {
 });
 
 router.post("/getAllClassProjects", verifyToken, (req, res) => {
-  console.log(req.body, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
@@ -208,7 +213,7 @@ router.post("/deleteProject", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      console.log(req.body.deleteProject);
+      //console.log(req.body.deleteProject);
       User.findByIdAndUpdate(
         authData.user._id,
         {
@@ -240,6 +245,46 @@ router.post("/editProject", verifyToken, (req, res) => {
       Projects.findByIdAndRemove(req.body.deleteProject).then((delProject) => {
         res.json({ delProject });
       });
+    }
+  });
+});
+
+router.post("/deleteFavorites", verifyToken, (req, res) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      User.findByIdAndUpdate(
+        authData.user._id,
+        {
+          $pull: { favorites: req.body.targetProject },
+        },
+
+        { new: true }
+      ).then((delFavorites) => {
+        res.json({ delFavorites });
+      });
+    }
+  });
+});
+
+router.post("/addFavorites", verifyToken, (req, res) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      if (req.body.targetProject != "null") {
+        User.findByIdAndUpdate(
+          authData.user._id,
+          {
+            $push: { favorites: req.body.targetProject },
+          },
+
+          { new: true }
+        ).then((addFavorites) => {
+          res.json({ addFavorites });
+        });
+      }
     }
   });
 });
