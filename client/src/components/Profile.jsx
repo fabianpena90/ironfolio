@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import actions from "../api/index";
 import TheContext from "../TheContext";
+import Link from "@material-ui/core/Link"
 
 // Material UI
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -99,13 +100,9 @@ function Profile(props) {
         history.goBack()
       } 
   }
-  const editIndex = [...projects]
-  function handleUpdate(e) {
-    console.log(e.target.parentElement.value)
-    editIndex.map((eachProject) => {
-      console(eachProject.projectName)
-    })
-  }
+  // function handleUpdate(e) {
+  //   return ()
+  // }
 
   
  // console.log(deleteProject);
@@ -182,16 +179,16 @@ function Profile(props) {
                   </StyledTableCell>
 
                   <StyledTableCell align="right">
+                  <Link href={`/profile/${row._id}`}>
                     <Button
                       value={row._id}
                       variant="contained"
                       color="primary"
                       className={classes.button}
                       startIcon={<EditIcon />}
-                      onClick={handleUpdate}
                     >
                       Edit
-                    </Button>
+                    </Button></Link>
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Button
@@ -200,7 +197,6 @@ function Profile(props) {
                       color="secondary"
                       className={classes.button}
                       startIcon={<DeleteIcon />}
-                      onClick={handleDelete}
                     >
                       Delete
                     </Button>
