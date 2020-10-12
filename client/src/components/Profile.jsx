@@ -78,7 +78,6 @@ function Profile(props) {
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
   const [editProjects, setEditProjects] = useState([]);
-  const [deleteProject] = useState([]);
   
   useEffect(() => {
     async function getClasses() {
@@ -96,8 +95,9 @@ function Profile(props) {
   }
   function handleDelete(e) {
       let res = actions.deleteProject({deleteProject: e.target.parentElement.value})
-      // history.push('');
- 
+      if(res){
+        history.push('/profile')
+      } 
   }
   // function handleUpdate(e) {
   //   return ()

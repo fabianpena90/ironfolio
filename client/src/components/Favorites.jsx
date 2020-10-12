@@ -13,6 +13,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import IconButton from "@material-ui/core/IconButton";
 import actions from "../api/index";
 import TheContext from "../TheContext";
+import Favorite from '@material-ui/icons/Favorite';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -38,57 +39,29 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(className, studentName, projectName, projectURL) {
-  return { className, studentName, projectName, projectURL };
-}
-
-const rows = [
-  createData(
-    "MIA 2020",
-    "Rabiul Alam",
-    "Kaa -The Snake Game",
-    "https://hungry-albattani-0b70e9.netlify.app/"
-  ),
-  createData(
-    "MIA 2020",
-    "Rebecca, Ashtyn, Jada",
-    "G.O.T",
-    "https://rqsell.github.io/G-O-T/"
-  ),
-  createData(
-    "MIA 2020",
-    "Matheus, Matthew",
-    "Ergheist Battle Tactics",
-    "https://xenodochial-nightingale-702408.netlify.app/"
-  ),
-  createData(
-    "MIA 2020",
-    "Fabian Pena",
-    "Ghost Town",
-    "https://ghost-town.netlify.app/"
-  ),
-  createData(
-    "MIA 2020",
-    "Sebastian Grana",
-    "3D",
-    "https://sheltered-eyrie-18420.herokuapp.com/"
-  ),
-];
 
 function Favorites(props) {
   const classes = useStyles();
   const { user } = React.useContext(TheContext);
   const [favorites, setFavorites] = useState([])
-  console.log(user)
 
   useEffect(() => {
     async function getFavoriteProjects() {
       let res = await actions.getAllFavoriteProjects({favorites: user.favorites})
+      setFavorites(res?.data)
     }
     getFavoriteProjects();
   },[])
 
 
+  async function handleDeleteFavorites(e){
+    let targetProject = e.target?.parentElement.getAttribute('data')
+    let res = await actions.deleteFavorites({targetProject})
+    setFavorites(res.data?.delFavorites.favorites)
+  }
+
+  
+console.log(favorites)
   return (
     <div className="archiveDetail">
       <h3>Your Favorites</h3>
@@ -104,27 +77,26 @@ function Favorites(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.className}>
+            {favorites.allProjects?.map((row) => (
+              <StyledTableRow key={row._id}>
                 <StyledTableCell component="th" scope="row">
-                  {row.className}
+                  {/* {row.className} */}Need Help
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {row.studentName}
+                  {/* {row.studentName} */} Niko
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   {row.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a href={row.projectURL} target="_blank" rel="noopener noreferrer">
+                  <a href={row.website} target="_blank" rel="noopener noreferrer">
                     Website
                   </a>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <IconButton>
-                    <FavoriteBorderIcon />
-                  </IconButton>
-                </StyledTableCell>
+                <IconButton onClick={(e)=>{handleDeleteFavorites(e)}}><Favorite data={row._id} color="secondary" /></IconButton>
+                
+        </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
