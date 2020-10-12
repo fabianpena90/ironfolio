@@ -4,6 +4,7 @@
   align-items: center;
   height: 10vh;
   background-color: grey;
+  flex-wrap: wrap;
 }
 
 .navTopBarContainer .logo {
@@ -34,4 +35,11 @@
 
 .menuIcon {
   margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .navbarContainer {
+    display: flex !important;
+    flex-wrap: wrap;
+  }
 }
