@@ -60,7 +60,7 @@ function Favorites(props) {
     console.log(targetProject)
     //debugger
     let res = await actions.deleteFavorites({targetProject})
-    console.log(res.data)
+    console.log(res.data.delFavorites.favorites)
    // debugger
     setFavorites(res.data?.delFavorites.favorites)
   }
@@ -83,23 +83,27 @@ console.log(favorites)
           </TableHead>
           <TableBody>
             {favorites?.map((row) => (
-              <StyledTableRow key={row._id}>
+              <StyledTableRow key={row?._id}>
                 <StyledTableCell component="th" scope="row">
-                  {/* {row.className} */}Need Help
+              {row?.studentsID?.[0].class}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {/* {row.studentName} */} Niko
+                {row?.studentsID.map((eachName)=>{
+              return(
+               <> {eachName?.name} </>
+              )
+            })}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {row.projectName}
+                  {row?.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a href={row.website} target="_blank" rel="noopener noreferrer">
+                  <a href={row?.website} target="_blank" rel="noopener noreferrer">
                     Website
                   </a>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                <IconButton onClick={(e)=>{handleDeleteFavorites(e)}}><Favorite data={row._id} color="secondary" /></IconButton>
+                <IconButton onClick={(e)=>{handleDeleteFavorites(e)}}><Favorite data={row?._id} color="secondary" /></IconButton>
                 
         </StyledTableCell>
               </StyledTableRow>
