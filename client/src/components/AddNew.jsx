@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import FormControl from '@material-ui/core/FormControl';
+import Switch from '@material-ui/core/Switch';
+
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -53,6 +55,7 @@ const AddNew = () => {
             Select Project
           </InputLabel>
           <Select
+          required="true"
           className="addNewForm"
             native
             onChange={(e) => {
@@ -73,7 +76,6 @@ const AddNew = () => {
            
           </Select>
         <TextField className="addNewForm" required="true" onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />
-        {/* <TextField required="true"  id="outlined-basic" name="description" label="Description" variant="outlined" /> */}
         <TextField className="addNewForm" required="true" onChange={(e) =>{setWebsite(e.target.value)}} id="outlined-basic" name="website" label="Website" variant="outlined" />
       </FormControl>
         <TextField

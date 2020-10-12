@@ -149,6 +149,7 @@ router.post("/formUpdate", verifyToken, (req, res) => {
         {
           $set: {
             projectName: req.body.projectName,
+            participants: req.body.participants,
             description: req.body.description,
             website: req.body.website,
           },
@@ -203,12 +204,6 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
 });
 
 router.post("/deleteProject", verifyToken, (req, res) => {
-  // console.log(req, res);
-  // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
-  //   res.json({ MyMovies });
-  // });
-  // console.log(req.query.MyMovieId);
-  // console.log(req.body.deleteProject, "<<<<<<<<<<<<<");
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
@@ -234,12 +229,6 @@ router.post("/deleteProject", verifyToken, (req, res) => {
 });
 
 router.post("/editProject", verifyToken, (req, res) => {
-  // console.log(req, res);
-  // Movies.findById(req.query.MyMovieId).then((MyMovies) => {
-  //   res.json({ MyMovies });
-  // });
-  // console.log(req.query.MyMovieId);
-  // console.log(req.body.deleteProject, "<<<<<<<<<<<<<");
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
