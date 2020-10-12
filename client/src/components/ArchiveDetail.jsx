@@ -64,7 +64,7 @@ useEffect(() => {
 
 async function handleDeleteFavorites(e){
   let targetProject = e.target?.parentElement.getAttribute('data')
-  let res = await actions.deleteFavorites({targetProject})
+  let res = await actions.deleteFavoritesArchive({targetProject})
   setFavorites(res.data?.delFavorites.favorites)
 }
 
