@@ -85,7 +85,6 @@ async function handleAddFavorites(e){
               <StyledTableCell>Project #</StyledTableCell>
               <StyledTableCell>Name/Team Name</StyledTableCell>
               <StyledTableCell align="right">Project Name</StyledTableCell>
-              <StyledTableCell align="right">Participants</StyledTableCell>
               <StyledTableCell align="right">Description</StyledTableCell>
               <StyledTableCell align="right">Website</StyledTableCell>
               <StyledTableCell align="right">Favorites</StyledTableCell>
