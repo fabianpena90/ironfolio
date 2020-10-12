@@ -26,10 +26,10 @@ function FormUpdate(props) {
   // const { history } = React.useContext(TheContext);
   const classes = useStyles();
 
-  const [project, setProject] = useState()
-  const [projectName, setProjectName] = useState()
-  const [description, setDescription] = useState()
-  const [website, setWebsite] = useState()
+  const [project, setProject] = useState([])
+  const [projectName, setProjectName] = useState([])
+  const [description, setDescription] = useState([])
+  const [website, setWebsite] = useState([])
   console.log(projectName, description, website)
 
   async function editProjects() {
