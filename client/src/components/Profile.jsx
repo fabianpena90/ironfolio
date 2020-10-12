@@ -96,9 +96,8 @@ function Profile(props) {
   }
   function handleDelete(e) {
       let res = actions.deleteProject({deleteProject: e.target.parentElement.value})
-      if(res){
-        history.goBack()
-      } 
+      // history.push('');
+ 
   }
   // function handleUpdate(e) {
   //   return ()
@@ -192,6 +191,7 @@ function Profile(props) {
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Button
+                      onClick={handleDelete}
                       value={row._id}
                       variant="contained"
                       color="secondary"
