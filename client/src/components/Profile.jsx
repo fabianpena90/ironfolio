@@ -93,12 +93,19 @@ function Profile(props) {
     //e.preventDefault();
     let res = actions.setClass({ assignClass });
   }
-  function handleDelete(e) {
-      let res = actions.deleteProject({deleteProject: e.target.parentElement.value})
-      if(res){
-        history.push('/profile')
-      } 
+  function handleDelete(value) {
+      let res = actions.deleteProject({deleteProject: value})
+      // if(res){
+      //   history.push('/profile')
+      // } 
+      let newProject = [...projects].filter(eachProject =>{
+        return eachProject._id !== value
+      })
+      console.log(res.data, newProject)
+
+      setProjects(newProject)
   }
+
   // function handleUpdate(e) {
   //   return ()
   // }
@@ -191,7 +198,7 @@ function Profile(props) {
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Button
-                      onClick={handleDelete}
+                      onClick={()=>handleDelete(row._id)}
                       value={row._id}
                       variant="contained"
                       color="secondary"

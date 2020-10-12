@@ -48,7 +48,8 @@ function Favorites(props) {
   useEffect(() => {
     async function getFavoriteProjects() {
       let res = await actions.getAllFavoriteProjects({favorites: user.favorites})
-      setFavorites(res?.data)
+      setFavorites(res?.data.allProjects)
+      console.log(res.data)
     }
     getFavoriteProjects();
   },[])
@@ -56,7 +57,11 @@ function Favorites(props) {
 
   async function handleDeleteFavorites(e){
     let targetProject = e.target?.parentElement.getAttribute('data')
+    console.log(targetProject)
+    //debugger
     let res = await actions.deleteFavorites({targetProject})
+    console.log(res.data)
+   // debugger
     setFavorites(res.data?.delFavorites.favorites)
   }
 
@@ -77,7 +82,7 @@ console.log(favorites)
             </TableRow>
           </TableHead>
           <TableBody>
-            {favorites.allProjects?.map((row) => (
+            {favorites?.map((row) => (
               <StyledTableRow key={row._id}>
                 <StyledTableCell component="th" scope="row">
                   {/* {row.className} */}Need Help

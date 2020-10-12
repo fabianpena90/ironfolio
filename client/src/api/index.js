@@ -70,6 +70,9 @@ const actions = {
   deleteFavorites: async (data) => {
     return await API.post("/deleteFavorites", data, resetHead());
   },
+  deleteFavoritesArchive: async (data) => {
+    return await API.post("/deleteFavoritesArchive", data, resetHead());
+  },
   addFavorites: async (data) => {
     return await API.post("/addFavorites", data, resetHead());
   },

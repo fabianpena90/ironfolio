@@ -222,10 +222,12 @@ router.post("/deleteProject", verifyToken, (req, res) => {
 
         { new: true }
       ).then((delProject) => {
-        res.json({ delProject });
-      });
-      Projects.findByIdAndRemove(req.body.deleteProject).then(() => {
-        // res.json({ delProject });
+        Projects.findByIdAndRemove(req.body.deleteProject).then(
+          (delProject) => {
+            res.json({ delProject });
+          }
+        );
+        //res.json({ delProject });
       });
     }
   });
@@ -250,6 +252,26 @@ router.post("/editProject", verifyToken, (req, res) => {
 });
 
 router.post("/deleteFavorites", verifyToken, (req, res) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      User.findByIdAndUpdate(
+        authData.user._id,
+        {
+          $pull: { favorites: req.body.targetProject },
+        },
+        { new: true }
+      )
+        .populate("favorites")
+        .then((delFavorites) => {
+          res.json({ delFavorites });
+        });
+    }
+  });
+});
+
+router.post("/deleteFavoritesArchive", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
@@ -297,15 +319,16 @@ router.post("/getAllFavoriteProjects", verifyToken, (req, res) => {
       Projects.find()
         .where("_id")
         .in(req.body.favorites)
+        .populate("studentsID")
         .then((allProjects) => {
           res.json({ allProjects });
           // allProjects.map((eachProject) => {
-          //  User.find()
+          //   User.find()
           //     .where("_id")
           //     .in(eachProject.studentsID)
           //     .then((students) => {
           //       console.log(students, allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
-          //       res.json({ students });
+          //       res.json({ students, allProjects });
           //     });
           // });
         });
