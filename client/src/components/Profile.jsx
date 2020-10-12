@@ -96,7 +96,7 @@ function Profile(props) {
   function handleDelete(e) {
       let res = actions.deleteProject({deleteProject: e.target.parentElement.value})
       if(res){
-        history.push('/profile')
+        history.push('/newproject')
       } 
   }
   // function handleUpdate(e) {

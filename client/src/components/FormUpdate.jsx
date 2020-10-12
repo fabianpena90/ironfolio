@@ -53,8 +53,9 @@ function FormUpdate(props) {
       </div >
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.formControl} variant="outlined" onSubmit={handleSubmit}>
-          <TextField className="editField" onChange={(e) => setProjectName(e.target.value)} required="true"  id="outlined-basic" name="projectName" placeholder="Project Name" variant="outlined" />
-          <TextField className="editField" onChange={(e) => setWebsite(e.target.value)} required="true" id="outlined-basic" name="website" placeholder="Website" variant="outlined" />
+          <TextField fullWidth className="editField" onChange={(e) => setProjectName(e.target.value)} required="true"  id="outlined-basic" name="projectName" placeholder="Project Name" variant="outlined" />
+          <TextField fullWidth className="editField" onChange={(e) => setWebsite(e.target.value)} required="true" id="outlined-basic" name="website" placeholder="Website" variant="outlined" />
+        </FormControl>
           <TextField className="editField"
           onChange={(e) => setDescription(e.target.value)}
             id="outlined-multiline-static"
@@ -64,8 +65,8 @@ function FormUpdate(props) {
             rows={4}
             variant="outlined"
             required="true"
+            fullWidth
           />
-        </FormControl>
         <Button size="large" variant="contained" color="secondary" type="submit">Update</Button>
       </form>
     </div>

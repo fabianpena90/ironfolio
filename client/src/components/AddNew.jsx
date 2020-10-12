@@ -72,20 +72,21 @@ const AddNew = () => {
             <option aria-label="None" value="project5">Project 5</option>
            
           </Select>
-        <TextField className="addNewForm" required="true" onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" placeholder="Project Name" variant="outlined" />
-        {/* <TextField required="true"  id="outlined-basic" name="description" placeholder="Description" variant="outlined" /> */}
-        <TextField className="addNewForm" required="true" onChange={(e) =>{setWebsite(e.target.value)}} id="outlined-basic" name="website" placeholder="Website" variant="outlined" />
+        <TextField className="addNewForm" required="true" onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />
+        {/* <TextField required="true"  id="outlined-basic" name="description" label="Description" variant="outlined" /> */}
+        <TextField className="addNewForm" required="true" onChange={(e) =>{setWebsite(e.target.value)}} id="outlined-basic" name="website" label="Website" variant="outlined" />
       </FormControl>
         <TextField
            className="addNewForm"
-          onChange={(e) =>{setDescription(e.target.value)}}
           id="outlined-multiline-static"
-          placeholder="Description"
+          label="Description"
           name="description"
           multiline
-          rows={4}
+          onChange={(e) =>{setDescription(e.target.value)}}
           variant="outlined"
           required="true"
+          fullWidth
+          rows={4}
         />
         <Button className="btnAdd" size="large" variant="contained" type="submit">Submit</Button>
       </form>
