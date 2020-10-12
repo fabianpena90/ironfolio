@@ -73,6 +73,11 @@ const actions = {
   addFavorites: async (data) => {
     return await API.post("/addFavorites", data, resetHead());
   },
+  getAllFavoriteProjects: async (data) => {
+    console.log(data);
+    return await API.post("/getAllFavoriteProjects", data, resetHead());
+  },
+
   // AddTheMovie: async (data) => {
   //   console.log(data)
   //   return await API.post("/AddTheMovieToTheDatabase", data, resetHead());

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect,useState} from "react";
 import "./Favorites.css";
 // Material UI
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import IconButton from "@material-ui/core/IconButton";
+import actions from "../api/index";
+import TheContext from "../TheContext";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -75,6 +77,18 @@ const rows = [
 
 function Favorites(props) {
   const classes = useStyles();
+  const { user } = React.useContext(TheContext);
+  const [favorites, setFavorites] = useState([])
+  console.log(user)
+
+  useEffect(() => {
+    async function getFavoriteProjects() {
+      let res = await actions.getAllFavoriteProjects({favorites: user.favorites})
+    }
+    getFavoriteProjects();
+  },[])
+
+
   return (
     <div className="archiveDetail">
       <h3>Your Favorites</h3>

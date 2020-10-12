@@ -289,4 +289,42 @@ router.post("/addFavorites", verifyToken, (req, res) => {
   });
 });
 
+router.post("/getAllFavoriteProjects", verifyToken, (req, res) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      // console.log(req.body);
+      Projects.find()
+        .where("_id")
+        .in(req.body.favorites)
+        .then((allProjects) => {
+          //console.log(allProjects);
+          res.json({ allProjects });
+          allProjects.map((eachProject) => {
+            return User.find()
+              .where("_id")
+              .in(eachProject.studentsID)
+              .then((students) => {
+                console.log(students, allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
+                res.json({ students });
+              });
+          });
+        });
+      // if (req.body.targetProject != "null") {
+      //   User.findByIdAndUpdate(
+      //     authData.user._id,
+      //     {
+      //       $push: { favorites: req.body.targetProject },
+      //     },
+
+      //     { new: true }
+      //   ).then((addFavorites) => {
+      //     res.json({ addFavorites });
+      //   });
+      // }
+    }
+  });
+});
+
 module.exports = router;
