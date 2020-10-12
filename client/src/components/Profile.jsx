@@ -78,7 +78,6 @@ function Profile(props) {
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
   const [editProjects, setEditProjects] = useState([]);
-  const [deleteProject] = useState([]);
   
   useEffect(() => {
     async function getClasses() {
@@ -97,7 +96,7 @@ function Profile(props) {
   function handleDelete(e) {
       let res = actions.deleteProject({deleteProject: e.target.parentElement.value})
       if(res){
-        history.goBack()
+        history.push('/profile')
       } 
   }
   // function handleUpdate(e) {
@@ -192,6 +191,7 @@ function Profile(props) {
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Button
+                      onClick={handleDelete}
                       value={row._id}
                       variant="contained"
                       color="secondary"

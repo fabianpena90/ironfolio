@@ -144,13 +144,8 @@ router.post("/formUpdate", verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       //let project = req.body.project;
-      console.log(req.body, "Mat is in the houseseeeee");
       Projects.updateOne(
-<<<<<<< HEAD
         { _id: req.body.projectId },
-=======
-        {_id: req.body.projectId},
->>>>>>> ba0f09f1381766e593f83bf55f5e9570e688561d
         {
           $set: {
             projectName: req.body.projectName,
@@ -303,30 +298,17 @@ router.post("/getAllFavoriteProjects", verifyToken, (req, res) => {
         .where("_id")
         .in(req.body.favorites)
         .then((allProjects) => {
-          //console.log(allProjects);
           res.json({ allProjects });
-          allProjects.map((eachProject) => {
-            return User.find()
-              .where("_id")
-              .in(eachProject.studentsID)
-              .then((students) => {
-                console.log(students, allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
-                res.json({ students });
-              });
-          });
+          // allProjects.map((eachProject) => {
+          //  User.find()
+          //     .where("_id")
+          //     .in(eachProject.studentsID)
+          //     .then((students) => {
+          //       console.log(students, allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
+          //       res.json({ students });
+          //     });
+          // });
         });
-      // if (req.body.targetProject != "null") {
-      //   User.findByIdAndUpdate(
-      //     authData.user._id,
-      //     {
-      //       $push: { favorites: req.body.targetProject },
-      //     },
-
-      //     { new: true }
-      //   ).then((addFavorites) => {
-      //     res.json({ addFavorites });
-      //   });
-      // }
     }
   });
 });
