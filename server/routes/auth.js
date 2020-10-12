@@ -146,23 +146,26 @@ router.post("/formUpdate", verifyToken, (req, res) => {
       //let project = req.body.project;
       console.log(req.body, "Mat is in the houseseeeee");
       Projects.updateOne(
+<<<<<<< HEAD
+        { _id: req.body.projectId },
+=======
         {_id: req.body.projectId},
+>>>>>>> ba0f09f1381766e593f83bf55f5e9570e688561d
         {
           $set: {
             projectName: req.body.projectName,
             description: req.body.description,
             website: req.body.website,
-          }
+          },
         },
         { multi: true }
       ).then((updated) => {
         console.log(updated, "line 159");
-        res.json({updated})
+        res.json({ updated });
       });
     }
   });
 });
-
 
 router.get("/getStudentProjects", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
