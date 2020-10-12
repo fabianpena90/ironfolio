@@ -71,14 +71,14 @@ const AddNew = () => {
             <option aria-label="None" value="project5">Project 5</option>
            
           </Select>
-        <TextField required="true" onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />
-        {/* <TextField required="true"  id="outlined-basic" name="description" label="Description" variant="outlined" /> */}
-        <TextField required="true" onChange={(e) =>{setWebsite(e.target.value)}} id="outlined-basic" name="website" label="Website" variant="outlined" />
+        <TextField required="true" onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" placeholder="Project Name" variant="outlined" />
+        {/* <TextField required="true"  id="outlined-basic" name="description" placeholder="Description" variant="outlined" /> */}
+        <TextField required="true" onChange={(e) =>{setWebsite(e.target.value)}} id="outlined-basic" name="website" placeholder="Website" variant="outlined" />
       </FormControl>
         <TextField
           onChange={(e) =>{setDescription(e.target.value)}}
           id="outlined-multiline-static"
-          label="Description"
+          placeholder="Description"
           name="description"
           multiline
           rows={4}
