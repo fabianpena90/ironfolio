@@ -146,7 +146,11 @@ router.post("/formUpdate", verifyToken, (req, res) => {
       //let project = req.body.project;
       console.log(req.body, "Mat is in the houseseeeee");
       Projects.updateOne(
+<<<<<<< HEAD
         { _id: req.body.projectId },
+=======
+        {_id: req.body.projectId},
+>>>>>>> ba0f09f1381766e593f83bf55f5e9570e688561d
         {
           $set: {
             projectName: req.body.projectName,
@@ -260,7 +264,6 @@ router.post("/deleteFavorites", verifyToken, (req, res) => {
         {
           $pull: { favorites: req.body.targetProject },
         },
-
         { new: true }
       ).then((delFavorites) => {
         res.json({ delFavorites });
