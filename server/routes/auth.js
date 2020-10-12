@@ -263,7 +263,9 @@ router.post("/deleteFavorites", verifyToken, (req, res) => {
         },
         { new: true }
       )
-        .populate("favorites")
+        // .populate("favorites")
+        // .populate("studentsID")
+        .populate({ path: "favorites", populate: { path: "studentsID" } })
         .then((delFavorites) => {
           res.json({ delFavorites });
         });
