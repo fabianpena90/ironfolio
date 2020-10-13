@@ -7,7 +7,8 @@ const projectsSchema = new Schema(
     website: String,
     description: String,
     studentsID: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    cohort: { type: Schema.Types.ObjectId, ref: "Class" },
+    classID: { type: Schema.Types.ObjectId, ref: "Class" },
+    class: String,
   },
   {
     timestamps: true,

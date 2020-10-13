@@ -109,6 +109,7 @@ function Profile(props) {
   // console.log(deleteProject);
   function showClass() {
     return selectClass.map((eachClass) => {
+      console.log(eachClass);
       return (
         <option value={eachClass._id}>
           {eachClass.location}
@@ -131,6 +132,7 @@ function Profile(props) {
           <Select
             native
             onChange={(e) => {
+              console.log(e.target.value);
               setAssignClass(e.target.value);
             }}
             label="selectClass"
@@ -153,10 +155,14 @@ function Profile(props) {
   // getClasses();
   else {
     return (
-      <div className="archiveDetail">
+      <div>
         <h1>My Projects</h1>
         <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
+          <Table
+            id="tableProfile"
+            className={classes.table}
+            aria-label="customized table"
+          >
             <TableHead>
               <TableRow>
                 <StyledTableCell>Project Name</StyledTableCell>

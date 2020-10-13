@@ -14,14 +14,16 @@ import Switch from '@material-ui/core/Switch';
 
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
+    formControl: {
+    margin: theme.spacing(5),
     minWidth: 120,
     display: "flex",
     flexDirection: "row",
+    justifyContent: "spaceBetween",
+    alignItems: "center"
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(5)
   },
 }));
 
@@ -46,15 +48,18 @@ const AddNew = () => {
   }
 
   return (
-    <div className="add-new">
-    <h1>Add Your Projects</h1>
     <div >
-      <form onSubmit={handleSubmit}>
-      <FormControl className={classes.formControl} variant="outlined" onSubmit={handleSubmit}>
-      <InputLabel className="addNewForm" htmlFor="outlined-selectClass-native-simple">
+    <div>
+    <h1>Add Your Projects</h1>
+    </div>
+    <div >
+      <form id="add-new" onSubmit={handleSubmit}>
+      <FormControl id="formControl" className={classes.formControl} variant="outlined" onSubmit={handleSubmit}>
+      <InputLabel  className="addNewForm" htmlFor="outlined-selectClass-native-simple">
             Select Project
           </InputLabel>
           <Select
+          fullWidth="true"
           required="true"
           className="addNewForm"
             native
@@ -75,8 +80,8 @@ const AddNew = () => {
             <option aria-label="None" value="project5">Project 5</option>
            
           </Select>
-        <TextField className="addNewForm" required="true" onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />
-        <TextField className="addNewForm" required="true" onChange={(e) =>{setWebsite(e.target.value)}} id="outlined-basic" name="website" label="Website" variant="outlined" />
+        <TextField className="addNewForm" fullWidth="true" required="true" onChange={(e) =>{setProjectName(e.target.value)}} id="outlined-basic" name="projectName" label="Project Name" variant="outlined" />
+        <TextField className="addNewForm" fullWidth="true" required="true" onChange={(e) =>{setWebsite(e.target.value)}} id="outlined-basic" name="website" label="Website" variant="outlined" />
       </FormControl>
         <TextField
            className="addNewForm"
@@ -88,12 +93,12 @@ const AddNew = () => {
           variant="outlined"
           required="true"
           fullWidth
-          rows={4}
+          rows={8}
         />
         <Button className="btnAdd" size="large" variant="contained" type="submit">Submit</Button>
       </form>
-      </div>
       
+      </div>
     </div>
   );
 };
