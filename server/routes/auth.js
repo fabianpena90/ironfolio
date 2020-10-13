@@ -156,7 +156,10 @@ router.post("/formUpdate", verifyToken, (req, res) => {
         },
         { multi: true }
       ).then((updated) => {
-        console.log(typeof req.body.teamMembers, "Hi, calll us if you need help :D");
+        console.log(
+          typeof req.body.teamMembers,
+          "Hi, calll us if you need help :D"
+        );
         req.body.teamMembers.forEach((member) => {
           console.log(member, "line 164");
           User.findByIdAndUpdate(member, {
@@ -201,8 +204,9 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      Projects.find(req.body)
-        .populate("projects")
+      User.find(req.body)
+        // .populate("projects")
+        .populate({ path: "projects", populate: { path: "studentsID" } })
         .then((allProjects) => {
           console.log(allProjects);
           res.json({ allProjects });
