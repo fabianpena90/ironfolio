@@ -137,9 +137,8 @@ router.post("/newProject", verifyToken, (req, res) => {
 });
 
 router.post("/formUpdate", verifyToken, (req, res) => {
-  // console.log("From Line 118: ", req.body);
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    // console.log("From Line 120: ", authData.user);
+    console.log("From Line 120: ", req.body);
     if (err) {
       res.status(403).json(err);
     } else {
@@ -148,6 +147,7 @@ router.post("/formUpdate", verifyToken, (req, res) => {
         { _id: req.body.projectId },
         {
           $set: {
+            studentsID: req.body.teamMembers,
             projectName: req.body.projectName,
             description: req.body.description,
             website: req.body.website,
