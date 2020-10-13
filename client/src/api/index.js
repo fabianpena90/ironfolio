@@ -56,6 +56,9 @@ const actions = {
   editProject: async (data) => {
     return await API.post("/formUpdate", data, resetHead());
   },
+  getStudentList: async (data) => {
+    return await API.post("/getStudentList", data, resetHead());
+  },
   getEditProject: async (data) => {
     return await API.post("/getEditProject", data, resetHead());
   },

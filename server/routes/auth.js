@@ -239,14 +239,26 @@ router.post("/editProject", verifyToken, (req, res) => {
   });
 });
 
+router.post("/getStudentList", verifyToken, (req, res) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      User.find(req.body).then((nameList) => {
+        res.json({ nameList });
+      });
+    }
+  });
+});
+
 router.post("/getEditProject", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      console.log(req.body, "get that shit!!!!!!!!!!!!!!!!!!1")
+      //console.log(req.body, "get that shit!!!!!!!!!!!!!!!!!!1")
       Projects.findById(req.body.projectId).then((valueField) => {
-        console.log(valueField, "something somethinggggggg")
+        // console.log(valueField, "something somethinggggggg")
         res.json({ valueField });
       });
     }
