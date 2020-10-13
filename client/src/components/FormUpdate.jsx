@@ -46,7 +46,7 @@ function FormUpdate(props) {
   const [website, setWebsite] = useState('')
   const [teamMembers, setTeamMembers] = useState([])
   const [classMate, setClassMate] = useState([])
-  const [checked, setChecked] = React.useState([1]);
+  const [checked, setChecked] = useState([1]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -60,21 +60,21 @@ function FormUpdate(props) {
     setChecked(newChecked);
   };
 
-console.log(user)
 
+console.log(user)
 
   useEffect(() => {
     async function getData(){
       let result = await actions.getEditProject({projectId: props.match.params.id});
-      console.log(result.data.valueField)
+      console.log(result.data?.valueField)
       setProjectName(result.data?.valueField.projectName)
       setDescription(result.data?.valueField.description)
       setWebsite(result.data?.valueField.website)
       // setTeamMembers(result.data.valueField)
 
-      let result2 = await actions.getStudentList({class: user.class});
-      // setClassMate(result2.data.nameList)
-      console.log(result2)
+      let result2 = await actions.getStudentList({class : user.class})
+      setClassMate(result2.data?.nameList)
+
     }
     getData();
   },[])
@@ -113,23 +113,23 @@ console.log(user)
         <Button size="large" variant="contained" color="secondary" type="submit">Update</Button>
       </form>
       <List dense className={classes.root}>
-      {[0, 1, 2, 3, 4, 5, 6].map((value) => {
-        const labelId = `checkbox-list-secondary-label-${value}`;
+      {classMate.map((eachMate) => {
         return (
-          <ListItem key={value} button>
+          <ListItem key={eachMate._id} button>
             <ListItemAvatar>
               <Avatar
-                alt={`Avatar n°${value + 1}`}
-                src={`/static/images/avatar/${value + 1}.jpg`}
+                alt="classMate"
+                src={eachMate.imageUrl}
               />
             </ListItemAvatar>
-            <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+            {/* primary={`Line item ${value + 1}` */}
+            <ListItemText id={eachMate._id} primary={`${eachMate?.name}`}/ >
             <ListItemSecondaryAction>
               <Checkbox
                 edge="end"
-                onChange={handleToggle(value)}
-                checked={checked.indexOf(value) !== -1}
-                inputProps={{ 'aria-labelledby': labelId }}
+                // onChange={}
+                // checked={}
+                inputProps={ eachMate.name }
               />
             </ListItemSecondaryAction>
           </ListItem>
