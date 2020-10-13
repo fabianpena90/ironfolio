@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import actions from "../api/index";
 import TheContext from "../TheContext";
-import Link from "@material-ui/core/Link"
+import Link from "@material-ui/core/Link";
 
 // Material UI
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -78,37 +78,39 @@ function Profile(props) {
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
   const [editProjects, setEditProjects] = useState([]);
-  console.log(projects)
-  
+  console.log(projects);
+
   useEffect(() => {
     async function getClasses() {
       let res = await actions.getAllClasses();
       setSelectClass(res.data?.selectClass);
-      
+
       let res2 = await actions.getStudentProject();
-      setProjects(res2.data?.allProjects?.projects)
+      setProjects(res2.data?.allProjects?.projects);
     }
     getClasses();
   }, []);
+
+  console.log(selectClass);
   function handleSubmit(e) {
     //e.preventDefault();
     let res = actions.setClass({ assignClass });
   }
   function handleDelete(value) {
-      let res = actions.deleteProject({deleteProject: value})
-      let newProject = [...projects].filter(eachProject =>{
-        return eachProject._id !== value
-      })
-      console.log(res.data, newProject)
+    let res = actions.deleteProject({ deleteProject: value });
+    let newProject = [...projects].filter((eachProject) => {
+      return eachProject._id !== value;
+    });
+    console.log(res.data, newProject);
 
-      setProjects(newProject)
+    setProjects(newProject);
   }
-  
- // console.log(deleteProject);
+
+  // console.log(deleteProject);
   function showClass() {
     return selectClass.map((eachClass) => {
       return (
-        <option>
+        <option value={eachClass._id}>
           {eachClass.location}
           {"-"}
           {eachClass.month}
@@ -140,10 +142,10 @@ function Profile(props) {
             <option aria-label="" value="Test" />
             {showClass()}
           </Select>
-        
-        <Button variant="contained" size="large" type="submit">
-          Submit
-        </Button>
+
+          <Button variant="contained" size="large" type="submit">
+            Submit
+          </Button>
         </FormControl>
       </form>
     );
@@ -173,25 +175,24 @@ function Profile(props) {
                   <StyledTableCell align="right">
                     {row.description}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.website}
-                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.website}</StyledTableCell>
 
                   <StyledTableCell align="right">
-                  <Link href={`/profile/${row._id}`}>
-                    <Button
-                      value={row._id}
-                      variant="contained"
-                      color="primary"
-                      className={classes.button}
-                      startIcon={<EditIcon />}
-                    >
-                      Edit
-                    </Button></Link>
+                    <Link href={`/profile/${row._id}`}>
+                      <Button
+                        value={row._id}
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        startIcon={<EditIcon />}
+                      >
+                        Edit
+                      </Button>
+                    </Link>
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Button
-                      onClick={()=>handleDelete(row._id)}
+                      onClick={() => handleDelete(row._id)}
                       value={row._id}
                       variant="contained"
                       color="secondary"
@@ -202,7 +203,6 @@ function Profile(props) {
                     </Button>
                   </StyledTableCell>
                 </StyledTableRow>
-                
               ))}
             </TableBody>
           </Table>

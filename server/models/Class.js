@@ -6,8 +6,13 @@ const classSchema = new Schema(
     location: String,
     month: String,
     year: String,
-    // studentsID: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    // projectsID: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
+    cohortType: {
+      type: String,
+      enum: ["FT", "PT"],
+      default: "FT",
+    },
+    studentsID: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    projectsID: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
   },
   {
     timestamps: true,

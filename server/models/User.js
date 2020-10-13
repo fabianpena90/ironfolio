@@ -15,7 +15,7 @@ const userSchema = new Schema(
     },
     projects: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
     favorites: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
-    // cohort: [{ type: Schema.Types.ObjectId, ref: "Class" }],
+    cohort: [{ type: Schema.Types.ObjectId, ref: "Class" }],
   },
 
   {
