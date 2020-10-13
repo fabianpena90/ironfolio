@@ -73,7 +73,7 @@ console.log(user)
       // setTeamMembers(result.data.valueField)
 
       let result2 = await actions.getStudentList({class : user.class})
-      setClassMate(result2.data?.nameList)
+      setClassMate(result2?.data?.nameList)
 
     }
     getData();
@@ -88,6 +88,10 @@ console.log(user)
     editProjects();
     history.push('/profile')
     e.preventDefault();
+  }
+
+  const handleSelectTeamMembers = (e) => {
+    console.log(e.target.getAttribute('data'))
   }
 
   return (
@@ -127,8 +131,9 @@ console.log(user)
             <ListItemSecondaryAction>
               <Checkbox
                 edge="end"
-                // onChange={}
-                // checked={}
+                onChange={handleToggle(value)}
+                checked={checked.indexOf(value) !== -1}
+                data={eachMate._id}
                 inputProps={ eachMate.name }
               />
             </ListItemSecondaryAction>
