@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import actions from "../api/index";
 import TheContext from "../TheContext";
 import "./FormUpdate.css";
-
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -16,7 +15,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
-
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -33,11 +31,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
 }));
-
 function FormUpdate(props) {
   const { history, user } = React.useContext(TheContext);
   const classes = useStyles();
-
   const [project, setProject] = useState([]);
   const [projectName, setProjectName] = useState([]);
   const [description, setDescription] = useState([]);
@@ -45,11 +41,9 @@ function FormUpdate(props) {
   const [teamMembers, setTeamMembers] = useState([user._id]);
   const [classMate, setClassMate] = useState([]);
   const [checked, setChecked] = useState([1]);
-
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
-
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
@@ -57,7 +51,6 @@ function FormUpdate(props) {
     }
     setChecked(newChecked);
   };
-
   useEffect(() => {
     async function getData() {
       let result = await actions.getEditProject({
@@ -67,13 +60,11 @@ function FormUpdate(props) {
       setDescription(result.data?.valueField.description);
       setWebsite(result.data?.valueField.website);
       // setTeamMembers(result.data.valueField)
-
       let result2 = await actions.getStudentList({ class: user.class });
       setClassMate(result2?.data?.nameList);
     }
     getData();
   }, []);
-
   async function editProjects() {
     let res2 = await actions.editProject({
       projectId: props.match.params.id,
@@ -84,20 +75,20 @@ function FormUpdate(props) {
     });
     // console.log(res2, "Fabian & Rabiul are the shit!");
   }
-
   const handleSubmit = (e) => {
     editProjects();
     history.push("/profile");
     e.preventDefault();
   };
-
-  const handleChange = (e) => {
-    e.target.checked
-      ? setTeamMembers([...teamMembers, e.target.value])
-      : teamMembers.splice(teamMembers.indexOf(e.target.value), 1);
-  };
-
   console.log(teamMembers);
+  const handleChange = (e) => {
+    setTeamMembers(
+      teamMembers.includes(e.target.value)
+        ? teamMembers.filter((m) => m !== e.target.value)
+        : [...teamMembers, e.target.value]
+    );
+    // (e.target.checked)?setTeamMembers([...teamMembers, e.target.value]):(teamMembers.splice(teamMembers.indexOf(e.target.value),1))
+  };
   const a = [...projectName];
   return (
     <div>
@@ -152,31 +143,42 @@ function FormUpdate(props) {
       </form>
       <List dense className={classes.root}>
         {classMate.map((eachMate) => {
-          return(
-            eachMate._id === user._id ? (
-              <ListItem key={eachMate._id} button>
-                <ListItemAvatar>
-                  <Avatar alt="classMate" src={eachMate.imageUrl} />
-                </ListItemAvatar>
-                <ListItemText primary={`${eachMate?.name}`} />
-                <ListItemSecondaryAction>
-                  <Checkbox
-                    edge="end"
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                    value={`${eachMate._id}`}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            ) : (
-              <>Hello</>
-            );
-          }
-        ))}
+          return eachMate._id === user._id ? (
+            <ListItem key={eachMate._id} button>
+              <ListItemAvatar>
+                <Avatar alt="classMate" src={eachMate.imageUrl} />
+              </ListItemAvatar>
+              <ListItemText primary={`${eachMate?.name}`} />
+              <ListItemSecondaryAction>
+                <Checkbox
+                  edge="end"
+                  // onChange={(e)=>{handleChange(e)}}
+                  // value={`${eachMate._id}`}
+                  checked={true}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          ) : (
+            <ListItem key={eachMate._id} button>
+              <ListItemAvatar>
+                <Avatar alt="classMate" src={eachMate.imageUrl} />
+              </ListItemAvatar>
+              <ListItemText primary={`${eachMate?.name}`} />
+              <ListItemSecondaryAction>
+                <Checkbox
+                  edge="end"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                  value={`${eachMate._id}`}
+                  // checked={true}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })}
       </List>
     </div>
   );
 }
-
 export default FormUpdate;

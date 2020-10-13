@@ -137,13 +137,17 @@ router.post("/newProject", verifyToken, (req, res) => {
 });
 
 router.post("/formUpdate", verifyToken, (req, res) => {
+<<<<<<< HEAD
+=======
+  console.log("From Line 118: ", req.body);
+>>>>>>> eb210ed18566c09988453a5a7bca7b46c55736ab
   jwt.verify(req.token, "secretkey", (err, authData) => {
     console.log("From Line 120: ", req.body);
     if (err) {
       res.status(403).json(err);
     } else {
       //let project = req.body.project;
-      Projects.updateOne(
+      Projects.findByIdAndUpdate(
         { _id: req.body.projectId },
         {
           $set: {
@@ -187,17 +191,13 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      User.find(req.body)
+      Projects.find(req.body)
         .populate("projects")
         .then((allProjects) => {
           console.log(allProjects);
           res.json({ allProjects });
         });
-      // Projects.find()
-      //   .populate("studentsID")
-      //   .then((projects) => {
-      //     res.json({ projects });
-      //   });
+      
     }
   });
 });
