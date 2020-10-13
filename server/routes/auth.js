@@ -149,7 +149,6 @@ router.post("/formUpdate", verifyToken, (req, res) => {
         {
           $set: {
             projectName: req.body.projectName,
-            participants: req.body.participants,
             description: req.body.description,
             website: req.body.website,
           },
