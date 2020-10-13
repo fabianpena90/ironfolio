@@ -156,7 +156,7 @@ router.post("/formUpdate", verifyToken, (req, res) => {
         },
         { multi: true }
       ).then((updated) => {
-        console.log(typeof req.body.teamMembers, "fafafafafafafafafa")
+        console.log(typeof req.body.teamMembers, "Fabian & Rabiul built this with love to all our students")
         req.body.teamMembers.forEach((member) => {
           console.log(member, "line 164")
           User.findByIdAndUpdate(member, {$addToSet:{projects: req.body.projectId}})
