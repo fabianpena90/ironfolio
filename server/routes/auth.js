@@ -239,6 +239,20 @@ router.post("/editProject", verifyToken, (req, res) => {
   });
 });
 
+router.post("/getEditProject", verifyToken, (req, res) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      console.log(req.body, "get that shit!!!!!!!!!!!!!!!!!!1")
+      Projects.findById(req.body.projectId).then((valueField) => {
+        console.log(valueField, "something somethinggggggg")
+        res.json({ valueField });
+      });
+    }
+  });
+});
+
 router.post("/deleteFavorites", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
