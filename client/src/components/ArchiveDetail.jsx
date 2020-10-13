@@ -90,9 +90,9 @@ function ArchiveDetail(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {allProjects.map((row) =>
+            {/* {allProjects.map((row) =>
               row.projects.map((eachRow) =>
-                uniqueProject.includes(eachRow._id) ? null : (
+                 (
                   <StyledTableRow key={eachRow._id}>
                     {uniqueProject.push(eachRow._id)}
                     <StyledTableCell component="th" scope="row">
@@ -140,7 +140,58 @@ function ArchiveDetail(props) {
                   </StyledTableRow>
                 )
               )
-            )}
+            )} */}
+            {allProjects?.map((eachRow) => {
+              console.log(eachRow)
+              return  (
+                <StyledTableRow key={eachRow._id}>
+                    {uniqueProject.push(eachRow._id)}
+                    <StyledTableCell component="th" scope="row">
+                      {eachRow.project}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {eachRow?.studentsID.map((studentName) => {
+                        
+                        return <p>{studentName.name}</p>;
+                      })}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {eachRow.projectName}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {eachRow.description}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      <a
+                        href={eachRow.website}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Website
+                      </a>
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {favorites?.includes(eachRow._id) ? (
+                        <IconButton
+                          onClick={(e) => {
+                            handleDeleteFavorites(e);
+                          }}
+                        >
+                          <Favorite data={eachRow._id} color="secondary" />
+                        </IconButton>
+                      ) : (
+                        <IconButton
+                          onClick={(e) => {
+                            handleAddFavorites(e);
+                          }}
+                        >
+                          <FavoriteBorder data={eachRow._id} />
+                        </IconButton>
+                      )}
+                    </StyledTableCell>
+                  </StyledTableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </TableContainer>

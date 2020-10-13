@@ -103,10 +103,13 @@ function Profile(props) {
 
       setProjects(newProject)
   }
+
+
   
  // console.log(deleteProject);
   function showClass() {
     return selectClass.map((eachClass) => {
+      console.log(eachClass)
       return (
         <option>
           {eachClass.location}
@@ -129,6 +132,7 @@ function Profile(props) {
           <Select
             native
             onChange={(e) => {
+              console.log(e.target.value)
               setAssignClass(e.target.value);
             }}
             label="selectClass"

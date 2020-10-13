@@ -7,7 +7,7 @@ const classSchema = new Schema(
     month: String,
     year: String,
     // studentsID: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    // projectsID: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
+    // classID: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
   },
   {
     timestamps: true,

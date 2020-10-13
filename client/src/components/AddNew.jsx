@@ -14,12 +14,13 @@ import Switch from '@material-ui/core/Switch';
 
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
+    formControl: {
     margin: theme.spacing(5),
     minWidth: 120,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "spaceBetween",
+    alignItems: "center"
   },
   selectEmpty: {
     marginTop: theme.spacing(5)
@@ -92,7 +93,7 @@ const AddNew = () => {
           variant="outlined"
           required="true"
           fullWidth
-          rows={4}
+          rows={8}
         />
         <Button className="btnAdd" size="large" variant="contained" type="submit">Submit</Button>
       </form>

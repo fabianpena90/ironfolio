@@ -13,6 +13,11 @@ const userSchema = new Schema(
       enum: ["student", "admin"],
       default: "student",
     },
+    cohortType: {
+      type: String,
+      enum: ["FT", "PT"],
+      default: "FT",
+    },
     projects: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
     favorites: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
     // cohort: [{ type: Schema.Types.ObjectId, ref: "Class" }],
