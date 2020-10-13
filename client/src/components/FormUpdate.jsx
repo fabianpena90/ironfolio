@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 function FormUpdate(props) {
   console.log(props.match.params.id)
-  const { history } = React.useContext(TheContext);
+  const { history, user } = React.useContext(TheContext);
   const classes = useStyles();
 
   const [project, setProject] = useState([])
@@ -45,6 +45,7 @@ function FormUpdate(props) {
   const [description, setDescription] = useState('')
   const [website, setWebsite] = useState('')
   const [teamMembers, setTeamMembers] = useState([])
+  const [classMate, setClassMate] = useState([])
   const [checked, setChecked] = React.useState([1]);
 
   const handleToggle = (value) => () => {
@@ -59,19 +60,21 @@ function FormUpdate(props) {
     setChecked(newChecked);
   };
 
-
+console.log(user)
 
 
   useEffect(() => {
     async function getData(){
       let result = await actions.getEditProject({projectId: props.match.params.id});
       console.log(result.data.valueField)
-      setProjectName(result.data.valueField.projectName)
-      setDescription(result.data.valueField.description)
-      setWebsite(result.data.valueField.website)
+      setProjectName(result.data?.valueField.projectName)
+      setDescription(result.data?.valueField.description)
+      setWebsite(result.data?.valueField.website)
       // setTeamMembers(result.data.valueField)
 
-      let result2 = await actions.getStudents({})
+      let result2 = await actions.getStudentList({class: user.class});
+      // setClassMate(result2.data.nameList)
+      console.log(result2)
     }
     getData();
   },[])
