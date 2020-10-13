@@ -72,6 +72,8 @@ function ArchiveDetail(props) {
     setFavorites(res.data?.addFavorites.favorites);
   }
 
+  let uniqueProject = [];
+  console.log(uniqueProject);
   return (
     <div className="archiveDetail">
       <h3>Projects</h3>
@@ -89,52 +91,55 @@ function ArchiveDetail(props) {
           </TableHead>
           <TableBody>
             {allProjects.map((row) =>
-              row.projects.map((eachRow) => (
-                <StyledTableRow key={eachRow._id}>
-                  <StyledTableCell component="th" scope="row">
-                    {eachRow.project}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {eachRow?.studentsID.map((studentName) => {
-                      return <p>{studentName.name}</p>;
-                    })}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {eachRow.projectName}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {eachRow.description}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <a
-                      href={eachRow.website}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      Website
-                    </a>
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {favorites?.includes(eachRow._id) ? (
-                      <IconButton
-                        onClick={(e) => {
-                          handleDeleteFavorites(e);
-                        }}
+              row.projects.map((eachRow) =>
+                uniqueProject.includes(eachRow._id) ? null : (
+                  <StyledTableRow key={eachRow._id}>
+                    {uniqueProject.push(eachRow._id)}
+                    <StyledTableCell component="th" scope="row">
+                      {eachRow.project}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {eachRow?.studentsID.map((studentName) => {
+                        return <p>{studentName.name}</p>;
+                      })}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {eachRow.projectName}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {eachRow.description}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      <a
+                        href={eachRow.website}
+                        rel="noopener noreferrer"
+                        target="_blank"
                       >
-                        <Favorite data={eachRow._id} color="secondary" />
-                      </IconButton>
-                    ) : (
-                      <IconButton
-                        onClick={(e) => {
-                          handleAddFavorites(e);
-                        }}
-                      >
-                        <FavoriteBorder data={eachRow._id} />
-                      </IconButton>
-                    )}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))
+                        Website
+                      </a>
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {favorites?.includes(eachRow._id) ? (
+                        <IconButton
+                          onClick={(e) => {
+                            handleDeleteFavorites(e);
+                          }}
+                        >
+                          <Favorite data={eachRow._id} color="secondary" />
+                        </IconButton>
+                      ) : (
+                        <IconButton
+                          onClick={(e) => {
+                            handleAddFavorites(e);
+                          }}
+                        >
+                          <FavoriteBorder data={eachRow._id} />
+                        </IconButton>
+                      )}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                )
+              )
             )}
           </TableBody>
         </Table>
