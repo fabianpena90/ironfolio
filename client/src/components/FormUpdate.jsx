@@ -38,7 +38,7 @@ function FormUpdate(props) {
   const [projectName, setProjectName] = useState([])
   const [description, setDescription] = useState([])
   const [website, setWebsite] = useState([])
-  const [teamMembers, setTeamMembers] = useState([user._id])
+  const [teamMembers, setTeamMembers] = useState([])
   const [classMate, setClassMate] = useState([])
   const [checked, setChecked] = useState([1]);
 

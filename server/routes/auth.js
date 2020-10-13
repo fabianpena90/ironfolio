@@ -156,8 +156,16 @@ router.post("/formUpdate", verifyToken, (req, res) => {
         },
         { multi: true }
       ).then((updated) => {
+        console.log(typeof req.body.teamMembers, "fafafafafafafafafa")
+        req.body.teamMembers.forEach((member) => {
+          console.log(member, "line 164")
+          User.findByIdAndUpdate(member, {$addToSet:{projects: req.body.projectId}})
+        .then((response)=>{
+          console.log(response, "165 Hello from the backend")
+          res.json({ updated });
+        }).catch((err)=>{console.log(err, "If you see this is because the code broke")})
         console.log(updated, "line 159");
-        res.json({ updated });
+      })
       });
     }
   });
