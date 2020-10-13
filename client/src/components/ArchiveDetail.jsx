@@ -1,4 +1,4 @@
-import React,{ useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./ArchiveDetail.css";
 import actions from "../api/index";
 import TheContext from "../TheContext";
@@ -13,13 +13,10 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import IconButton from "@material-ui/core/IconButton";
-import Checkbox from '@material-ui/core/Checkbox';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-
-
+import Checkbox from "@material-ui/core/Checkbox";
+import Favorite from "@material-ui/icons/Favorite";
+import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -45,35 +42,35 @@ const useStyles = makeStyles({
   },
 });
 
-
 function ArchiveDetail(props) {
   const classes = useStyles();
-  const [allProjects, setAllProjects]= useState([])
+  const [allProjects, setAllProjects] = useState([]);
   const { user } = React.useContext(TheContext);
-  const [favorites, setFavorites] = useState([])
-  
-useEffect(() => {
-  async function getProjects() {
-    let res = await actions.getAllClassProjects({class : props.match.params.id})
-    setAllProjects(res.data?.allProjects)
-    setFavorites(user.favorites)
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    async function getProjects() {
+      let res = await actions.getAllClassProjects({
+        class: props.match.params.id,
+      });
+      setAllProjects(res.data?.allProjects);
+      setFavorites(user.favorites);
+    }
+
+    getProjects();
+  }, []);
+  console.log(allProjects);
+  async function handleDeleteFavorites(e) {
+    let targetProject = e.target?.parentElement.getAttribute("data");
+    let res = await actions.deleteFavoritesArchive({ targetProject });
+    setFavorites(res.data?.delFavorites.favorites);
   }
-  getProjects();
-},[])
 
-
-async function handleDeleteFavorites(e){
-  let targetProject = e.target?.parentElement.getAttribute('data')
-  let res = await actions.deleteFavoritesArchive({targetProject})
-  setFavorites(res.data?.delFavorites.favorites)
-}
-
-async function handleAddFavorites(e){
-  let targetProject =e.target?.getAttribute('data')
- let res = await actions.addFavorites({targetProject})
- setFavorites(res.data?.addFavorites.favorites)
-}
-
+  async function handleAddFavorites(e) {
+    let targetProject = e.target?.getAttribute("data");
+    let res = await actions.addFavorites({ targetProject });
+    setFavorites(res.data?.addFavorites.favorites);
+  }
 
   return (
     <div className="archiveDetail">
@@ -91,36 +88,54 @@ async function handleAddFavorites(e){
             </TableRow>
           </TableHead>
           <TableBody>
-            {allProjects.map((row) => (
-              row.projects.map((eachRow)=>(
+            {allProjects.map((row) =>
+              row.projects.map((eachRow) => (
                 <StyledTableRow key={eachRow._id}>
-                <StyledTableCell component="th" scope="row">
-                  {eachRow.project}
-                </StyledTableCell>
-
-                <StyledTableCell component="th" scope="row">
-                  {row.name}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {eachRow.projectName}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {eachRow.description}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <a href={eachRow.website} rel="noopener noreferrer" target="_blank">Website</a>
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                {favorites?.includes(eachRow._id)?
-                <IconButton onClick={(e)=>{handleDeleteFavorites(e)}}><Favorite data={eachRow._id} color="secondary" /></IconButton>
-                :
-                <IconButton onClick={(e)=>{handleAddFavorites(e)}}><FavoriteBorder data={eachRow._id} /></IconButton>}
-                
-        </StyledTableCell>
-              </StyledTableRow>
+                  <StyledTableCell component="th" scope="row">
+                    {eachRow.project}
+                  </StyledTableCell>
+                  <StyledTableCell component="th" scope="row">
+                    {eachRow?.studentsID.map((studentName) => {
+                      return <p>{row.name}</p>;
+                    })}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {eachRow.projectName}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {eachRow.description}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <a
+                      href={eachRow.website}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Website
+                    </a>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {favorites?.includes(eachRow._id) ? (
+                      <IconButton
+                        onClick={(e) => {
+                          handleDeleteFavorites(e);
+                        }}
+                      >
+                        <Favorite data={eachRow._id} color="secondary" />
+                      </IconButton>
+                    ) : (
+                      <IconButton
+                        onClick={(e) => {
+                          handleAddFavorites(e);
+                        }}
+                      >
+                        <FavoriteBorder data={eachRow._id} />
+                      </IconButton>
+                    )}
+                  </StyledTableCell>
+                </StyledTableRow>
               ))
-              
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
