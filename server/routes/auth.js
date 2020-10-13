@@ -201,7 +201,7 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      Projects.find(req.body)
+      User.find(req.body)
         .populate("projects")
         .then((allProjects) => {
           console.log(allProjects);
