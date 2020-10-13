@@ -91,7 +91,6 @@ function Profile(props) {
     getClasses();
   }, []);
   function handleSubmit(e) {
-    //e.preventDefault();
     let res = actions.setClass({ assignClass });
   }
   function handleDelete(value) {
@@ -105,8 +104,6 @@ function Profile(props) {
   }
 
 
-  
- // console.log(deleteProject);
   function showClass() {
     return selectClass.map((eachClass) => {
       console.log(eachClass)
@@ -155,7 +152,7 @@ function Profile(props) {
   // getClasses();
   else {
     return (
-      <div>
+      <div className="projects">
         <h1>My Projects</h1>
         <TableContainer component={Paper}>
           <Table id="tableProfile" className={classes.table} aria-label="customized table">

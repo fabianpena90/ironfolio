@@ -51,6 +51,7 @@ function App() {
     </div>
   ) : (
     <div>
+    {/* <img className="mainPic" src="img/projects.jpg" /> */}
       {/* {console.log(user)} */}
       <TheContext.Provider value={{ history, user, setUser }}>
         <Header />
