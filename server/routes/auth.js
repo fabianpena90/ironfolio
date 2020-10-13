@@ -139,7 +139,7 @@ router.post("/newProject", verifyToken, (req, res) => {
 router.post("/formUpdate", verifyToken, (req, res) => {
   console.log("From Line 118: ", req.body);
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    // console.log("From Line 120: ", authData.user);
+    console.log("From Line 120: ", req.body);
     if (err) {
       res.status(403).json(err);
     } else {
@@ -156,16 +156,21 @@ router.post("/formUpdate", verifyToken, (req, res) => {
         },
         { multi: true }
       ).then((updated) => {
-        console.log(typeof req.body.teamMembers, "Fabian & Rabiul built this with love to all our students")
+        console.log(typeof req.body.teamMembers, "Hi, calll us if you need help :D");
         req.body.teamMembers.forEach((member) => {
-          console.log(member, "line 164")
-          User.findByIdAndUpdate(member, {$addToSet:{projects: req.body.projectId}})
-        .then((response)=>{
-          console.log(response, "165 Hello from the backend")
-          res.json({ updated });
-        }).catch((err)=>{console.log(err, "If you see this is because the code broke")})
-        console.log(updated, "line 159");
-      })
+          console.log(member, "line 164");
+          User.findByIdAndUpdate(member, {
+            $addToSet: { projects: req.body.projectId },
+          })
+            .then((response) => {
+              console.log(response, "165 Hello from the backend");
+              res.json({ updated });
+            })
+            .catch((err) => {
+              console.log(err, "If you see this is because the code broke");
+            });
+          console.log(updated, "line 159");
+        });
       });
     }
   });
@@ -202,7 +207,6 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
           console.log(allProjects);
           res.json({ allProjects });
         });
-      
     }
   });
 });
