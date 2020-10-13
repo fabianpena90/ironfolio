@@ -69,7 +69,6 @@ const actions = {
     return await API.post("/deleteProject", data, resetHead());
   },
   getAllClassProjects: async (data) => {
-    console.log(data);
     return await API.post("/getAllClassProjects", data, resetHead());
   },
   deleteFavorites: async (data) => {
@@ -84,15 +83,6 @@ const actions = {
   getAllFavoriteProjects: async (data) => {
     return await API.post("/getAllFavoriteProjects", data, resetHead());
   },
-
-  // AddTheMovie: async (data) => {
-  //   console.log(data)
-  //   return await API.post("/AddTheMovieToTheDatabase", data, resetHead());
-  // },
-  // getProfileMovies: async () => {
-  //   console.log('test test')
-  //   return await API.get("/getMyMovies")
-  // }
 };
 
 API.interceptors.response.use(
