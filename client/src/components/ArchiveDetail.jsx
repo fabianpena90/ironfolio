@@ -96,7 +96,7 @@ function ArchiveDetail(props) {
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row">
                     {eachRow?.studentsID.map((studentName) => {
-                      return <p>{row.name}</p>;
+                      return <p>{studentName.name}</p>;
                     })}
                   </StyledTableCell>
                   <StyledTableCell align="right">

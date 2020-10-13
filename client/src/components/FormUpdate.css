@@ -1,4 +1,23 @@
-.editHeader{
+.formUpdate {
+  /* text-align: center; */
+  width: 100%;
+  margin-right: 500px;
+}
+
+.editHeader {
   text-align: center;
 }
 
+#studentName {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+h3 {
+  text-align: center;
+}
+
+.btnUpdate {
+  margin-top: 20px !important;
+}

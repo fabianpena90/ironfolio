@@ -151,10 +151,10 @@ function Profile(props) {
   // getClasses();
   else {
     return (
-      <div className="archiveDetail">
+      <div>
         <h1>My Projects</h1>
         <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
+          <Table id="tableProfile" className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>Project Name</StyledTableCell>

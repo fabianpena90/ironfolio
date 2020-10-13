@@ -91,7 +91,7 @@ function FormUpdate(props) {
   };
   const a = [...projectName];
   return (
-    <div>
+    <div className="formUpdate">
       <div>
         <h1 className="editHeader">Edit Projects</h1>
       </div>
@@ -133,6 +133,7 @@ function FormUpdate(props) {
           placeholder={description}
         />
         <Button
+        className="btnUpdate"
           size="large"
           variant="contained"
           color="secondary"
@@ -141,7 +142,8 @@ function FormUpdate(props) {
           Update
         </Button>
       </form>
-      <List dense className={classes.root}>
+      <List id="studentName" dense className={classes.root}>
+      <h3>Select Student</h3>
         {classMate.map((eachMate) => {
           return eachMate._id === user._id ? (
             <ListItem key={eachMate._id} button>
