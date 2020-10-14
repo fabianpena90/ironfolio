@@ -85,32 +85,20 @@ router.get("/getAllClasses", (req, res) => {
   });
 });
 
-// router.post("/createClass", verifyToken, (req, res) => {
-//   jwt.verify(req.token, "secretkey", (err, authData) => {
-//     if (err) {
-//       res.status(403).json(err);
-//     } else {
-//       // console.log(req.body, "testing purpose");
-//       let newClass = new Class(req.body.classType)
-//       console.log(newClass, "learnig ")
-//       // let project = new Projects(req.body);
-//       // //project.class = authData.user.class;
-//       // project.studentsID = authData.user._id;
-//       // project.save().then((newProject) => {
-//       //   User.findByIdAndUpdate(
-//       //     authData.user._id,
-//       //     {
-//       //       $push: { projects: newProject._id },
-//       //     },
-//       //     { new: true }
-//       //   ).then((project) => {
-//       //     console.log(project, "Fabian & Rabiul are the shit");
-//       //     res.json({ project });
-//       //   });
-//       // });
-//     }
-//   });
-// });
+router.post("/createClass", verifyToken, (req, res) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      // console.log(req.body, "testing purpose");
+      let newClass = new Classes(req.body)
+      newClass.save().then((classCohort) => {
+        console.log(classCohort)
+        res.json({classCohort})
+      })
+    }
+  });
+});
 
 router.post("/addClass", verifyToken, (req, res) => {
   // console.log("From Line 95: ", req.body);
