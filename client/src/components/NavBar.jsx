@@ -1,4 +1,6 @@
 import React from "react";
+import { MemoryRouter as Router } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 import "./NavBar.css";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
@@ -45,6 +47,7 @@ const NavBar = (props) => {
   return (
     // <Container maxWidth="xl">
     <div>
+      <Router>
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList className="navbarContainer">
@@ -106,6 +109,7 @@ const NavBar = (props) => {
           </MenuList>
         </Paper>
       </div>
+      </Router>
     </div>
     // </Container>
   );
