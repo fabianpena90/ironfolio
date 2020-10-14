@@ -23,10 +23,10 @@ function Header(props) {
   return (
       <div className="navTopBarContainer">
         <div className="logo">
-            <h1>Ironfolio</h1>
+            <h1 className="headerText">Ironfolio</h1>
         </div>
         <div className={classes.root}>
-          <h3>{user?.name}</h3>
+          <h3 className="headerText">{user?.name}</h3>
           <Avatar src={user?.imageUrl} />
         </div>
       </div>

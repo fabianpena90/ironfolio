@@ -130,7 +130,7 @@ router.post("/newProject", verifyToken, (req, res) => {
           },
           { new: true }
         ).then((project) => {
-          // console.log("Fabian & Rabiul are the shit");
+          console.log(project, "Fabian & Rabiul are the shit");
           res.json({ project });
         });
       });

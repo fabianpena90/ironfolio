@@ -6,7 +6,7 @@ function Footer(props) {
   return (
     <div>
       <footer>
-        <p>Copyright © {year}</p>
+        <p>Happy Coding ♥️ </p>
       </footer>
     </div>
   );

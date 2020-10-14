@@ -52,6 +52,7 @@ function ArchiveDetail(props) {
     }
     getProjects();
   }, []);
+
   console.log(allProjects);
   async function handleDeleteFavorites(e) {
     let targetProject = e.target?.parentElement.getAttribute("data");
@@ -65,7 +66,7 @@ function ArchiveDetail(props) {
   }
   return (
     <div className="archiveDetail">
-      <h3>Projects</h3>
+      <h2>Projects</h2>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddNew = () => {
   const classes = useStyles();
+<<<<<<< HEAD
   const { user, history } = React.useContext(TheContext);
   const [project, setProject] = useState();
   const [projectName, setProjectName] = useState();
@@ -42,13 +43,28 @@ const AddNew = () => {
       description,
       website,
     });
+=======
+  const { history, user } = React.useContext(TheContext);
+  const [project, setProject] = useState()
+  const [projectName, setProjectName] = useState()
+  const [description, setDescription] = useState()
+  const [website, setWebsite] = useState()
+  
+
+  async function addProjects() {
+    let res = await actions.addProject({class: user.class, project, projectName, description, website});
+>>>>>>> cd81f519824269b1dc83b9b9e6c6e6f661f5d09b
     console.log(res, "Fabian & Rabiul are the shit!");
   }
 
   console.log(user);
   const handleSubmit = (e) => {
     addProjects();
+<<<<<<< HEAD
     history.push("/");
+=======
+    history.push('/')
+>>>>>>> cd81f519824269b1dc83b9b9e6c6e6f661f5d09b
     //e.preventDefault();
   };
 
