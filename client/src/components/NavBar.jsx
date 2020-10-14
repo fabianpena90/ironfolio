@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     height: "80vh",
+    position: "sticky"
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -39,7 +40,7 @@ const NavBar = (props) => {
   // console.log(user)
   const logOut = async () => {
     let res = await actions.logOut();
-    window.confirm("Are you sure you want to log out?");
+    // window.confirm("Are you sure you want to log out?");
     props.setUser(null);
     props.history.push("/");
   };

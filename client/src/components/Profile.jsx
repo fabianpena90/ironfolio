@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     padding: 0,
     position: "absolute",
-    top: 20,
+    top: 10,
     width: 1,
   },
   head: {
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
   },
   body: {
-    fontSize: 14,
+    fontSize: 12,
   },
   formControl: {
     margin: theme.spacing(1),
@@ -156,7 +156,7 @@ function Profile(props) {
     );
   } else {
     return (
-      <div className="projects">
+      <div id="projects">
         <h2>My Projects</h2>
         <TableContainer component={Paper}>
           <Table
@@ -166,11 +166,11 @@ function Profile(props) {
           >
             <TableHead>
               <TableRow>
-                <StyledTableCell>Project Name</StyledTableCell>
-                <StyledTableCell>Description</StyledTableCell>
+                <StyledTableCell align="center">Project Name</StyledTableCell>
+                <StyledTableCell align="center">Description</StyledTableCell>
                 <StyledTableCell>Website / URL</StyledTableCell>
-                <StyledTableCell align="right">Edit</StyledTableCell>
-                <StyledTableCell align="right">Delete</StyledTableCell>
+                <StyledTableCell align="center" >Edit</StyledTableCell>
+                <StyledTableCell align="center" >Delete</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -179,13 +179,13 @@ function Profile(props) {
                   <StyledTableCell component="th" scope="row">
                     {row.projectName}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="justify">
                     {row.description}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                  <Link href={row.website} rel="noopener noreferrer" target="_blank">Demo</Link>
+                  <StyledTableCell align="left">
+                  <Link href={row.website} rel="noopener noreferrer" target="_blank">Website</Link>
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     <Link component={RouterLink} to={`/editProject/${row._id}`}>
                       <Button
                         value={row._id}
@@ -198,7 +198,7 @@ function Profile(props) {
                       </Button>
                     </Link>
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     <Button
                       onClick={() => handleDelete(row._id)}
                       value={row._id}
