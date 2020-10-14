@@ -44,6 +44,10 @@ const actions = {
     window.localStorage.removeItem("token");
     return await API.get("/logout", resetHead());
   },
+  createClass: async (data) => {
+    return await API.post("/createClass", data, resetHead());
+  },
+
   getAllClasses: async () => {
     return await API.get("/getAllClasses");
   },

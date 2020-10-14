@@ -47,7 +47,7 @@ const headCells = [
     id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Web Dev Classes"
+    label: "Web Dev Classes",
   },
 ];
 
@@ -132,10 +132,20 @@ function Archive() {
     getClasses();
   }, []);
 
-  let copyAllClasses = [...allClass]
-  copyAllClasses.map((eachClass)=>{
-    rows.push(createData(`${eachClass.location}`+"-"+`${eachClass.month}`+"-"+`${eachClass.year}` + "-"+`${eachClass.classType}`))
-  })
+  let copyAllClasses = [...allClass];
+  copyAllClasses.map((eachClass) => {
+    rows.push(
+      createData(
+        `${eachClass.location}` +
+          "-" +
+          `${eachClass.month}` +
+          "-" +
+          `${eachClass.year}` +
+          "-" +
+          `${eachClass.classType}`
+      )
+    );
+  });
   function createData(name) {
     return { name };
   }

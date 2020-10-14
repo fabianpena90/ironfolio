@@ -85,11 +85,31 @@ router.get("/getAllClasses", (req, res) => {
   });
 });
 
-// router.get("/getStudentProjects", (req, res) => {
-//   User.findById(req.query.MovieIdFromClient).then((oneMovie) => {
-//     res.json({ oneMovie });
+// router.post("/createClass", verifyToken, (req, res) => {
+//   jwt.verify(req.token, "secretkey", (err, authData) => {
+//     if (err) {
+//       res.status(403).json(err);
+//     } else {
+//       // console.log(req.body, "testing purpose");
+//       let newClass = new Class(req.body.classType)
+//       console.log(newClass, "learnig ")
+//       // let project = new Projects(req.body);
+//       // //project.class = authData.user.class;
+//       // project.studentsID = authData.user._id;
+//       // project.save().then((newProject) => {
+//       //   User.findByIdAndUpdate(
+//       //     authData.user._id,
+//       //     {
+//       //       $push: { projects: newProject._id },
+//       //     },
+//       //     { new: true }
+//       //   ).then((project) => {
+//       //     console.log(project, "Fabian & Rabiul are the shit");
+//       //     res.json({ project });
+//       //   });
+//       // });
+//     }
 //   });
-//   console.log(req.query.MovieIdFromClient);
 // });
 
 router.post("/addClass", verifyToken, (req, res) => {
@@ -118,7 +138,7 @@ router.post("/newProject", verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       //let project = req.body.project;
-      console.log(authData.user, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      // console.log(authData.user, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
       let project = new Projects(req.body);
       //project.class = authData.user.class;
       project.studentsID = authData.user._id;
@@ -130,7 +150,7 @@ router.post("/newProject", verifyToken, (req, res) => {
           },
           { new: true }
         ).then((project) => {
-          console.log(project, "Fabian & Rabiul are the shit");
+          // console.log(project, "Fabian & Rabiul are the shit");
           res.json({ project });
         });
       });
