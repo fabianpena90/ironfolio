@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./Archive.css";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,9 +15,6 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import TheContext from "../TheContext";
 import actions from "../api/index";
-
-
-
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -135,14 +132,31 @@ function Archive() {
     getClasses();
   }, []);
 
+<<<<<<< HEAD
+  let copyAllClasses = [...allClass];
+  copyAllClasses.map((eachClass) => {
+    rows.push(
+      createData(
+        `${eachClass.location}` +
+          "-" +
+          `${eachClass.month}` +
+          "-" +
+          `${eachClass.year}` +
+          "-" +
+          `${eachClass.classType}`
+      )
+    );
+  });
+=======
   let copyAllClasses = [...allClass]
   copyAllClasses.map((eachClass)=>{
     rows.push(createData(`${eachClass.location}`+"-"+`${eachClass.month}`+"-"+`${eachClass.year}` + "-"+`${eachClass.classType}`))
   })
+>>>>>>> cd81f519824269b1dc83b9b9e6c6e6f661f5d09b
   function createData(name) {
     return { name };
   }
-  
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -202,7 +216,12 @@ function Archive() {
                       return (
                         <TableRow>
                           <TableCell component="th" scope="row" padding="20px">
-                            <Link className="listItem" href={`/archive/${row.name}`}>{row.name}</Link>
+                            <Link
+                              className="listItem"
+                              href={`/archive/${row.name}`}
+                            >
+                              {row.name}
+                            </Link>
                           </TableCell>
                         </TableRow>
                       );

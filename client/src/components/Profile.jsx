@@ -91,7 +91,11 @@ function Profile(props) {
     getClasses();
   }, []);
 
+<<<<<<< HEAD
+  console.log(props);
+=======
   console.log(selectClass);
+>>>>>>> cd81f519824269b1dc83b9b9e6c6e6f661f5d09b
   function handleSubmit(e) {
     let res = actions.setClass({ assignClass });
   }
@@ -123,7 +127,7 @@ function Profile(props) {
       );
     });
   }
-  
+
   if (props.user.class === "Test") {
     return (
       <form onSubmit={handleSubmit}>

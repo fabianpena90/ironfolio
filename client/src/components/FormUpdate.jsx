@@ -75,6 +75,7 @@ function FormUpdate(props) {
     });
     // console.log(res2, "Fabian & Rabiul are the shit!");
   }
+
   const handleSubmit = (e) => {
     editProjects();
     history.push("/");
@@ -135,7 +136,7 @@ function FormUpdate(props) {
           placeholder={description}
         />
         <Button
-        className="btnUpdate"
+          className="btnUpdate"
           size="large"
           variant="contained"
           color="secondary"
@@ -145,7 +146,7 @@ function FormUpdate(props) {
         </Button>
       </form>
       <List id="studentName" dense className={classes.root}>
-      <h3>Select Student</h3>
+        <h3>Select Student</h3>
         {classMate.map((eachMate) => {
           return eachMate._id === user._id ? (
             <ListItem key={eachMate._id} button>
