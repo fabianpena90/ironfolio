@@ -6,7 +6,7 @@
 .archiveTableHead {
   padding: 20px;
   text-align: center;
-  background-color:  #1E2434;
+  background-color:  gray;
   
 }
 .MuiTableSortLabel-root {
@@ -17,9 +17,4 @@
 }
 .MuiTableCell-paddingNone:last-child {
   padding: 20px !important;
-}
-
-.MuiButtonBase-root MuiTableSortLabel-root {
-  color: #eeeeee !important;
-
 }

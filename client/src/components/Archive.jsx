@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   },
   head: {
     backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    color: "#eeeeee",
   },
   body: {
     fontSize: 14,
@@ -132,27 +132,10 @@ function Archive() {
     getClasses();
   }, []);
 
-<<<<<<< HEAD
-  let copyAllClasses = [...allClass];
-  copyAllClasses.map((eachClass) => {
-    rows.push(
-      createData(
-        `${eachClass.location}` +
-          "-" +
-          `${eachClass.month}` +
-          "-" +
-          `${eachClass.year}` +
-          "-" +
-          `${eachClass.classType}`
-      )
-    );
-  });
-=======
   let copyAllClasses = [...allClass]
   copyAllClasses.map((eachClass)=>{
     rows.push(createData(`${eachClass.location}`+"-"+`${eachClass.month}`+"-"+`${eachClass.year}` + "-"+`${eachClass.classType}`))
   })
->>>>>>> cd81f519824269b1dc83b9b9e6c6e6f661f5d09b
   function createData(name) {
     return { name };
   }
