@@ -47,7 +47,7 @@ const headCells = [
     id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Web Dev Classes",
+    label: "Web Dev Classes"
   },
 ];
 
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   },
   head: {
     backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    color: "#eeeeee",
   },
   body: {
     fontSize: 14,
@@ -132,6 +132,7 @@ function Archive() {
     getClasses();
   }, []);
 
+<<<<<<< HEAD
   let copyAllClasses = [...allClass];
   copyAllClasses.map((eachClass) => {
     rows.push(
@@ -146,6 +147,12 @@ function Archive() {
       )
     );
   });
+=======
+  let copyAllClasses = [...allClass]
+  copyAllClasses.map((eachClass)=>{
+    rows.push(createData(`${eachClass.location}`+"-"+`${eachClass.month}`+"-"+`${eachClass.year}` + "-"+`${eachClass.classType}`))
+  })
+>>>>>>> 0f878637dca8e5e3cd8ba37a0d763873acc85dec
   function createData(name) {
     return { name };
   }
