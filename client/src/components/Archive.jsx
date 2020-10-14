@@ -132,27 +132,10 @@ function Archive() {
     getClasses();
   }, []);
 
-<<<<<<< HEAD
-  let copyAllClasses = [...allClass];
-  copyAllClasses.map((eachClass) => {
-    rows.push(
-      createData(
-        `${eachClass.location}` +
-          "-" +
-          `${eachClass.month}` +
-          "-" +
-          `${eachClass.year}` +
-          "-" +
-          `${eachClass.classType}`
-      )
-    );
-  });
-=======
   let copyAllClasses = [...allClass]
   copyAllClasses.map((eachClass)=>{
     rows.push(createData(`${eachClass.location}`+"-"+`${eachClass.month}`+"-"+`${eachClass.year}` + "-"+`${eachClass.classType}`))
   })
->>>>>>> 0f878637dca8e5e3cd8ba37a0d763873acc85dec
   function createData(name) {
     return { name };
   }

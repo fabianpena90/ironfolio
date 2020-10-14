@@ -15,6 +15,10 @@ import ContactSupportRoundedIcon from "@material-ui/icons/ContactSupportRounded"
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import Link from "@material-ui/core/Link";
 import actions from "../api/index";
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+
+// Import Components
+import TheContext from "../TheContext"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
   const classes = useStyles();
-
+  const { user } = React.useContext(TheContext);
+  // console.log(user)
   const logOut = async () => {
     let res = await actions.logOut();
     window.confirm('Are you sure you want to log out?')
@@ -50,10 +55,21 @@ const NavBar = (props) => {
               </MenuItem>
             </Link>
             <Divider />
+            {user.userType === "admin" ? (
+              
+            <Link href="/addNewClass" className="navBarLinks">
+              <MenuItem>
+                <GroupAddIcon className="menuIcon" />
+                Add New Class
+              </MenuItem>
+            </Link>
+            ) : null}; 
+            <Divider />
+            <Divider />
             <Link href="/newproject" className="navBarLinks">
               <MenuItem>
                 <AddBoxIcon className="menuIcon" />
-                Add new project
+                Add New Project
               </MenuItem>
             </Link>
             <Divider />
