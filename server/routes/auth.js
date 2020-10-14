@@ -118,8 +118,9 @@ router.post("/newProject", verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       //let project = req.body.project;
+      console.log(authData.user, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
       let project = new Projects(req.body);
-      project.class = authData.user.class
+      //project.class = authData.user.class;
       project.studentsID = authData.user._id;
       project.save().then((newProject) => {
         User.findByIdAndUpdate(
@@ -205,12 +206,13 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      console.log(req.body)
-      Projects.find({class: req.body.class})
-      .populate("studentsID")
-      .then((allProjects) => {
-        res.json({allProjects})
-      })
+      // console.log(req.body);
+      Projects.find({ class: req.body.class })
+        .populate("studentsID")
+        .then((allProjects) => {
+          // console.log(allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
+          res.json({ allProjects });
+        });
       // User.find(req.body)
       //   // .populate("projects")
       //   .populate({ path: "projects", populate: { path: "studentsID" } })

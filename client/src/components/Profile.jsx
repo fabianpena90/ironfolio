@@ -78,12 +78,12 @@ function Profile(props) {
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
   const [editProjects, setEditProjects] = useState([]);
-  console.log(projects);
 
   useEffect(() => {
     async function getClasses() {
       let res = await actions.getAllClasses();
-      setSelectClass(res.data?.selectClass);
+      setSelectClass(res?.data?.selectClass);
+      console.log(res.data);
 
       let res2 = await actions.getStudentProject();
       setProjects(res2.data?.allProjects?.projects);
@@ -91,9 +91,8 @@ function Profile(props) {
     getClasses();
   }, []);
 
-  console.log(selectClass);
+  console.log(props);
   function handleSubmit(e) {
-    //e.preventDefault();
     let res = actions.setClass({ assignClass });
   }
   function handleDelete(value) {
@@ -108,15 +107,18 @@ function Profile(props) {
 
   // console.log(deleteProject);
   function showClass() {
-    return selectClass.map((eachClass) => {
+    return selectClass?.map((eachClass) => {
       console.log(eachClass);
+
       return (
-        <option value={eachClass._id}>
+        <option>
           {eachClass.location}
           {"-"}
           {eachClass.month}
           {"-"}
           {eachClass.year}
+          {"-"}
+          {eachClass.classType}
         </option>
       );
     });
@@ -155,7 +157,7 @@ function Profile(props) {
   // getClasses();
   else {
     return (
-      <div>
+      <div className="projects">
         <h1>My Projects</h1>
         <TableContainer component={Paper}>
           <Table
@@ -184,7 +186,7 @@ function Profile(props) {
                   <StyledTableCell align="right">{row.website}</StyledTableCell>
 
                   <StyledTableCell align="right">
-                    <Link href={`/profile/${row._id}`}>
+                    <Link href={`/editProject/${row._id}`}>
                       <Button
                         value={row._id}
                         variant="contained"

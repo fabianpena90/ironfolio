@@ -75,9 +75,10 @@ function FormUpdate(props) {
     });
     // console.log(res2, "Fabian & Rabiul are the shit!");
   }
+
   const handleSubmit = (e) => {
     editProjects();
-    history.push("/profile");
+    history.push("/");
     e.preventDefault();
   };
   console.log(teamMembers);
@@ -107,7 +108,8 @@ function FormUpdate(props) {
             onChange={(e) => setProjectName(e.target.value)}
             id="outlined-basic"
             name="projectName"
-            label={a.join("")}
+            label="Project Name"
+            placeholder={a.join("")}
             variant="outlined"
           />
           <TextField
@@ -116,7 +118,8 @@ function FormUpdate(props) {
             onChange={(e) => setWebsite(e.target.value)}
             id="outlined-basic"
             name="website"
-            label={website}
+            label="Website"
+            placeholder={website}
             variant="outlined"
           />
         </FormControl>
@@ -133,7 +136,7 @@ function FormUpdate(props) {
           placeholder={description}
         />
         <Button
-        className="btnUpdate"
+          className="btnUpdate"
           size="large"
           variant="contained"
           color="secondary"
@@ -143,7 +146,7 @@ function FormUpdate(props) {
         </Button>
       </form>
       <List id="studentName" dense className={classes.root}>
-      <h3>Select Student</h3>
+        <h3>Select Student</h3>
         {classMate.map((eachMate) => {
           return eachMate._id === user._id ? (
             <ListItem key={eachMate._id} button>
