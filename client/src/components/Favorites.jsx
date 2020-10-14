@@ -46,17 +46,21 @@ function Favorites(props) {
 
   useEffect(() => {
     async function getFavoriteProjects() {
-      let res = await actions.getAllFavoriteProjects({
-        favorites: user.favorites,
-      });
-      setFavorites(res?.data?.allProjects);
-      console.log(res.data);
+      // let res = await actions.getAllFavoriteProjects({
+      //   favorites: user.favorites,
+      // });
+      //let res = props.getUser()
+      let user = await actions.getUser();
+      console.log(user.data.favorites);
+      console.log(98989)
+      setFavorites(user?.data?.favorites);
+     
     }
     getFavoriteProjects();
   }, []);
 
-  async function handleDeleteFavorites(e) {
-    let targetProject = e.target?.parentElement.getAttribute("data");
+  async function handleDeleteFavorites(targetProject) {
+    //let targetProject = e.target?.parentElement.getAttribute("data");
     console.log(targetProject);
     //debugger
     let res = await actions.deleteFavorites({ targetProject });
@@ -106,7 +110,7 @@ function Favorites(props) {
                 <StyledTableCell align="right">
                   <IconButton
                     onClick={(e) => {
-                      handleDeleteFavorites(e);
+                      handleDeleteFavorites(row?._id);
                     }}
                   >
                     <Favorite data={row?._id} color="secondary" />

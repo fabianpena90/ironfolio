@@ -86,7 +86,7 @@ function App() {
                 path="/archive/:id"
                 render={(props) => <ArchiveDetail {...props} />}
               />
-              <Route exact path="/favorites" render={() => <Favorites />} />
+              <Route exact path="/favorites" render={(props) => <Favorites {...props}/>} />
             </Switch>
           </div>
         </div>
