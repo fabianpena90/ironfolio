@@ -1,5 +1,5 @@
 {
-  "name": "ironfolio",
+  "name": "final-project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,13 @@
     "start": "echo --- start --- && cd backend && npm start"
   },
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "git+https://github.com/fabianpena90/ironfolio.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fabianpena90/ironfolio/issues"
+  },
+  "homepage": "https://github.com/fabianpena90/ironfolio#readme"
 }
