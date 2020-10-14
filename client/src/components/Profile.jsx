@@ -91,11 +91,7 @@ function Profile(props) {
     getClasses();
   }, []);
 
-<<<<<<< HEAD
   //console.log(props);
-=======
-  console.log(selectClass);
->>>>>>> 0f878637dca8e5e3cd8ba37a0d763873acc85dec
   function handleSubmit(e) {
     let res = actions.setClass({ assignClass });
   }
