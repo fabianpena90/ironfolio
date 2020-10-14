@@ -49,7 +49,7 @@ function Favorites(props) {
       let res = await actions.getAllFavoriteProjects({
         favorites: user.favorites,
       });
-      setFavorites(res?.data.allProjects);
+      setFavorites(res?.data?.allProjects);
       console.log(res.data);
     }
     getFavoriteProjects();
@@ -68,7 +68,7 @@ function Favorites(props) {
   console.log(favorites);
   return (
     <div className="archiveDetail">
-      <h3>Your Favorites</h3>
+      <h2>Your Favorites</h2>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

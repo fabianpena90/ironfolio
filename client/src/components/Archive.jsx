@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Archive.css";
-import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -211,6 +211,7 @@ function Archive() {
                         <TableRow>
                           <TableCell component="th" scope="row" padding="20px">
                             <Link
+                              component={RouterLink}
                               className="listItem"
                               component={RouterLink}
                               to={`/archive/${row.name}`}
