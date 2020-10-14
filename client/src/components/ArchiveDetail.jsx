@@ -57,18 +57,24 @@ function ArchiveDetail(props) {
     getProjects();
   }, []);
 
-  console.log(allProjects.website);
-  async function handleDeleteFavorites(e) {
-    let targetProject = e.target?.parentElement.getAttribute("data");
+  console.log(allProjects);
+  async function handleDeleteFavorites(targetProject) {
+    // let targetProject = e.target?.parentElement.getAttribute("data");
+    // console.log(targetProject)
+    console.log(targetProject)
+
     let res = await actions.deleteFavoritesArchive({ targetProject });
     setFavorites(res.data?.delFavorites.favorites);
   }
-  async function handleAddFavorites(e) {
-    let targetProject = e.target?.getAttribute("data");
+  async function handleAddFavorites(targetProject) {
+    console.log(targetProject)
+    // let targetProject = e.target?.getAttribute("data");
+    // console.log(targetProject)
     let res = await actions.addFavorites({ targetProject });
     setFavorites(res.data?.addFavorites.favorites);
   }
 
+  console.log(favorites)
   return (
     <div className="archiveDetail">
       <h2>Projects</h2>
@@ -93,6 +99,7 @@ function ArchiveDetail(props) {
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row">
                     {eachRow?.studentsID.map((studentName) => {
+                      console.log(studentName)
                       return <p>{studentName.name}</p>;
                     })}
                   </StyledTableCell>
@@ -108,10 +115,11 @@ function ArchiveDetail(props) {
                     </Link>
                   </StyledTableCell>
                   <StyledTableCell align="justify">
+                  Hello
                     {favorites?.includes(eachRow._id) ? (
                       <IconButton
                         onClick={(e) => {
-                          handleDeleteFavorites(e);
+                          handleDeleteFavorites(eachRow._id);
                         }}
                       >
                         <Favorite data={eachRow._id} color="secondary" />
@@ -119,7 +127,7 @@ function ArchiveDetail(props) {
                     ) : (
                       <IconButton
                         onClick={(e) => {
-                          handleAddFavorites(e);
+                          handleAddFavorites(eachRow._id);
                         }}
                       >
                         <FavoriteBorder data={eachRow._id} />

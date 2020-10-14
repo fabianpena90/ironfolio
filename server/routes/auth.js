@@ -29,6 +29,8 @@ router.get("/user", verifyToken, (req, res, next) => {
       // res.status(200).json(authData.user)
       //console.log(authData.user, "Fabian & Rabiul built this :)");
       User.findById(authData.user._id)
+        .populate("favorites")
+        .populate("projects")
         .then((user) => {
           res.status(200).json(user);
         })
@@ -216,7 +218,7 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
     } else {
       // console.log(req.body);
       Projects.find({ class: req.body.class })
-        .populate("studentsID")
+        //.populate("studentsID")
         .then((allProjects) => {
           // console.log(allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
           res.json({ allProjects });
@@ -340,7 +342,7 @@ router.post("/addFavorites", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      if (req.body.targetProject != "null") {
+      // if (req.body.targetProject != "null") {
         User.findByIdAndUpdate(
           authData.user._id,
           {
@@ -351,7 +353,7 @@ router.post("/addFavorites", verifyToken, (req, res) => {
         ).then((addFavorites) => {
           res.json({ addFavorites });
         });
-      }
+      // }
     }
   });
 });
