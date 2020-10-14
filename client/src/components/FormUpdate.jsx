@@ -77,7 +77,7 @@ function FormUpdate(props) {
   }
   const handleSubmit = (e) => {
     editProjects();
-    history.push("/profile");
+    history.push("/");
     e.preventDefault();
   };
   console.log(teamMembers);
@@ -107,7 +107,8 @@ function FormUpdate(props) {
             onChange={(e) => setProjectName(e.target.value)}
             id="outlined-basic"
             name="projectName"
-            label={a.join("")}
+            label="Project Name"
+            placeholder={a.join("")}
             variant="outlined"
           />
           <TextField
@@ -116,7 +117,8 @@ function FormUpdate(props) {
             onChange={(e) => setWebsite(e.target.value)}
             id="outlined-basic"
             name="website"
-            label={website}
+            label="Website"
+            placeholder={website}
             variant="outlined"
           />
         </FormControl>

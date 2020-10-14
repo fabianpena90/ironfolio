@@ -51,8 +51,6 @@ function App() {
     </div>
   ) : (
     <div>
-    {/* <img className="mainPic" src="img/projects.jpg" /> */}
-      {/* {console.log(user)} */}
       <TheContext.Provider value={{ history, user, setUser }}>
         <Header />
         <div className="container">
@@ -63,12 +61,12 @@ function App() {
             <Switch>
               <Route
                 exact
-                path="/profile"
+                path="/"
                 render={() => <Profile user={user} />}
               />
               <Route
                 exact
-                path="/profile/:id"
+                path="/editProject/:id"
                 render={(props) => <FormUpdate {...props}/>}
               />
               <Route exact path="/newproject" render={() => <AddNew />} />

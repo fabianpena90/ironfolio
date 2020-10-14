@@ -43,7 +43,7 @@ const NavBar = (props) => {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList className="navbarContainer">
-            <Link href="/profile" className="navBarLinks">
+            <Link href="/" className="navBarLinks">
               <MenuItem>
                 <AccountBoxRoundedIcon className="menuIcon" />
                 Profile

@@ -78,12 +78,12 @@ function Profile(props) {
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
   const [editProjects, setEditProjects] = useState([]);
-  console.log(projects);
 
   useEffect(() => {
     async function getClasses() {
       let res = await actions.getAllClasses();
-      setSelectClass(res.data?.selectClass);
+      setSelectClass(res?.data?.selectClass);
+      console.log(res.data);
 
       let res2 = await actions.getStudentProject();
       setProjects(res2.data?.allProjects?.projects);
@@ -91,7 +91,7 @@ function Profile(props) {
     getClasses();
   }, []);
 
-  console.log(selectClass);
+  // console.log(selectClass);
   function handleSubmit(e) {
     let res = actions.setClass({ assignClass });
   }
@@ -107,8 +107,9 @@ function Profile(props) {
 
   // console.log(deleteProject);
   function showClass() {
-    return selectClass.map((eachClass) => {
+    return selectClass?.map((eachClass) => {
       console.log(eachClass);
+
       return (
         <option value={eachClass._id}>
           {eachClass.location}
@@ -120,7 +121,7 @@ function Profile(props) {
       );
     });
   }
-
+  
   if (props.user.class === "Test") {
     return (
       <form onSubmit={handleSubmit}>
@@ -183,7 +184,7 @@ function Profile(props) {
                   <StyledTableCell align="right">{row.website}</StyledTableCell>
 
                   <StyledTableCell align="right">
-                    <Link href={`/profile/${row._id}`}>
+                    <Link href={`/editProject/${row._id}`}>
                       <Button
                         value={row._id}
                         variant="contained"
