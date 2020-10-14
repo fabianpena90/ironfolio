@@ -50,7 +50,7 @@ const headCells = [
     id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Web Dev Classes",
+    label: "Web Dev Classes"
   },
 ];
 
