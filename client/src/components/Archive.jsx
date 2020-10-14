@@ -211,7 +211,7 @@ function Archive() {
                           <TableCell component="th" scope="row" padding="20px">
                             <Link
                               className="listItem"
-                              href={`/archive/${row.name}`}
+                              to={`/archive/${row.name}`}
                             >
                               {row.name}
                             </Link>

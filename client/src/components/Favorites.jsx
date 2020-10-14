@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./Favorites.css";
 // Material UI
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -13,7 +13,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import IconButton from "@material-ui/core/IconButton";
 import actions from "../api/index";
 import TheContext from "../TheContext";
-import Favorite from '@material-ui/icons/Favorite';
+import Favorite from "@material-ui/icons/Favorite";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -39,34 +39,33 @@ const useStyles = makeStyles({
   },
 });
 
-
 function Favorites(props) {
   const classes = useStyles();
   const { user } = React.useContext(TheContext);
-  const [favorites, setFavorites] = useState([])
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     async function getFavoriteProjects() {
-      let res = await actions.getAllFavoriteProjects({favorites: user.favorites})
-      setFavorites(res?.data.allProjects)
-      console.log(res.data)
+      let res = await actions.getAllFavoriteProjects({
+        favorites: user.favorites,
+      });
+      setFavorites(res?.data.allProjects);
+      console.log(res.data);
     }
     getFavoriteProjects();
-  },[])
+  }, []);
 
-
-  async function handleDeleteFavorites(e){
-    let targetProject = e.target?.parentElement.getAttribute('data')
-    console.log(targetProject)
+  async function handleDeleteFavorites(e) {
+    let targetProject = e.target?.parentElement.getAttribute("data");
+    console.log(targetProject);
     //debugger
-    let res = await actions.deleteFavorites({targetProject})
-    console.log(res.data.delFavorites.favorites)
-   // debugger
-    setFavorites(res.data?.delFavorites.favorites)
+    let res = await actions.deleteFavorites({ targetProject });
+    console.log(res.data.delFavorites.favorites);
+    // debugger
+    setFavorites(res.data?.delFavorites.favorites);
   }
 
-  
-console.log(favorites)
+  console.log(favorites);
   return (
     <div className="archiveDetail">
       <h3>Your Favorites</h3>
@@ -85,27 +84,34 @@ console.log(favorites)
             {favorites?.map((row) => (
               <StyledTableRow key={row?._id}>
                 <StyledTableCell component="th" scope="row">
-              {row?.studentsID?.[0].class}
+                  {row?.studentsID?.[0].class}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                {row?.studentsID.map((eachName)=>{
-              return(
-               <> {eachName?.name} </>
-              )
-            })}
+                  {row?.studentsID.map((eachName) => {
+                    return <> {eachName?.name} </>;
+                  })}
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   {row?.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a href={row?.website} target="_blank" rel="noopener noreferrer">
+                  <a
+                    to={row?.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Website
                   </a>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                <IconButton onClick={(e)=>{handleDeleteFavorites(e)}}><Favorite data={row?._id} color="secondary" /></IconButton>
-                
-        </StyledTableCell>
+                  <IconButton
+                    onClick={(e) => {
+                      handleDeleteFavorites(e);
+                    }}
+                  >
+                    <Favorite data={row?._id} color="secondary" />
+                  </IconButton>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

@@ -184,7 +184,7 @@ function Profile(props) {
                   <StyledTableCell align="right">{row.website}</StyledTableCell>
 
                   <StyledTableCell align="right">
-                    <Link href={`/editProject/${row._id}`}>
+                    <Link to={`/editProject/${row._id}`}>
                       <Button
                         value={row._id}
                         variant="contained"

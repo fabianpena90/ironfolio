@@ -48,7 +48,7 @@ const NavBar = (props) => {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList className="navbarContainer">
-            <Link href="/" className="navBarLinks">
+            <Link to="/" className="navBarLinks">
               <MenuItem>
                 <AccountBoxRoundedIcon className="menuIcon" />
                 Profile
@@ -56,7 +56,7 @@ const NavBar = (props) => {
             </Link>
             <Divider />
             {user.userType === "admin" ? (
-              <Link href="/addNewClass" className="navBarLinks">
+              <Link to="/addNewClass" className="navBarLinks">
                 <MenuItem>
                   <GroupAddIcon className="menuIcon" />
                   Add New Class
@@ -64,7 +64,7 @@ const NavBar = (props) => {
                 <Divider />
               </Link>
             ) : null}
-            <Link href="/newproject" className="navBarLinks">
+            <Link to="/newproject" className="navBarLinks">
               <MenuItem>
                 <AddBoxIcon className="menuIcon" />
                 Add New Project
@@ -72,14 +72,14 @@ const NavBar = (props) => {
             </Link>
             <Divider />
             <Divider />
-            <Link className="navBarLinks" href="/archive">
+            <Link className="navBarLinks" to="/archive">
               <MenuItem>
                 <ArchiveRoundedIcon className="menuIcon" />
                 Archive
               </MenuItem>
             </Link>
             <Divider />
-            <Link className="navBarLinks" href="/favorites">
+            <Link className="navBarLinks" to="/favorites">
               <MenuItem>
                 <FavoriteBorderRoundedIcon className="menuIcon" />
                 Favorites
@@ -88,7 +88,7 @@ const NavBar = (props) => {
             <Divider />
             <Link
               className="navBarLinks"
-              href="https://iqueue.netlify.app/"
+              to="https://iqueue.netlify.app/"
               target="_blank"
             >
               <MenuItem>
