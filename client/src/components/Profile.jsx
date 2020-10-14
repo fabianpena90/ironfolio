@@ -174,7 +174,7 @@ function Profile(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {projects.map((row) => (
+              {projects?.map((row) => (
                 <StyledTableRow key={row._id}>
                   <StyledTableCell component="th" scope="row">
                     {row.projectName}
@@ -182,8 +182,9 @@ function Profile(props) {
                   <StyledTableCell align="right">
                     {row.description}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.website}</StyledTableCell>
-
+                  <StyledTableCell align="right">
+                  <Link href={row.website} rel="noopener noreferrer" target="_blank">Demo</Link>
+                  </StyledTableCell>
                   <StyledTableCell align="right">
                     <Link component={RouterLink} to={`/editProject/${row._id}`}>
                       <Button

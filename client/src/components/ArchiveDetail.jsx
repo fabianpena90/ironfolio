@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./ArchiveDetail.css";
 import actions from "../api/index";
 import TheContext from "../TheContext";
+import Link from "@material-ui/core/Link";
+
+// Material UI Components
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,6 +19,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -53,7 +57,7 @@ function ArchiveDetail(props) {
     getProjects();
   }, []);
 
-  console.log(allProjects);
+  console.log(allProjects.website);
   async function handleDeleteFavorites(e) {
     let targetProject = e.target?.parentElement.getAttribute("data");
     let res = await actions.deleteFavoritesArchive({ targetProject });
@@ -64,6 +68,7 @@ function ArchiveDetail(props) {
     let res = await actions.addFavorites({ targetProject });
     setFavorites(res.data?.addFavorites.favorites);
   }
+
   return (
     <div className="archiveDetail">
       <h2>Projects</h2>
@@ -81,6 +86,8 @@ function ArchiveDetail(props) {
           </TableHead>
           <TableBody>
             {allProjects?.map((eachRow) => {
+              console.log(eachRow.website)
+
               return (
                 <StyledTableRow key={eachRow._id}>
                   <StyledTableCell component="th" scope="row">
@@ -98,13 +105,9 @@ function ArchiveDetail(props) {
                     {eachRow.description}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <a
-                      to={eachRow.website}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
+                    <Link href={eachRow?.website} rel="noopener noreferrer" target="_blank">
                       Website
-                    </a>
+                    </Link>
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     {favorites?.includes(eachRow._id) ? (
