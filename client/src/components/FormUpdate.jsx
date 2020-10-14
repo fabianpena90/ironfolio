@@ -15,6 +15,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
+import Switch from "@material-ui/core/Switch";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -38,19 +41,10 @@ function FormUpdate(props) {
   const [projectName, setProjectName] = useState([]);
   const [description, setDescription] = useState([]);
   const [website, setWebsite] = useState([]);
-  const [teamMembers, setTeamMembers] = useState([user._id]);
+  const [teamMembers, setTeamMembers] = useState([]);
   const [classMate, setClassMate] = useState([]);
-  const [checked, setChecked] = useState([1]);
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    setChecked(newChecked);
-  };
+  const [trigger, setTrigger] = useState(false);
+
   useEffect(() => {
     async function getData() {
       let result = await actions.getEditProject({
@@ -59,7 +53,7 @@ function FormUpdate(props) {
       setProjectName(result.data?.valueField.projectName);
       setDescription(result.data?.valueField.description);
       setWebsite(result.data?.valueField.website);
-      // setTeamMembers(result.data.valueField)
+      setTeamMembers(result.data.valueField.studentsID);
       let result2 = await actions.getStudentList({ class: user.class });
       setClassMate(result2?.data?.nameList);
     }
@@ -81,7 +75,6 @@ function FormUpdate(props) {
     history.push("/");
     e.preventDefault();
   };
-  console.log(teamMembers);
   const handleChange = (e) => {
     setTeamMembers(
       teamMembers.includes(e.target.value)
@@ -90,7 +83,10 @@ function FormUpdate(props) {
     );
     // (e.target.checked)?setTeamMembers([...teamMembers, e.target.value]):(teamMembers.splice(teamMembers.indexOf(e.target.value),1))
   };
-  const a = [...projectName];
+  const handleSwitch = () => {
+    setTrigger(!trigger);
+  };
+
   return (
     <div className="formUpdate">
       <div>
@@ -107,9 +103,8 @@ function FormUpdate(props) {
             className="editField"
             onChange={(e) => setProjectName(e.target.value)}
             id="outlined-basic"
-            name="projectName"
-            label="Project Name"
-            placeholder={a.join("")}
+            //label="Project Name"
+            placeholder={projectName}
             variant="outlined"
           />
           <TextField
@@ -117,8 +112,7 @@ function FormUpdate(props) {
             className="editField"
             onChange={(e) => setWebsite(e.target.value)}
             id="outlined-basic"
-            name="website"
-            label="Website"
+            //label="Website"
             placeholder={website}
             variant="outlined"
           />
@@ -127,12 +121,11 @@ function FormUpdate(props) {
           className="editField"
           onChange={(e) => setDescription(e.target.value)}
           id="outlined-multiline-static"
-          name="description"
           multiline
           rows={4}
           variant="outlined"
           fullWidth
-          label="Description"
+          // label="Description"
           placeholder={description}
         />
         <Button
@@ -145,44 +138,74 @@ function FormUpdate(props) {
           Update
         </Button>
       </form>
-      <List id="studentName" dense className={classes.root}>
-        <h3>Select Student</h3>
-        {classMate.map((eachMate) => {
-          return eachMate._id === user._id ? (
-            <ListItem key={eachMate._id} button>
-              <ListItemAvatar>
-                <Avatar alt="classMate" src={eachMate.imageUrl} />
-              </ListItemAvatar>
-              <ListItemText primary={`${eachMate?.name}`} />
-              <ListItemSecondaryAction>
-                <Checkbox
-                  edge="end"
-                  // onChange={(e)=>{handleChange(e)}}
-                  // value={`${eachMate._id}`}
-                  checked={true}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-          ) : (
-            <ListItem key={eachMate._id} button>
-              <ListItemAvatar>
-                <Avatar alt="classMate" src={eachMate.imageUrl} />
-              </ListItemAvatar>
-              <ListItemText primary={`${eachMate?.name}`} />
-              <ListItemSecondaryAction>
-                <Checkbox
-                  edge="end"
-                  onChange={(e) => {
-                    handleChange(e);
-                  }}
-                  value={`${eachMate._id}`}
-                  // checked={true}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
-      </List>
+      <FormGroup row>
+        <FormControlLabel
+          control={
+            <Switch
+              // color="secondary"
+              onChange={handleSwitch}
+            />
+          }
+          label="Have Team Member?"
+        />
+      </FormGroup>
+      {trigger ? (
+        <List id="studentName" dense className={classes.root}>
+          <h3>Select Student</h3>
+          {classMate.map((eachMate) => {
+            return eachMate._id === user._id ? (
+              <ListItem key={eachMate._id} button>
+                <ListItemAvatar>
+                  <Avatar alt="classMate" src={eachMate.imageUrl} />
+                </ListItemAvatar>
+                <ListItemText primary={`${eachMate?.name}`} />
+                <ListItemSecondaryAction>
+                  <Checkbox
+                    edge="end"
+                    // onChange={(e)=>{handleChange(e)}}
+                    // value={`${eachMate._id}`}
+                    disabled
+                    checked
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            ) : teamMembers.includes(eachMate) ? (
+              <ListItem key={eachMate._id} button>
+                <ListItemAvatar>
+                  <Avatar alt="classMate" src={eachMate.imageUrl} />
+                </ListItemAvatar>
+                <ListItemText primary={`${eachMate?.name}`} />
+                <ListItemSecondaryAction>
+                  <Checkbox
+                    edge="end"
+                    onChange={(e) => {
+                      handleChange(e);
+                    }}
+                    value={`${eachMate._id}`}
+                    defaultChecked
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            ) : (
+              <ListItem key={eachMate._id} button>
+                <ListItemAvatar>
+                  <Avatar alt="classMate" src={eachMate.imageUrl} />
+                </ListItemAvatar>
+                <ListItemText primary={`${eachMate?.name}`} />
+                <ListItemSecondaryAction>
+                  <Checkbox
+                    edge="end"
+                    onChange={(e) => {
+                      handleChange(e);
+                    }}
+                    value={`${eachMate._id}`}
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            );
+          })}
+        </List>
+      ) : null}
     </div>
   );
 }

@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 const AddNew = () => {
   const classes = useStyles();
-<<<<<<< HEAD
   const { user, history } = React.useContext(TheContext);
   const [project, setProject] = useState();
   const [projectName, setProjectName] = useState();
@@ -43,28 +42,13 @@ const AddNew = () => {
       description,
       website,
     });
-=======
-  const { history, user } = React.useContext(TheContext);
-  const [project, setProject] = useState()
-  const [projectName, setProjectName] = useState()
-  const [description, setDescription] = useState()
-  const [website, setWebsite] = useState()
-  
-
-  async function addProjects() {
-    let res = await actions.addProject({class: user.class, project, projectName, description, website});
->>>>>>> cd81f519824269b1dc83b9b9e6c6e6f661f5d09b
     console.log(res, "Fabian & Rabiul are the shit!");
   }
 
   console.log(user);
   const handleSubmit = (e) => {
     addProjects();
-<<<<<<< HEAD
     history.push("/");
-=======
-    history.push('/')
->>>>>>> cd81f519824269b1dc83b9b9e6c6e6f661f5d09b
     //e.preventDefault();
   };
 
@@ -88,34 +72,38 @@ const AddNew = () => {
               Select Project
             </InputLabel>
             <Select
+              native
               fullWidth="true"
               required="true"
               className="addNewForm"
-              native
+              label="Select Project"
               onChange={(e) => {
                 setProject(e.target.value);
               }}
               placeholder="selectClass"
-              inputProps={{
-                name: "selectClass",
-                id: "outlined-selectClass-native-simple",
-              }}
+              // inputProps={{
+              //   name: "selectClass",
+              //   id: "outlined-selectClass-native-simple",
+              // }}
             >
               <option aria-label="None" value="" />
-              <option aria-label="None" value="project1">
+              <option aria-label="None" value="Project 1">
                 Project 1
               </option>
-              <option aria-label="None" value="project2">
+              <option aria-label="None" value="Project 2">
                 Project 2
               </option>
-              <option aria-label="None" value="project3">
+              <option aria-label="None" value="Project 3">
                 Project 3
               </option>
-              <option aria-label="None" value="project4">
+              <option aria-label="None" value="Project 4">
                 Project 4
               </option>
-              <option aria-label="None" value="project5">
+              <option aria-label="None" value="Project 5">
                 Project 5
+              </option>
+              <option aria-label="None" value="Bonus">
+                Bonus
               </option>
             </Select>
             <TextField
