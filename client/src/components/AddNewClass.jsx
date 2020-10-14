@@ -43,7 +43,7 @@ function AddNewClass(props) {
 
   const handleSubmit = () => {
     createClass();
-    history.push("/archive");
+    history.push("/archive");  
   };
 
   return (
