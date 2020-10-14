@@ -56,15 +56,13 @@ const NavBar = (props) => {
             </Link>
             <Divider />
             {user.userType === "admin" ? (
-              
             <Link href="/addNewClass" className="navBarLinks">
               <MenuItem>
                 <GroupAddIcon className="menuIcon" />
                 Add New Class
               </MenuItem>
             </Link>
-            ) : null}; 
-            <Divider />
+            ): null}
             <Divider />
             <Link href="/newproject" className="navBarLinks">
               <MenuItem>
