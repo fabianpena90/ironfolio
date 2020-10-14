@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import Profile from "./components/Profile";
 import NotFound from "./components/404/NotFound";
 import FormUpdate from "./components/FormUpdate";
+import AddNewClass from "./components/AddNewClass";
 // Auth Components
 import TheContext from "./TheContext";
 import actions from "./api/index";
@@ -63,6 +64,11 @@ function App() {
                 exact
                 path="/"
                 render={() => <Profile user={user} />}
+              />
+              <Route
+                exact
+                path="/addNewClass"
+                render={() => <AddNewClass user={user} />}
               />
               <Route
                 exact
