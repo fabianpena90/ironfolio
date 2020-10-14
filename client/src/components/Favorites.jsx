@@ -49,7 +49,7 @@ function Favorites(props) {
       let res = await actions.getAllFavoriteProjects({
         favorites: user.favorites,
       });
-      setFavorites(res?.data.allProjects);
+      setFavorites(res?.data?.allProjects);
       console.log(res.data);
     }
     getFavoriteProjects();
