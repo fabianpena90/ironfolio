@@ -137,7 +137,7 @@ function Archive() {
 
   let copyAllClasses = [...allClass]
   copyAllClasses.map((eachClass)=>{
-    rows.push(createData(`${eachClass.location}`+"-"+`${eachClass.month}`+"-"+`${eachClass.year}`))
+    rows.push(createData(`${eachClass.location}`+"-"+`${eachClass.month}`+"-"+`${eachClass.year}` + "-"+`${eachClass.classType}`))
   })
   function createData(name) {
     return { name };

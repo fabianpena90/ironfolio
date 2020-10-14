@@ -9,26 +9,31 @@ const classes = [
     location: "MIA",
     month: "OCT",
     year: "2020",
+    classType: "FT"
   },
   {
     location: "MIA",
     month: "JAN",
     year: "2021",
+    classType: "FT"
   },
   {
     location: "MIA",
     month: "MAR",
     year: "2021",
+    classType: "PT"
   },
   {
     location: "MIA",
     month: "MAY",
     year: "2021",
+    classType: "FT"
   },
   {
     location: "MIA",
     month: "AUG",
     year: "2021",
+    classType: "FT"
   },
 ];
 

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddNew = () => {
   const classes = useStyles();
-  const { history } = React.useContext(TheContext);
+  const { history, user } = React.useContext(TheContext);
   const [project, setProject] = useState()
   const [projectName, setProjectName] = useState()
   const [description, setDescription] = useState()
@@ -37,13 +37,13 @@ const AddNew = () => {
   
 
   async function addProjects() {
-    let res = await actions.addProject({project, projectName, description, website});
+    let res = await actions.addProject({class: user.class, project, projectName, description, website});
     console.log(res, "Fabian & Rabiul are the shit!");
   }
 
   const handleSubmit = (e) => {
     addProjects();
-    history.push('/profile')
+    history.push('/')
     //e.preventDefault();
   }
 

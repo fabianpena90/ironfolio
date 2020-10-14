@@ -91,7 +91,7 @@ function Profile(props) {
     getClasses();
   }, []);
 
-  // console.log(selectClass);
+  console.log(selectClass);
   function handleSubmit(e) {
     let res = actions.setClass({ assignClass });
   }
@@ -111,12 +111,14 @@ function Profile(props) {
       console.log(eachClass);
 
       return (
-        <option value={eachClass._id}>
+        <option>
           {eachClass.location}
           {"-"}
           {eachClass.month}
           {"-"}
           {eachClass.year}
+          {"-"}
+          {eachClass.classType}
         </option>
       );
     });

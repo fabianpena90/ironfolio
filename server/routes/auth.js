@@ -119,7 +119,7 @@ router.post("/newProject", verifyToken, (req, res) => {
     } else {
       //let project = req.body.project;
       let project = new Projects(req.body);
-      project.class = authData.user.class
+      // project.class = authData.user.class
       project.studentsID = authData.user._id;
       project.save().then((newProject) => {
         User.findByIdAndUpdate(
@@ -129,7 +129,7 @@ router.post("/newProject", verifyToken, (req, res) => {
           },
           { new: true }
         ).then((project) => {
-          // console.log("Fabian & Rabiul are the shit");
+          console.log(project, "Fabian & Rabiul are the shit");
           res.json({ project });
         });
       });
@@ -209,6 +209,7 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
       Projects.find({class: req.body.class})
       .populate("studentsID")
       .then((allProjects) => {
+        console.log(allProjects, " 212121212121212")
         res.json({allProjects})
       })
       // User.find(req.body)
