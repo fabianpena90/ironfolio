@@ -1,6 +1,6 @@
 import React from "react";
-import { MemoryRouter as Router } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
+import { MemoryRouter as Router } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import "./NavBar.css";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
@@ -33,11 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LinkBehavior = React.forwardRef((props, ref) => (
-  <RouterLink ref={ref} to="/getting-started/installation/" {...props} />
-));
-
-
 const NavBar = (props) => {
   const classes = useStyles();
   const { user } = React.useContext(TheContext);
@@ -55,17 +50,19 @@ const NavBar = (props) => {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList className="navbarContainer">
-      <Router>
-            <Link component={RouterLink}  to="/" className="navBarLinks">
+            <Link component={RouterLink} to="/" className="navBarLinks">
               <MenuItem>
                 <AccountBoxRoundedIcon className="menuIcon" />
                 Profile
               </MenuItem>
             </Link>
-      </Router>
             <Divider />
             {user.userType === "admin" ? (
-              <Link component={RouterLink}  to="/addNewClass" className="navBarLinks">
+              <Link
+                component={RouterLink}
+                to="/addNewClass"
+                className="navBarLinks"
+              >
                 <MenuItem>
                   <GroupAddIcon className="menuIcon" />
                   Add New Class
@@ -73,7 +70,11 @@ const NavBar = (props) => {
                 <Divider />
               </Link>
             ) : null}
-            <Link component={RouterLink}  to={'/newproject'} className="navBarLinks">
+            <Link
+              component={RouterLink}
+              to="/newproject"
+              className="navBarLinks"
+            >
               <MenuItem>
                 <AddBoxIcon className="menuIcon" />
                 Add New Project
@@ -81,23 +82,27 @@ const NavBar = (props) => {
             </Link>
             <Divider />
             <Divider />
-            <Link component={RouterLink}  className="navBarLinks" to="/archive">
+            <Link component={RouterLink} className="navBarLinks" to="/archive">
               <MenuItem>
                 <ArchiveRoundedIcon className="menuIcon" />
                 Archive
               </MenuItem>
             </Link>
             <Divider />
-            <Link component={RouterLink}  className="navBarLinks" to="/favorites">
+            <Link
+              component={RouterLink}
+              className="navBarLinks"
+              to="/favorites"
+            >
               <MenuItem>
                 <FavoriteBorderRoundedIcon className="menuIcon" />
                 Favorites
               </MenuItem>
             </Link>
             <Divider />
-            <Link component={RouterLink} 
+            <Link
               className="navBarLinks"
-              to="https://iqueue.netlify.app/"
+              href="https://iqueue.netlify.app/"
               target="_blank"
             >
               <MenuItem>
