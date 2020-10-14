@@ -115,7 +115,6 @@ function ArchiveDetail(props) {
                     </Link>
                   </StyledTableCell>
                   <StyledTableCell align="justify">
-                  Hello
                     {favorites?.includes(eachRow._id) ? (
                       <IconButton
                         onClick={(e) => {
