@@ -68,7 +68,7 @@ function Favorites(props) {
   console.log(favorites);
   return (
     <div className="archiveDetail">
-      <h3>Your Favorites</h3>
+      <h2>Your Favorites</h2>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

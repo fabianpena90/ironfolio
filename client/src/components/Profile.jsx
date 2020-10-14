@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import actions from "../api/index";
 import TheContext from "../TheContext";
-import Link from "@material-ui/core/Link";
+import { Link as RouterLink } from 'react-router-dom';
 
 // Material UI
+import Link from "@material-ui/core/Link";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -156,7 +157,7 @@ function Profile(props) {
   } else {
     return (
       <div className="projects">
-        <h1>My Projects</h1>
+        <h2>My Projects</h2>
         <TableContainer component={Paper}>
           <Table
             id="tableProfile"
@@ -184,7 +185,7 @@ function Profile(props) {
                   <StyledTableCell align="right">{row.website}</StyledTableCell>
 
                   <StyledTableCell align="right">
-                    <Link to={`/editProject/${row._id}`}>
+                    <Link component={RouterLink} to={`/editProject/${row._id}`}>
                       <Button
                         value={row._id}
                         variant="contained"

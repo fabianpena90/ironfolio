@@ -33,11 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LinkBehavior = React.forwardRef((props, ref) => (
-  <RouterLink ref={ref} to="/getting-started/installation/" {...props} />
-));
-
-
 const NavBar = (props) => {
   const classes = useStyles();
   const { user } = React.useContext(TheContext);
@@ -55,14 +50,12 @@ const NavBar = (props) => {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList className="navbarContainer">
-      <Router>
             <Link component={RouterLink}  to="/" className="navBarLinks">
               <MenuItem>
                 <AccountBoxRoundedIcon className="menuIcon" />
                 Profile
               </MenuItem>
             </Link>
-      </Router>
             <Divider />
             {user.userType === "admin" ? (
               <Link component={RouterLink}  to="/addNewClass" className="navBarLinks">
@@ -95,9 +88,9 @@ const NavBar = (props) => {
               </MenuItem>
             </Link>
             <Divider />
-            <Link component={RouterLink} 
+            <Link 
               className="navBarLinks"
-              to="https://iqueue.netlify.app/"
+              href="https://iqueue.netlify.app/"
               target="_blank"
             >
               <MenuItem>

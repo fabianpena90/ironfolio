@@ -55,7 +55,7 @@ const AddNew = () => {
   return (
     <div>
       <div>
-        <h1>Add Your Projects</h1>
+        <h2>Add Your Projects</h2>
       </div>
       <div>
         <form id="add-new" onSubmit={handleSubmit}>

@@ -90,7 +90,7 @@ function FormUpdate(props) {
   return (
     <div className="formUpdate">
       <div>
-        <h1 className="editHeader">Edit Projects</h1>
+        <h2 className="editHeader">Edit Projects</h2>
       </div>
       <form onSubmit={handleSubmit}>
         <FormControl
