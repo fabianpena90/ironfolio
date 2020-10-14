@@ -7,3 +7,16 @@
 h1 {
   text-align: center;
 }
+/* 
+.MuiPaper-root {
+  background-color: none !important;
+} */
+
+#projects {
+  width: 65% !important;
+  margin: 0 auto !important;
+  position: absolute;
+  top: 200px;
+  right: 100px;
+  left: 140px;
+}

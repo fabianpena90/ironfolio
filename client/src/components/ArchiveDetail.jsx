@@ -38,7 +38,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 const useStyles = makeStyles({
   table: {
-    width: "50vw",
+    width: "70vw",
   },
 });
 function ArchiveDetail(props) {
@@ -78,16 +78,14 @@ function ArchiveDetail(props) {
             <TableRow>
               <StyledTableCell>Project #</StyledTableCell>
               <StyledTableCell>Name/Team Name</StyledTableCell>
-              <StyledTableCell align="right">Project Name</StyledTableCell>
-              <StyledTableCell align="right">Description</StyledTableCell>
-              <StyledTableCell align="right">Website</StyledTableCell>
-              <StyledTableCell align="right">Favorites</StyledTableCell>
+              <StyledTableCell align="center">Project Name</StyledTableCell>
+              <StyledTableCell align="center">Description</StyledTableCell>
+              <StyledTableCell align="center">Website</StyledTableCell>
+              <StyledTableCell align="center">Favorites</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {allProjects?.map((eachRow) => {
-              console.log(eachRow.website)
-
               return (
                 <StyledTableRow key={eachRow._id}>
                   <StyledTableCell component="th" scope="row">
@@ -95,21 +93,21 @@ function ArchiveDetail(props) {
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row">
                     {eachRow?.studentsID.map((studentName) => {
-                      return <li>{studentName.name}</li>;
+                      return <p>{studentName.name}</p>;
                     })}
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     {eachRow.projectName}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="justify">
                     {eachRow.description}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="justify">
                     <Link href={eachRow?.website} rel="noopener noreferrer" target="_blank">
                       Website
                     </Link>
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="justify">
                     {favorites?.includes(eachRow._id) ? (
                       <IconButton
                         onClick={(e) => {
