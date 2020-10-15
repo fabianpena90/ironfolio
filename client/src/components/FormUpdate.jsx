@@ -18,6 +18,9 @@ import Avatar from "@material-ui/core/Avatar";
 import Switch from "@material-ui/core/Switch";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Paper from '@material-ui/core/Paper';
+import Fade from '@material-ui/core/Fade';
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -44,6 +47,8 @@ function FormUpdate(props) {
   const [teamMembers, setTeamMembers] = useState([]);
   const [classMate, setClassMate] = useState([]);
   const [trigger, setTrigger] = useState(false);
+  const [checked, setChecked] = React.useState(false);
+
 
   useEffect(() => {
     async function getData() {

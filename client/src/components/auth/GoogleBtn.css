@@ -7,12 +7,12 @@
   max-width: 184px !important;
   height: 42px !important;
   background-color: #fcfcfc !important;
-  border-radius: 2px !important;
+  border-radius: 20px !important;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .2) !important;
 }
 
 .loginBtn:hover {
   border: 1px solid;
   outline-offset: 15px;
-  /* text-shadow: 1px 1px 2px #427388; */
+  border-top-left-radius: 20px !important;
 }
