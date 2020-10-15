@@ -42,7 +42,7 @@ const AddNew = () => {
       description,
       website,
     });
-    console.log(res, "Fabian & Rabiul are the shit!");
+    //console.log(res, "Fabian & Rabiul are the shit!");
   }
 
   console.log(user);

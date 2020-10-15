@@ -45,47 +45,53 @@ const actions = {
     return await API.get("/logout", resetHead());
   },
   createClass: async (data) => {
-    return await API.post("/createClass", data);
+    return await API.post("/createClass", data, resetHead());
   },
 
   getAllClasses: async () => {
-    return await API.get("/getAllClasses");
+    return await API.get("/getAllClasses", resetHead());
   },
   setClass: async (data) => {
-    return await API.post("/addClass", data);
+    return await API.post("/addClass", data, resetHead());
   },
   addProject: async (data) => {
-    return await API.post("/newProject", data);
+    return await API.post("/newProject", data, resetHead());
   },
   editProject: async (data) => {
-    return await API.post("/formUpdate", data);
+    return await API.post("/formUpdate", data, resetHead());
   },
   getStudentList: async (data) => {
-    return await API.post("/getStudentList", data);
+    return await API.post("/getStudentList", data, resetHead());
   },
   getEditProject: async (data) => {
-    return await API.post("/getEditProject", data);
+    return await API.post("/getEditProject", data, resetHead());
   },
   getStudentProject: async () => {
-    return await API.get("/getStudentProjects");
+    return await API.get("/getStudentProjects", resetHead());
   },
   deleteProject: async (data) => {
-    return await API.post("/deleteProject", data);
+    return await API.post("/deleteProject", data, resetHead());
   },
   getAllClassProjects: async (data) => {
-    return await API.post("/getAllClassProjects", data);
+    return await API.post("/getAllClassProjects", data, resetHead());
   },
   deleteFavorites: async (data) => {
-    return await API.post("/deleteFavorites", data);
+    return await API.post("/deleteFavorites", data, resetHead());
   },
   deleteFavoritesArchive: async (data) => {
-    return await API.post("/deleteFavoritesArchive", data);
+    return await API.post("/deleteFavoritesArchive", data, resetHead());
   },
   addFavorites: async (data) => {
-    return await API.post("/addFavorites", data);
+    return await API.post("/addFavorites", data, resetHead());
   },
   getAllFavoriteProjects: async (data) => {
-    return await API.post("/getAllFavoriteProjects", data);
+    return await API.post("/getAllFavoriteProjects", data, resetHead());
+  },
+  getFavProjects: async () => {
+    return await API.get("/getFavProjects", resetHead());
+  },
+  favoriteSection: async () => {
+    return await API.get(`/favoriteSection`, resetHead());
   },
 };
 

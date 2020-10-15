@@ -44,37 +44,31 @@ const useStyles = makeStyles({
 function ArchiveDetail(props) {
   const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
-  const { user } = React.useContext(TheContext);
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(props.user.favorites);
+
   useEffect(() => {
     async function getProjects() {
       let res = await actions.getAllClassProjects({
         class: props.match.params.id,
       });
-      setAllProjects(res.data?.allProjects);
-      setFavorites(user.favorites);
+      setAllProjects(res?.data.allProjects);
+
+      let res2 = await actions.getFavProjects();
+      setFavorites(res2?.data.favorites);
     }
     getProjects();
   }, []);
 
-  console.log(allProjects);
   async function handleDeleteFavorites(targetProject) {
-    // let targetProject = e.target?.parentElement.getAttribute("data");
-    // console.log(targetProject)
-    console.log(targetProject)
-
     let res = await actions.deleteFavoritesArchive({ targetProject });
-    setFavorites(res.data?.delFavorites.favorites);
+    setFavorites(res?.data.favorites);
   }
   async function handleAddFavorites(targetProject) {
-    console.log(targetProject)
-    // let targetProject = e.target?.getAttribute("data");
-    // console.log(targetProject)
     let res = await actions.addFavorites({ targetProject });
-    setFavorites(res.data?.addFavorites.favorites);
+
+    setFavorites(res?.data.favorites);
   }
 
-  console.log(favorites)
   return (
     <div className="archiveDetail">
       <h2>Projects</h2>
@@ -83,7 +77,7 @@ function ArchiveDetail(props) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Project #</StyledTableCell>
-              <StyledTableCell>Name/Team Name</StyledTableCell>
+              <StyledTableCell>Student/Team Name</StyledTableCell>
               <StyledTableCell align="center">Project Name</StyledTableCell>
               <StyledTableCell align="center">Description</StyledTableCell>
               <StyledTableCell align="center">Website</StyledTableCell>
@@ -99,7 +93,6 @@ function ArchiveDetail(props) {
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row">
                     {eachRow?.studentsID.map((studentName) => {
-                      console.log(studentName)
                       return <p>{studentName.name}</p>;
                     })}
                   </StyledTableCell>
@@ -109,12 +102,16 @@ function ArchiveDetail(props) {
                   <StyledTableCell align="justify">
                     {eachRow.description}
                   </StyledTableCell>
-                  <StyledTableCell align="justify">
-                    <Link href={eachRow?.website} rel="noopener noreferrer" target="_blank">
+                  <StyledTableCell align="center">
+                    <Link
+                      href={eachRow?.website}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Website
                     </Link>
                   </StyledTableCell>
-                  <StyledTableCell align="justify">
+                  <StyledTableCell align="center">
                     {favorites?.includes(eachRow._id) ? (
                       <IconButton
                         onClick={(e) => {

@@ -1,6 +1,6 @@
 import React from "react";
-import { MemoryRouter as Router } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
+import { MemoryRouter as Router } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import "./NavBar.css";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     alignItems: "center",
-    height: "80vh"
+    height: "80vh",
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -50,7 +50,7 @@ const NavBar = (props) => {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <MenuList className="navbarContainer">
-            <Link component={RouterLink}  to="/" className="navBarLinks">
+            <Link component={RouterLink} to="/" className="navBarLinks">
               <MenuItem>
                 <AccountBoxRoundedIcon className="menuIcon" />
                 Profile
@@ -58,7 +58,11 @@ const NavBar = (props) => {
             </Link>
             <Divider />
             {user.userType === "admin" ? (
-              <Link component={RouterLink}  to="/addNewClass" className="navBarLinks">
+              <Link
+                component={RouterLink}
+                to="/addNewClass"
+                className="navBarLinks"
+              >
                 <MenuItem>
                   <GroupAddIcon className="menuIcon" />
                   Add New Class
@@ -66,7 +70,11 @@ const NavBar = (props) => {
                 <Divider />
               </Link>
             ) : null}
-            <Link component={RouterLink}  to={'/newproject'} className="navBarLinks">
+            <Link
+              component={RouterLink}
+              to="/newproject"
+              className="navBarLinks"
+            >
               <MenuItem>
                 <AddBoxIcon className="menuIcon" />
                 Add New Project
@@ -81,14 +89,18 @@ const NavBar = (props) => {
               </MenuItem>
             </Link>
             <Divider />
-            <Link component={RouterLink}  className="navBarLinks" to="/favorites">
+            <Link
+              component={RouterLink}
+              className="navBarLinks"
+              to="/favorites"
+            >
               <MenuItem>
                 <FavoriteBorderRoundedIcon className="menuIcon" />
                 Favorites
               </MenuItem>
             </Link>
             <Divider />
-            <Link 
+            <Link
               className="navBarLinks"
               href="https://iqueue.netlify.app/"
               target="_blank"

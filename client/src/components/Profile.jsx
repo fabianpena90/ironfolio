@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import actions from "../api/index";
 import TheContext from "../TheContext";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from "react-router-dom";
 
 // Material UI
 import Link from "@material-ui/core/Link";
@@ -83,11 +83,11 @@ function Profile(props) {
   useEffect(() => {
     async function getClasses() {
       let res = await actions.getAllClasses();
-      setSelectClass(res?.data?.selectClass);
-      console.log(res.data);
+      setSelectClass(res?.data.selectClass);
+      // console.log(res.data);
 
       let res2 = await actions.getStudentProject();
-      setProjects(res2.data?.allProjects?.projects);
+      setProjects(res2?.data.allProjects.projects);
     }
     getClasses();
   }, []);
@@ -109,7 +109,7 @@ function Profile(props) {
   // console.log(deleteProject);
   function showClass() {
     return selectClass?.map((eachClass) => {
-      console.log(eachClass);
+      // console.log(eachClass);
 
       return (
         <option>
@@ -135,7 +135,7 @@ function Profile(props) {
           <Select
             native
             onChange={(e) => {
-              console.log(e.target.value);
+              //console.log(e.target.value);
               setAssignClass(e.target.value);
             }}
             label="selectClass"
@@ -169,21 +169,27 @@ function Profile(props) {
                 <StyledTableCell align="center">Project Name</StyledTableCell>
                 <StyledTableCell align="center">Description</StyledTableCell>
                 <StyledTableCell>Website / URL</StyledTableCell>
-                <StyledTableCell align="center" >Edit</StyledTableCell>
-                <StyledTableCell align="center" >Delete</StyledTableCell>
+                <StyledTableCell align="center">Edit</StyledTableCell>
+                <StyledTableCell align="center">Delete</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {projects?.map((row) => (
                 <StyledTableRow key={row._id}>
-                  <StyledTableCell component="th" scope="row">
+                  <StyledTableCell component="th" scope="row" align="center">
                     {row.projectName}
                   </StyledTableCell>
                   <StyledTableCell align="justify">
                     {row.description}
                   </StyledTableCell>
-                  <StyledTableCell align="left">
-                  <Link href={row.website} rel="noopener noreferrer" target="_blank">Website</Link>
+                  <StyledTableCell align="justify">
+                    <Link
+                      href={row.website}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Website
+                    </Link>
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     <Link component={RouterLink} to={`/editProject/${row._id}`}>

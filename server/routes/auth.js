@@ -29,8 +29,6 @@ router.get("/user", verifyToken, (req, res, next) => {
       // res.status(200).json(authData.user)
       //console.log(authData.user, "Fabian & Rabiul built this :)");
       User.findById(authData.user._id)
-        .populate("favorites")
-        .populate("projects")
         .then((user) => {
           res.status(200).json(user);
         })
@@ -93,11 +91,11 @@ router.post("/createClass", verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       // console.log(req.body, "testing purpose");
-      let newClass = new Classes(req.body)
+      let newClass = new Classes(req.body);
       newClass.save().then((classCohort) => {
-        console.log(classCohort)
-        res.json({classCohort})
-      })
+        console.log(classCohort);
+        res.json({ classCohort });
+      });
     }
   });
 });
@@ -149,9 +147,9 @@ router.post("/newProject", verifyToken, (req, res) => {
 });
 
 router.post("/formUpdate", verifyToken, (req, res) => {
-  console.log("From Line 118: ", req.body);
+  //console.log("From Line 118: ", req.body);
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    console.log("From Line 120: ", req.body);
+    // console.log("From Line 120: ", req.body);
     if (err) {
       res.status(403).json(err);
     } else {
@@ -168,23 +166,22 @@ router.post("/formUpdate", verifyToken, (req, res) => {
         },
         { multi: true }
       ).then((updated) => {
-        console.log(
-          typeof req.body.teamMembers,
-          "Hi, calll us if you need help :D"
-        );
+        // console.log(
+        //   typeof req.body.teamMembers,
+        //   "Hi, calll us if you need help :D"
+        // );
         req.body.teamMembers.forEach((member) => {
-          console.log(member, "line 164");
+          //console.log(member, "line 164");
           User.findByIdAndUpdate(member, {
             $addToSet: { projects: req.body.projectId },
           })
             .then((response) => {
-              console.log(response, "165 Hello from the backend");
+              // console.log(response, "165 Hello from the backend");
               res.json({ updated });
             })
             .catch((err) => {
               console.log(err, "If you see this is because the code broke");
             });
-          console.log(updated, "line 159");
         });
       });
     }
@@ -218,7 +215,7 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
     } else {
       // console.log(req.body);
       Projects.find({ class: req.body.class })
-        // .populate("studentsID")
+        .populate("studentsID")
         .then((allProjects) => {
           // console.log(allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
           res.json({ allProjects });
@@ -330,9 +327,11 @@ router.post("/deleteFavoritesArchive", verifyToken, (req, res) => {
           $pull: { favorites: req.body.targetProject },
         },
         { new: true }
-      ).then((delFavorites) => {
-        res.json({ delFavorites });
-      });
+      )
+        .then((user) => {
+          res.status(200).json(user);
+        })
+        .catch((err) => res.status(500).json(err));
     }
   });
 });
@@ -343,16 +342,19 @@ router.post("/addFavorites", verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       // if (req.body.targetProject != "null") {
-        User.findByIdAndUpdate(
-          authData.user._id,
-          {
-            $push: { favorites: req.body.targetProject },
-          },
+      User.findByIdAndUpdate(
+        authData.user._id,
+        {
+          $push: { favorites: req.body.targetProject },
+        },
 
-          { new: true }
-        ).then((addFavorites) => {
-          res.json({ addFavorites });
-        });
+        { new: true }
+      )
+        .then((user) => {
+          res.status(200).json(user);
+        })
+        .catch((err) => res.status(500).json(err));
+
       // }
     }
   });
@@ -380,6 +382,37 @@ router.post("/getAllFavoriteProjects", verifyToken, (req, res) => {
           //     });
           // });
         });
+    }
+  });
+});
+
+router.get("/getFavProjects", verifyToken, (req, res, next) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      // console.log(req.body);
+      User.findById(authData.user._id)
+        .then((user) => {
+          res.status(200).json(user);
+        })
+        .catch((err) => res.status(500).json(err));
+    }
+  });
+});
+
+router.get("/favoriteSection", verifyToken, (req, res, next) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      User.findById(authData.user._id)
+        .populate({ path: "favorites", populate: { path: "studentsID" } })
+        .populate("projects")
+        .then((user) => {
+          res.status(200).json(user);
+        })
+        .catch((err) => res.status(500).json(err));
     }
   });
 });
