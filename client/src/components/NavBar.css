@@ -4,6 +4,7 @@
   align-items: center;
   background-color: grey;
   flex-wrap: wrap;
+  /* position: fixed; */
 }
 
 .navTopBarContainer .logo {

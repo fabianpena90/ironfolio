@@ -218,7 +218,7 @@ router.post("/getAllClassProjects", verifyToken, (req, res) => {
     } else {
       // console.log(req.body);
       Projects.find({ class: req.body.class })
-        //.populate("studentsID")
+        // .populate("studentsID")
         .then((allProjects) => {
           // console.log(allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
           res.json({ allProjects });

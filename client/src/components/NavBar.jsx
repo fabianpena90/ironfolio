@@ -26,8 +26,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     alignItems: "center",
-    height: "80vh",
-    position: "sticky"
+    height: "80vh"
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -75,7 +74,7 @@ const NavBar = (props) => {
             </Link>
             <Divider />
             <Divider />
-            <Link component={RouterLink}  className="navBarLinks" to="/archive">
+            <Link component={RouterLink} className="navBarLinks" to="/archive">
               <MenuItem>
                 <ArchiveRoundedIcon className="menuIcon" />
                 Archive
