@@ -23,5 +23,5 @@ h1 {
 
 .instructions {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-evenly;
 }

@@ -128,37 +128,41 @@ function Profile(props) {
   if (props.user.class === "Test") {
     return (
       <div className="instructions">
-      <div>
-        <h2>Instructions</h2>
-      </div>
-      <div>
-      <form onSubmit={handleSubmit}>
-        <FormControl className={classes.formControl} variant="outlined">
-          <InputLabel htmlFor="outlined-selectClass-native-simple">
-            Select Class
-          </InputLabel>
-          <Select
-            native
-            onChange={(e) => {
-              //console.log(e.target.value);
-              setAssignClass(e.target.value);
-            }}
-            label="selectClass"
-            inputProps={{
-              name: "selectClass",
-              id: "outlined-selectClass-native-simple",
-            }}
-          >
-            <option aria-label="" value="Test" />
-            {showClass()}
-          </Select>
+        <div className="instructions-body">
+          <h2>Instructions</h2>
+          <article>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          </article>
+        </div>
+        <div>
+          <form onSubmit={handleSubmit}>
+            <FormControl className={classes.formControl} variant="outlined">
+              <InputLabel htmlFor="outlined-selectClass-native-simple">
+                Select Class
+              </InputLabel>
+              <Select
+                native
+                onChange={(e) => {
+                  //console.log(e.target.value);
+                  setAssignClass(e.target.value);
+                }}
+                label="selectClass"
+                inputProps={{
+                  name: "selectClass",
+                  id: "outlined-selectClass-native-simple",
+                }}
+              >
+                <option aria-label="" value="Test" />
+                {showClass()}
+              </Select>
 
-          <Button variant="contained" size="large" type="submit">
-            Submit
-          </Button>
-        </FormControl>
-      </form>
-      </div>
+              <Button variant="contained" size="large" type="submit">
+                Submit
+              </Button>
+            </FormControl>
+          </form>
+        </div>
       </div>
     );
   } else {
