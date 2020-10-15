@@ -20,3 +20,8 @@ h1 {
   right: 100px;
   left: 140px;
 }
+
+.instructions {
+  display: flex;
+  justify-content:space-between;
+}

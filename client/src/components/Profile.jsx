@@ -127,6 +127,11 @@ function Profile(props) {
 
   if (props.user.class === "Test") {
     return (
+      <div className="instructions">
+      <div>
+        <h2>Instructions</h2>
+      </div>
+      <div>
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.formControl} variant="outlined">
           <InputLabel htmlFor="outlined-selectClass-native-simple">
@@ -153,6 +158,8 @@ function Profile(props) {
           </Button>
         </FormControl>
       </form>
+      </div>
+      </div>
     );
   } else {
     return (

@@ -83,7 +83,7 @@ function ArchiveDetail(props) {
           <TableHead>
             <TableRow>
               {/* <StyledTableCell>Project #</StyledTableCell> */}
-              <StyledTableCell align="center">Student/Team Name</StyledTableCell>
+              <StyledTableCell align="center">Student</StyledTableCell>
               <StyledTableCell align="center">Project Name</StyledTableCell>
               <StyledTableCell align="center">Description</StyledTableCell>
               <StyledTableCell align="center">Website</StyledTableCell>
