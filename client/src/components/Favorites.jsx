@@ -47,10 +47,6 @@ function Favorites(props) {
 
   useEffect(() => {
     async function getFavoriteProjects() {
-      // let res = await actions.getAllFavoriteProjects({
-      //   favorites: user.favorites,
-      // });
-      //let res = props.getUser()
       let user = await actions.favoriteSection();
       // console.log(user.data.favorites);
       setFavorites(user?.data?.favorites);
@@ -59,12 +55,7 @@ function Favorites(props) {
   }, []);
 
   async function handleDeleteFavorites(targetProject) {
-    //let targetProject = e.target?.parentElement.getAttribute("data");
-    // console.log(targetProject);
-    //debugger
     let res = await actions.deleteFavorites({ targetProject });
-    // console.log(res.data.delFavorites.favorites);
-    // debugger
     setFavorites(res.data?.delFavorites.favorites);
   }
 

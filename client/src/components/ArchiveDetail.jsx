@@ -41,6 +41,7 @@ const useStyles = makeStyles({
     width: "70vw",
   },
 });
+
 function ArchiveDetail(props) {
   const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
