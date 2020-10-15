@@ -9,11 +9,15 @@
 }
 
 .google {
-display: flex;
-justify-content: center;
-margin: 30% 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 40vh;
+  align-content: center;
+  align-items: center; 
 }
 
 .header {
   text-align: center;
+  width: 800px;
 }
