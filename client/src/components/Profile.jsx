@@ -202,7 +202,12 @@ function Profile(props) {
               {showClass()}
             </Select>
 
-            <Button variant="contained" size="large" type="submit">
+            <Button
+              variant="contained"
+              size="large"
+              type="submit"
+              color="secondary"
+            >
               Submit
             </Button>
           </FormControl>
