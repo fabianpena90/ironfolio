@@ -13,12 +13,17 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import IconButton from "@material-ui/core/IconButton";
-import Checkbox from "@material-ui/core/Checkbox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -26,7 +31,7 @@ const StyledTableCell = withStyles((theme) => ({
     color: theme.palette.common.white,
   },
   body: {
-    fontSize: 14,
+    fontSize: 18,
   },
 }))(TableCell);
 const StyledTableRow = withStyles((theme) => ({
@@ -77,8 +82,8 @@ function ArchiveDetail(props) {
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Project #</StyledTableCell>
-              <StyledTableCell>Student/Team Name</StyledTableCell>
+              {/* <StyledTableCell>Project #</StyledTableCell> */}
+              <StyledTableCell align="center">Student/Team Name</StyledTableCell>
               <StyledTableCell align="center">Project Name</StyledTableCell>
               <StyledTableCell align="center">Description</StyledTableCell>
               <StyledTableCell align="center">Website</StyledTableCell>
@@ -89,15 +94,27 @@ function ArchiveDetail(props) {
             {allProjects?.map((eachRow) => {
               return (
                 <StyledTableRow key={eachRow._id}>
-                  <StyledTableCell component="th" scope="row">
+                  {/* <StyledTableCell component="th" scope="row">
                     {eachRow.project}
-                  </StyledTableCell>
+                  </StyledTableCell> */}
                   <StyledTableCell component="th" scope="row">
                     {eachRow?.studentsID.map((studentName) => {
-                      return <p>{studentName.name}</p>;
+                      return (
+                      <List>
+                          <ListItem>
+                            <ListItemAvatar>
+                              <Avatar src={studentName.imageUrl}>
+                              </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={studentName.name}
+                            />
+                          </ListItem>
+                      </List>
+                        )
                     })}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     {eachRow.projectName}
                   </StyledTableCell>
                   <StyledTableCell align="justify">

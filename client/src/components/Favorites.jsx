@@ -69,7 +69,7 @@ function Favorites(props) {
             <TableRow>
               <StyledTableCell>Class Name</StyledTableCell>
               <StyledTableCell>Student / Team Name</StyledTableCell>
-              <StyledTableCell>Project Name</StyledTableCell>
+              <StyledTableCell align="center">Project Name</StyledTableCell>
               <StyledTableCell align="right">Website / URL</StyledTableCell>
               <StyledTableCell align="right">Favorites</StyledTableCell>
             </TableRow>
@@ -80,15 +80,15 @@ function Favorites(props) {
                 <StyledTableCell component="th" scope="row">
                   {row?.studentsID?.[0].class}
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="center">
                   {row?.studentsID.map((eachName) => {
-                    return <> {eachName?.name} </>;
+                    return <p>{eachName?.name}</p>;
                   })}
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="center">
                   {row?.projectName}
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="center">
                   <Link
                     href={row?.website}
                     target="_blank"
@@ -97,7 +97,7 @@ function Favorites(props) {
                     Website
                   </Link>
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="center">
                   <IconButton
                     onClick={(e) => {
                       handleDeleteFavorites(row?._id);

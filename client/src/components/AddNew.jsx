@@ -65,18 +65,18 @@ const AddNew = () => {
             variant="outlined"
             onSubmit={handleSubmit}
           >
-            <InputLabel
+            {/* <InputLabel
               className="addNewForm"
               htmlFor="outlined-selectClass-native-simple"
             >
-              Select Project
+              Select Module
             </InputLabel>
             <Select
               native
               fullWidth="true"
               required="true"
               className="addNewForm"
-              label="Select Project"
+              label="Select Module"
               onChange={(e) => {
                 setProject(e.target.value);
               }}
@@ -87,25 +87,25 @@ const AddNew = () => {
               // }}
             >
               <option aria-label="None" value="" />
-              <option aria-label="None" value="Project 1">
-                Project 1
+              <option aria-label="None" value="Module 1">
+                Module 1
               </option>
-              <option aria-label="None" value="Project 2">
-                Project 2
+              <option aria-label="None" value="Module 2">
+                Module 2
               </option>
-              <option aria-label="None" value="Project 3">
-                Project 3
+              <option aria-label="None" value="Module 3">
+                Module 3
               </option>
-              <option aria-label="None" value="Project 4">
-                Project 4
+              <option aria-label="None" value="Module 4">
+                Module 4
               </option>
-              <option aria-label="None" value="Project 5">
-                Project 5
+              <option aria-label="None" value="Module 5">
+                Module 5
               </option>
               <option aria-label="None" value="Bonus">
                 Bonus
               </option>
-            </Select>
+            </Select> */}
             <TextField
               className="addNewForm"
               fullWidth="true"
