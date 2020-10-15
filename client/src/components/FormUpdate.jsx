@@ -169,20 +169,24 @@ function FormUpdate(props) {
                   />
                 </ListItemSecondaryAction>
               </ListItem>
-            ) : teamMembers.includes(eachMate) ? (
+            ) : teamMembers.includes(eachMate._id) ? (
               <ListItem key={eachMate._id} button>
                 <ListItemAvatar>
                   <Avatar alt="classMate" src={eachMate.imageUrl} />
                 </ListItemAvatar>
                 <ListItemText primary={`${eachMate?.name}`} />
                 <ListItemSecondaryAction>
-                  <Checkbox
-                    edge="end"
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                    value={`${eachMate._id}`}
-                    defaultChecked
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        edge="end"
+                        onChange={(e) => {
+                          handleChange(e);
+                        }}
+                        value={`${eachMate._id}`}
+                        defaultChecked
+                      />
+                    }
                   />
                 </ListItemSecondaryAction>
               </ListItem>

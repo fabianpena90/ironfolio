@@ -60,11 +60,7 @@ function App() {
           </div>
           <div className="body">
             <Switch>
-              <Route
-                exact
-                path="/"
-                render={() => <Profile user={user} />}
-              />
+              <Route exact path="/" render={() => <Profile user={user} />} />
               <Route
                 exact
                 path="/addNewClass"
@@ -73,7 +69,7 @@ function App() {
               <Route
                 exact
                 path="/editProject/:id"
-                render={(props) => <FormUpdate {...props}/>}
+                render={(props) => <FormUpdate {...props} />}
               />
               <Route exact path="/newproject" render={() => <AddNew />} />
               <Route
@@ -84,9 +80,13 @@ function App() {
               <Route
                 exact
                 path="/archive/:id"
-                render={(props) => <ArchiveDetail {...props} />}
+                render={(props) => <ArchiveDetail {...props} user={user} />}
               />
-              <Route exact path="/favorites" render={(props) => <Favorites {...props}/>} />
+              <Route
+                exact
+                path="/favorites"
+                render={(props) => <Favorites {...props} />}
+              />
             </Switch>
           </div>
         </div>

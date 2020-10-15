@@ -14,6 +14,7 @@ import IconButton from "@material-ui/core/IconButton";
 import actions from "../api/index";
 import TheContext from "../TheContext";
 import Favorite from "@material-ui/icons/Favorite";
+import Link from "@material-ui/core/Link";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -50,21 +51,19 @@ function Favorites(props) {
       //   favorites: user.favorites,
       // });
       //let res = props.getUser()
-      let user = await actions.getUser();
-      console.log(user.data.favorites);
-      console.log(98989)
+      let user = await actions.favoriteSection();
+      // console.log(user.data.favorites);
       setFavorites(user?.data?.favorites);
-     
     }
     getFavoriteProjects();
   }, []);
 
   async function handleDeleteFavorites(targetProject) {
     //let targetProject = e.target?.parentElement.getAttribute("data");
-    console.log(targetProject);
+    // console.log(targetProject);
     //debugger
     let res = await actions.deleteFavorites({ targetProject });
-    console.log(res.data.delFavorites.favorites);
+    // console.log(res.data.delFavorites.favorites);
     // debugger
     setFavorites(res.data?.delFavorites.favorites);
   }
@@ -99,13 +98,13 @@ function Favorites(props) {
                   {row?.projectName}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <a
-                    to={row?.website}
+                  <Link
+                    href={row?.website}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Website
-                  </a>
+                  </Link>
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <IconButton

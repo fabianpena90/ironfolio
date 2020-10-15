@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     height: "80vh",
-    position: "sticky"
   },
   paper: {
     marginRight: theme.spacing(2),
