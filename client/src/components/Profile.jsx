@@ -20,7 +20,12 @@ import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import Select from "@material-ui/core/Select";import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import StarIcon from '@material-ui/icons/Star';
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -129,27 +134,68 @@ function Profile(props) {
     return (
       <div className="instructions">
       <div>
-        <h2>Instructions</h2>
-      </div>
-      <div>
+        <h1>Welcome Ironhackers</h1>
+        <h3>Here are the instructions for Ironfolio</h3>
+        <ul>
+        <List component="nav" className={classes.root} aria-label="contacts">
+          <ListItem>
+            <ListItemIcon>
+              <StarIcon />
+            </ListItemIcon>
+            <ListItemText primary="Please Select Your Cohort." />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <StarIcon />
+            </ListItemIcon>
+            <ListItemText primary="Select Add New Project." />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <StarIcon />
+            </ListItemIcon>
+            <ListItemText primary="In your Profile, you shall find all your creations." />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <StarIcon />
+            </ListItemIcon>
+            <ListItemText primary="Once project is created, click EDIT to add participants to the project &#40;if any&#x29;." />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <StarIcon />
+            </ListItemIcon>
+            <ListItemText primary="In the Archive section, you will find all the previous cohort's." />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <StarIcon />
+            </ListItemIcon>
+            <ListItemText primary="In Favorites section, you will find your all favorites." />
+          </ListItem>
+        </List>
+          </ul>
+        </div>
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.formControl} variant="outlined">
           <InputLabel htmlFor="outlined-selectClass-native-simple">
-            Select Class
+            Select Your Cohort
           </InputLabel>
           <Select
+          
             native
             onChange={(e) => {
               //console.log(e.target.value);
               setAssignClass(e.target.value);
             }}
-            label="selectClass"
+            label="SelectYourCohort"
             inputProps={{
-              name: "selectClass",
-              id: "outlined-selectClass-native-simple",
+              name: "selectCohort",
+              id: "outlined-SelectYourCohort-native-simple",
             }}
           >
-            <option aria-label="" value="Test" />
+            <option aria-label="" value="Test"  />
             {showClass()}
           </Select>
 
@@ -158,7 +204,6 @@ function Profile(props) {
           </Button>
         </FormControl>
       </form>
-      </div>
       </div>
     );
   } else {
