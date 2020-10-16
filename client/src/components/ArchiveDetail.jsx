@@ -15,15 +15,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -51,6 +50,14 @@ function ArchiveDetail(props) {
   const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
   const [favorites, setFavorites] = useState(props.user.favorites);
+  const { user, history } = React.useContext(TheContext);
+
+  if (!user.email) {
+    history.push("/login");
+  }
+  if (props.user.class === "Test") {
+    history.push("/");
+  }
 
   useEffect(() => {
     async function getProjects() {
@@ -100,18 +107,15 @@ function ArchiveDetail(props) {
                   <StyledTableCell component="th" scope="row">
                     {eachRow?.studentsID.map((studentName) => {
                       return (
-                      <List>
+                        <List>
                           <ListItem>
                             <ListItemAvatar>
-                              <Avatar src={studentName.imageUrl}>
-                              </Avatar>
+                              <Avatar src={studentName.imageUrl}></Avatar>
                             </ListItemAvatar>
-                            <ListItemText
-                              primary={studentName.name}
-                            />
+                            <ListItemText primary={studentName.name} />
                           </ListItem>
-                      </List>
-                        )
+                        </List>
+                      );
                     })}
                   </StyledTableCell>
                   <StyledTableCell align="center">

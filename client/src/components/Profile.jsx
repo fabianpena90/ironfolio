@@ -135,7 +135,7 @@ function Profile(props) {
       <div className="instructions">
         <div>
           <h1>Welcome Ironhackers</h1>
-          <h3>Here are the instructions for Ironfolio</h3>
+          <h3>Here are some tips to use Ironfolio</h3>
           <ul>
             <List
               component="nav"
@@ -152,31 +152,19 @@ function Profile(props) {
                 <ListItemIcon>
                   <StarIcon />
                 </ListItemIcon>
-                <ListItemText primary="Select Add New Project." />
+                <ListItemText primary="Once you start adding your projects, they'll appear in your profile." />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <StarIcon />
                 </ListItemIcon>
-                <ListItemText primary="In your Profile, you shall find all your creations." />
+                <ListItemText primary="When the project is added, click EDIT to add collaborators &#40;if any&#x29;." />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <StarIcon />
                 </ListItemIcon>
-                <ListItemText primary="Once project is created, click EDIT to add participants to the project &#40;if any&#x29;." />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <StarIcon />
-                </ListItemIcon>
-                <ListItemText primary="In the Archive section, you will find all the previous cohort's." />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <StarIcon />
-                </ListItemIcon>
-                <ListItemText primary="In Favorites section, you will find your all favorites." />
+                <ListItemText primary="Use the archive for inspiration from alumni and save your favorites." />
               </ListItem>
             </List>
           </ul>

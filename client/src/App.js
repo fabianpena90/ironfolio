@@ -43,7 +43,7 @@ function App() {
     <div className="google">
       <div className="header">
         <h1>IRONFOLIO</h1>
-        <p>Where you can create and collaborate...</p>
+        <p>Where you can explore and collaborate...</p>
       </div>
       {!user && <GoogleAuth setUser={setUser} />}
       {!user && <GoogleAuthLogin setUser={setUser} />}
@@ -69,13 +69,17 @@ function App() {
               <Route
                 exact
                 path="/editProject/:id"
-                render={(props) => <FormUpdate {...props} />}
+                render={(props) => <FormUpdate {...props} user={user} />}
               />
-              <Route exact path="/newproject" render={() => <AddNew />} />
+              <Route
+                exact
+                path="/newproject"
+                render={() => <AddNew user={user} />}
+              />
               <Route
                 exact
                 path="/archive"
-                render={(props) => <Archive {...props} />}
+                render={(props) => <Archive {...props} user={user} />}
               />
               <Route
                 exact
@@ -85,7 +89,7 @@ function App() {
               <Route
                 exact
                 path="/favorites"
-                render={(props) => <Favorites {...props} />}
+                render={(props) => <Favorites {...props} user={user} />}
               />
             </Switch>
           </div>
