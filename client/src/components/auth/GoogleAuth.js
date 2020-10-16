@@ -1,5 +1,5 @@
 import React from "react";
-import "./GoogleBtn.css"
+import "./GoogleBtn.css";
 import actions from "../../api/index";
 import { GoogleLogin } from "react-google-login";
 
@@ -19,9 +19,9 @@ const responseGoogle = (props) => {
   };
   return (
     <GoogleLogin
-    className="loginBtn"
+      className="loginBtn"
       clientId={process.env.REACT_APP_GOOGLEID}
-      buttonText="Signup with Google"
+      buttonText="Sign up with Google"
       onSuccess={onResponse}
       onFailure={onResponse}
       cookiePolicy={"single_host_origin"}
