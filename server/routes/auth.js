@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const Classes = require("../models/Class");
 const Projects = require("../models/Projects");
 
+// SignUp 
 router.post("/signup", (req, res, next) => {
   User.register(req.body, req.body.password)
     .then((user) => {
@@ -26,8 +27,6 @@ router.get("/user", verifyToken, (req, res, next) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // res.status(200).json(authData.user)
-      //console.log(authData.user, "Fabian & Rabiul built this :)");
       User.findById(authData.user._id)
         .then((user) => {
           res.status(200).json(user);
@@ -37,6 +36,7 @@ router.get("/user", verifyToken, (req, res, next) => {
   });
 });
 
+// LogIn
 router.post("/login", passport.authenticate("local"), (req, res, next) => {
   const { user } = req;
   jwt.sign({ user }, "secretkey", { expiresIn: "30min" }, (err, token) => {
@@ -44,6 +44,7 @@ router.post("/login", passport.authenticate("local"), (req, res, next) => {
   });
 });
 
+// LogOut
 router.get("/logout", (req, res, next) => {
   req.logout();
   res.status(200).json({ msg: "Logged out" });
@@ -57,7 +58,6 @@ function isAuth(req, res, next) {
 
 // Verify Token
 function verifyToken(req, res, next) {
-  //console.log("verify");
   // Get auth header value
   const bearerHeader = req.headers["authorization"];
   // Check if bearer is undefined
@@ -78,32 +78,30 @@ function verifyToken(req, res, next) {
 
 // Put all routes below here:
 
+// Get Classes from profile page
 router.get("/getAllClasses", (req, res) => {
   Classes.find().then((selectClass) => {
-    //console.log(selectClass, "Fabian & Rabiul built this");
     res.json({ selectClass });
   });
 });
 
+// Create a class (only admin)
 router.post("/createClass", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // console.log(req.body, "testing purpose");
       let newClass = new Classes(req.body);
       newClass.save().then((classCohort) => {
-        console.log(classCohort);
         res.json({ classCohort });
       });
     }
   });
 });
 
+// Add class by student
 router.post("/addClass", verifyToken, (req, res) => {
-  // console.log("From Line 95: ", req.body);
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    // console.log("From Line 97: ", authData);
     if (err) {
       res.status(403).json(err);
     } else {
@@ -118,17 +116,13 @@ router.post("/addClass", verifyToken, (req, res) => {
   });
 });
 
+// New project by student
 router.post("/newProject", verifyToken, (req, res) => {
-  // console.log("From Line 118: ", req.body);
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    // console.log("From Line 120: ", authData.user);
     if (err) {
       res.status(403).json(err);
     } else {
-      //let project = req.body.project;
-      // console.log(authData.user, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
       let project = new Projects(req.body);
-      //project.class = authData.user.class;
       project.studentsID = authData.user._id;
       project.save().then((newProject) => {
         User.findByIdAndUpdate(
@@ -138,7 +132,6 @@ router.post("/newProject", verifyToken, (req, res) => {
           },
           { new: true }
         ).then((project) => {
-          // console.log(project, "Fabian & Rabiul are the shit");
           res.json({ project });
         });
       });
@@ -146,14 +139,12 @@ router.post("/newProject", verifyToken, (req, res) => {
   });
 });
 
+// Edit project by student
 router.post("/formUpdate", verifyToken, (req, res) => {
-  //console.log("From Line 118: ", req.body);
   jwt.verify(req.token, "secretkey", (err, authData) => {
-    // console.log("From Line 120: ", req.body);
     if (err) {
       res.status(403).json(err);
     } else {
-      //let project = req.body.project;
       Projects.findByIdAndUpdate(
         { _id: req.body.projectId },
         {
@@ -166,21 +157,15 @@ router.post("/formUpdate", verifyToken, (req, res) => {
         },
         { multi: true }
       ).then((updated) => {
-        // console.log(
-        //   typeof req.body.teamMembers,
-        //   "Hi, calll us if you need help :D"
-        // );
         req.body.teamMembers.forEach((member) => {
-          //console.log(member, "line 164");
           User.findByIdAndUpdate(member, {
             $addToSet: { projects: req.body.projectId },
           })
             .then((response) => {
-              // console.log(response, "165 Hello from the backend");
               res.json({ updated });
             })
             .catch((err) => {
-              console.log(err, "If you see this is because the code broke");
+              console.log(err)
             });
         });
       });
@@ -188,6 +173,7 @@ router.post("/formUpdate", verifyToken, (req, res) => {
   });
 });
 
+// Get students projects from profile
 router.get("/getStudentProjects", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
@@ -196,47 +182,33 @@ router.get("/getStudentProjects", verifyToken, (req, res) => {
       User.findById(authData.user._id)
         .populate("projects")
         .then((allProjects) => {
-          // console.log(a, "Testttsdsdadasdasdasdadadad");
           res.json({ allProjects });
         });
-      // Projects.find()
-      //   .populate("studentsID")
-      //   .then((projects) => {
-      //     res.json({ projects });
-      //   });
     }
   });
 });
 
+// Get all projects from archive detail
 router.post("/getAllClassProjects", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // console.log(req.body);
       Projects.find({ class: req.body.class })
         .populate("studentsID")
         .then((allProjects) => {
-          // console.log(allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
           res.json({ allProjects });
         });
-      // User.find(req.body)
-      //   // .populate("projects")
-      //   .populate({ path: "projects", populate: { path: "studentsID" } })
-      //   .then((allProjects) => {
-      //     console.log(allProjects);
-      //     res.json({ allProjects });
-      //   });
     }
   });
 });
 
+// Delete project from student profile
 router.post("/deleteProject", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      //console.log(req.body.deleteProject);
       User.findByIdAndUpdate(
         authData.user._id,
         {
@@ -250,12 +222,12 @@ router.post("/deleteProject", verifyToken, (req, res) => {
             res.json({ delProject });
           }
         );
-        //res.json({ delProject });
       });
     }
   });
 });
 
+// Submit edit project from form update
 router.post("/editProject", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
@@ -268,6 +240,7 @@ router.post("/editProject", verifyToken, (req, res) => {
   });
 });
 
+// Add students to projects from form update
 router.post("/getStudentList", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
@@ -280,20 +253,20 @@ router.post("/getStudentList", verifyToken, (req, res) => {
   });
 });
 
+// Details of edited projects
 router.post("/getEditProject", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      //console.log(req.body, "get that shit!!!!!!!!!!!!!!!!!!1")
       Projects.findById(req.body.projectId).then((valueField) => {
-        // console.log(valueField, "something somethinggggggg")
         res.json({ valueField });
       });
     }
   });
 });
 
+// Delete favorites from student favorites
 router.post("/deleteFavorites", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
@@ -305,10 +278,7 @@ router.post("/deleteFavorites", verifyToken, (req, res) => {
           $pull: { favorites: req.body.targetProject },
         },
         { new: true }
-      )
-        // .populate("favorites")
-        // .populate("studentsID")
-        .populate({ path: "favorites", populate: { path: "studentsID" } })
+      ).populate({ path: "favorites", populate: { path: "studentsID" } })
         .then((delFavorites) => {
           res.json({ delFavorites });
         });
@@ -316,6 +286,7 @@ router.post("/deleteFavorites", verifyToken, (req, res) => {
   });
 });
 
+// Delete favorite projects from student archive
 router.post("/deleteFavoritesArchive", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
@@ -336,12 +307,12 @@ router.post("/deleteFavoritesArchive", verifyToken, (req, res) => {
   });
 });
 
+// Add favorite projects
 router.post("/addFavorites", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // if (req.body.targetProject != "null") {
       User.findByIdAndUpdate(
         authData.user._id,
         {
@@ -354,44 +325,33 @@ router.post("/addFavorites", verifyToken, (req, res) => {
           res.status(200).json(user);
         })
         .catch((err) => res.status(500).json(err));
-
-      // }
     }
   });
 });
 
+// See all favorite projects
 router.post("/getAllFavoriteProjects", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // console.log(req.body);
       Projects.find()
         .where("_id")
         .in(req.body.favorites)
         .populate("studentsID")
         .then((allProjects) => {
           res.json({ allProjects });
-          // allProjects.map((eachProject) => {
-          //   User.find()
-          //     .where("_id")
-          //     .in(eachProject.studentsID)
-          //     .then((students) => {
-          //       console.log(students, allProjects, "<<<<<<<<<<<<<<<<<<<<<<<<");
-          //       res.json({ students, allProjects });
-          //     });
-          // });
         });
     }
   });
 });
 
+// Get favorites projects from archive details
 router.get("/getFavProjects", verifyToken, (req, res, next) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // console.log(req.body);
       User.findById(authData.user._id)
         .then((user) => {
           res.status(200).json(user);
@@ -401,6 +361,7 @@ router.get("/getFavProjects", verifyToken, (req, res, next) => {
   });
 });
 
+// Get favorite projects of student 
 router.get("/favoriteSection", verifyToken, (req, res, next) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
