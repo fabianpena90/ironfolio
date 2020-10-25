@@ -42,8 +42,15 @@ const useStyles = makeStyles({
 
 function Favorites(props) {
   const classes = useStyles();
-  const { user } = React.useContext(TheContext);
+  const { user, history } = React.useContext(TheContext);
   const [favorites, setFavorites] = useState([]);
+
+  if (!user.email) {
+    history.push("/login");
+  }
+  if (props.user.class === "Test") {
+    history.push("/");
+  }
 
   useEffect(() => {
     async function getFavoriteProjects() {
@@ -67,10 +74,10 @@ function Favorites(props) {
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Class Name</StyledTableCell>
-              <StyledTableCell>Student / Team Name</StyledTableCell>
+              <StyledTableCell>Cohort</StyledTableCell>
+              <StyledTableCell>Student Name</StyledTableCell>
               <StyledTableCell align="center">Project Name</StyledTableCell>
-              <StyledTableCell align="right">Website / URL</StyledTableCell>
+              <StyledTableCell align="right">URL</StyledTableCell>
               <StyledTableCell align="right">Favorites</StyledTableCell>
             </TableRow>
           </TableHead>

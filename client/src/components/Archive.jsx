@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Archive() {
+function Archive(props) {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
@@ -123,6 +123,14 @@ function Archive() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [allClass, setAllClass] = useState([]);
+  const { user, history } = React.useContext(TheContext);
+  //console.log(user, history);
+  if (!user.email) {
+    history.push("/login");
+  }
+  if (props.user.class === "Test") {
+    history.push("/");
+  }
   let rows = [];
 
   useEffect(() => {
@@ -156,11 +164,7 @@ function Archive() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
-  const { user, history } = React.useContext(TheContext);
-  //console.log(user, history);
-  if (!user.email) {
-    history.push("/login");
-  }
+
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.name);

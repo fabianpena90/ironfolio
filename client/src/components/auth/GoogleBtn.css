@@ -2,17 +2,18 @@
   /* border-radius: 20px !important;
   font-size: 18px !important;  */
   margin: 25px !important;
-  width: 80% !important;
   min-width: 184px !important;
-  max-width: 184px !important;
-  height: 42px !important;
-  background-color: #fcfcfc !important;
   border-radius: 20px !important;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .2) !important;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2) !important;
+  outline: none !important;
 }
 
 .loginBtn:hover {
   border: 1px solid;
   outline-offset: 15px;
   border-top-left-radius: 20px !important;
+}
+
+.loginBtn div {
+  background: none !important;
 }

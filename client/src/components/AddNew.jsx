@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddNew = () => {
+const AddNew = (props) => {
   const classes = useStyles();
   const { user, history } = React.useContext(TheContext);
   const [project, setProject] = useState();
@@ -45,7 +45,12 @@ const AddNew = () => {
     //console.log(res, "Fabian & Rabiul are the shit!");
   }
 
-  console.log(user);
+  if (props.user.class === "Test") {
+    history.push("/");
+  }
+  if (!user.email) {
+    history.push("/login");
+  }
   const handleSubmit = (e) => {
     addProjects();
     history.push("/");
@@ -55,7 +60,7 @@ const AddNew = () => {
   return (
     <div>
       <div>
-        <h2>Add Your Projects</h2>
+        <h2>Add Your Project</h2>
       </div>
       <div>
         <form id="add-new" onSubmit={handleSubmit}>
@@ -65,47 +70,6 @@ const AddNew = () => {
             variant="outlined"
             onSubmit={handleSubmit}
           >
-            {/* <InputLabel
-              className="addNewForm"
-              htmlFor="outlined-selectClass-native-simple"
-            >
-              Select Module
-            </InputLabel>
-            <Select
-              native
-              fullWidth="true"
-              required="true"
-              className="addNewForm"
-              label="Select Module"
-              onChange={(e) => {
-                setProject(e.target.value);
-              }}
-              placeholder="selectClass"
-              // inputProps={{
-              //   name: "selectClass",
-              //   id: "outlined-selectClass-native-simple",
-              // }}
-            >
-              <option aria-label="None" value="" />
-              <option aria-label="None" value="Module 1">
-                Module 1
-              </option>
-              <option aria-label="None" value="Module 2">
-                Module 2
-              </option>
-              <option aria-label="None" value="Module 3">
-                Module 3
-              </option>
-              <option aria-label="None" value="Module 4">
-                Module 4
-              </option>
-              <option aria-label="None" value="Module 5">
-                Module 5
-              </option>
-              <option aria-label="None" value="Bonus">
-                Bonus
-              </option>
-            </Select> */}
             <TextField
               className="addNewForm"
               fullWidth="true"
@@ -146,6 +110,7 @@ const AddNew = () => {
             rows={8}
           />
           <Button
+            color="secondary"
             className="btnAdd"
             size="large"
             variant="contained"
