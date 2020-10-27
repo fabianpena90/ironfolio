@@ -29,7 +29,6 @@ function App() {
   useEffect(() => {
     async function getUser() {
       let user = await actions.getUser();
-      //console.log("user is", user);
       setUser(user?.data);
     }
     getUser();
