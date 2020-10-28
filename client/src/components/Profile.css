@@ -13,12 +13,12 @@ h1 {
 } */
 
 #projects {
-  width: 65% !important;
+  width: 75% !important;
   margin: 0 auto !important;
-  position: absolute;
+  /*position: absolute;
   top: 120px;
   right: 100px;
-  left: 140px;
+  left: 140px; */
 }
 
 .instructions {

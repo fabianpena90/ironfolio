@@ -106,7 +106,7 @@ function Profile(props) {
     let newProject = [...projects].filter((eachProject) => {
       return eachProject._id !== value;
     });
-    console.log(res.data, newProject);
+    //console.log(res.data, newProject);
 
     setProjects(newProject);
   }

@@ -1,11 +1,7 @@
 .container {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-}
-
-.body {
-  margin-left: 10%;
+  /* flex-wrap: wrap; */
 }
 
 .google {
@@ -14,10 +10,5 @@
   flex-direction: column;
   margin-top: 40vh;
   align-content: center;
-  align-items: center; 
-}
-
-.header {
-  text-align: center;
-  width: 800px;
+  align-items: center;
 }

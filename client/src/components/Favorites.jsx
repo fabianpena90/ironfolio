@@ -66,7 +66,6 @@ function Favorites(props) {
     setFavorites(res.data?.delFavorites.favorites);
   }
 
-  console.log(favorites);
   return (
     <div className="archiveDetail">
       <h2>Your Favorites</h2>

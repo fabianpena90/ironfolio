@@ -55,7 +55,7 @@ function App() {
       <TheContext.Provider value={{ history, user, setUser }}>
         <Header />
         <div className="container">
-          <div>
+          <div className="navbar">
             <NavBar setUser={setUser} history={history} />
           </div>
           <div className="body">
