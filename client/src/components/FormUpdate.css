@@ -1,18 +1,8 @@
-.formUpdate {
-  /* text-align: center; */
-  width: 100%;
-  margin-right: 500px;
-}
-
-.editHeader {
-  text-align: center !important;
-}
-
 #studentName {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  width: 30%;
 }
 
 h3 {

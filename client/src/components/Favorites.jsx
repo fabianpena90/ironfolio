@@ -34,14 +34,8 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const useStyles = makeStyles({
-  table: {
-    width: "50vw",
-  },
-});
 
 function Favorites(props) {
-  const classes = useStyles();
   const { user, history } = React.useContext(TheContext);
   const [favorites, setFavorites] = useState([]);
 
@@ -70,20 +64,20 @@ function Favorites(props) {
     <div className="archiveDetail">
       <h2>Your Favorites</h2>
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
+        <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Cohort</StyledTableCell>
-              <StyledTableCell>Student Name</StyledTableCell>
+              <StyledTableCell align="center">Cohort</StyledTableCell>
+              <StyledTableCell align="center">Student Name</StyledTableCell>
               <StyledTableCell align="center">Project Name</StyledTableCell>
-              <StyledTableCell align="right">URL</StyledTableCell>
-              <StyledTableCell align="right">Favorites</StyledTableCell>
+              <StyledTableCell align="center">URL</StyledTableCell>
+              <StyledTableCell align="center">Favorites</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {favorites?.map((row) => (
               <StyledTableRow key={row?._id}>
-                <StyledTableCell component="th" scope="row">
+                <StyledTableCell align="center" component="th" scope="row">
                   {row?.studentsID?.[0].class}
                 </StyledTableCell>
                 <StyledTableCell align="center">

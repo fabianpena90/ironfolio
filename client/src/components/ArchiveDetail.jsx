@@ -40,14 +40,9 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
-const useStyles = makeStyles({
-  table: {
-    width: "70vw",
-  },
-});
+
 
 function ArchiveDetail(props) {
-  const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
   const [favorites, setFavorites] = useState(props.user.favorites);
   const { user, history } = React.useContext(TheContext);
@@ -86,7 +81,7 @@ function ArchiveDetail(props) {
     <div className="archiveDetail">
       <h2>Projects</h2>
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
+        <Table aria-label="customized table">
           <TableHead>
             <TableRow>
               {/* <StyledTableCell>Project #</StyledTableCell> */}

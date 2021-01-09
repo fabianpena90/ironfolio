@@ -24,7 +24,6 @@ import Fade from "@material-ui/core/Fade";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
     display: "flex",
     flexDirection: "row",
   },
@@ -32,8 +31,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   root: {
-    width: "100%",
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -47,7 +44,7 @@ function FormUpdate(props) {
   const [teamMembers, setTeamMembers] = useState([]);
   const [classMate, setClassMate] = useState([]);
   const [trigger, setTrigger] = useState(false);
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
 
   if (!user.email) {
     history.push("/login");
@@ -165,7 +162,7 @@ function FormUpdate(props) {
           <h3>Select Student</h3>
           {classMate.map((eachMate) => {
             return eachMate._id === user._id ? (
-              <ListItem key={eachMate._id} button>
+              <ListItem className="eachName" key={eachMate._id} button>
                 <ListItemAvatar>
                   <Avatar alt="classMate" src={eachMate.imageUrl} />
                 </ListItemAvatar>

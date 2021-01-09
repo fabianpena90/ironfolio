@@ -89,10 +89,10 @@ function EnhancedTableHead(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "50vw",
+    // width: "50vw",
   },
   paper: {
-    width: "100%",
+  
     marginBottom: theme.spacing(2),
   },
   visuallyHidden: {

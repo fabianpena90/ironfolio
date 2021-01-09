@@ -47,10 +47,10 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "50vw",
+    // width: "50vw",
   },
   paper: {
-    width: "100%",
+    // width: "60%",
     marginBottom: theme.spacing(2),
   },
   visuallyHidden: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     margin: -1,
     overflow: "hidden",
     padding: 0,
-    position: "absolute",
+    // position: "absolute",
     top: 10,
     width: 1,
   },
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 250,
+    // minWidth: 250,
   },
 }));
 
@@ -130,7 +130,7 @@ function Profile(props) {
     });
   }
 
-  if (props.user.class === "Test") {
+  if (props.user?.class === "Test") {
     return (
       <div className="instructions">
         <div>

@@ -10,12 +10,11 @@ import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
-import Switch from "@material-ui/core/Switch";
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(5),
-    minWidth: 120,
     display: "flex",
     flexDirection: "row",
     justifyContent: "spaceBetween",
@@ -71,6 +70,7 @@ const AddNew = (props) => {
             onSubmit={handleSubmit}
           >
             <TextField
+              autoFocus
               className="addNewForm"
               fullWidth="true"
               required="true"
@@ -109,6 +109,7 @@ const AddNew = (props) => {
             fullWidth
             rows={8}
           />
+          <Grid container justify="center">
           <Button
             color="secondary"
             className="btnAdd"
@@ -118,6 +119,8 @@ const AddNew = (props) => {
           >
             Submit
           </Button>
+</Grid>
+          
         </form>
       </div>
     </div>
