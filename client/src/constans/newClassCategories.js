@@ -1,5 +1,13 @@
 export const campuses = [
     { campus: 'Miami', code: 'MIA' },
+    { campus: 'Madrid', code: 'MAD' },
+    { campus: 'Barcelona', code: 'BCN' },
+    { campus: 'Paris', code: 'PAR' },
+    { campus: 'Berlin', code: 'BER' },
+    { campus: 'Amsterdam', code: 'AMS' },
+    { campus: 'Mexico', code: 'MEX' },
+    { campus: 'Sao Paulo', code: 'SAO' },
+    { campus: 'Lisbon', code: 'LIS' },
 ];
 
 export const months = [
