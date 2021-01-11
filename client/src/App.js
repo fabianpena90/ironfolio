@@ -80,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
+    
   },
   drawerOpen: {
     width: drawerWidth,
@@ -109,11 +110,13 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
+    fontSize:"1.1rem",
     padding: theme.spacing(3),
   },
 }));
 
 function App() {
+  const [loading, setLoading] =useState(false)
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -155,7 +158,7 @@ function App() {
         <p>Where you can explore and collaborate...</p>
       </div>
       {!user && <GoogleAuth setUser={setUser} />}
-      {!user && <GoogleAuthLogin setUser={setUser} />}
+        {!user && <GoogleAuthLogin setUser={setUser} loading={loading} setLoading={setLoading} />}
       {JSON.stringify(user) === '{}' && <Route component={NotFound} />}
       <NotificationContainer />
     </div>

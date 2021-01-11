@@ -8,6 +8,5 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   baseURL = `https://ironfolio.herokuapp.com/api` //http://localhost:5000/api
 }
-console.log(process.env.REACT_APP_API)
 
 export default baseURL;
