@@ -192,7 +192,7 @@ function App() {
                 variant="h6"
                 noWrap
               >
-                <span>Ironfolio</span>
+                <span style={{fontSize:'1.5rem'}}>Ironfolio</span>
                 <div style={{ display: 'flex' }}>
                   <span style={{ paddingRight: '20px' }}>{user?.name}</span>
                   <Avatar src={user?.imageUrl} />

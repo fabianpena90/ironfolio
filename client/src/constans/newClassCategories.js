@@ -25,7 +25,7 @@ export const years = [
     { year: year+1 },
 ];
 
-export const classType = [
+export const classTypes = [
     { type: "Full Time", code: "FT" },
     {type: "Part Time", code: "PT"},
 ]
