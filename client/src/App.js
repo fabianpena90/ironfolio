@@ -13,6 +13,7 @@ import Profile from './components/Profile';
 import NotFound from './components/404/NotFound';
 import FormUpdate from './components/FormUpdate';
 import AddNewClass from './components/AddNewClass';
+import loader from './loader.gif';
 // Auth Components
 import TheContext from './TheContext';
 import actions from './api/index';
@@ -80,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
-    
   },
   drawerOpen: {
     width: drawerWidth,
@@ -110,13 +110,13 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    fontSize:"1.1rem",
+    fontSize: '1.1rem',
     padding: theme.spacing(3),
   },
 }));
 
 function App() {
-  const [loading, setLoading] =useState(false)
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -157,9 +157,20 @@ function App() {
         <h1>IRONFOLIO</h1>
         <p>Where you can explore and collaborate...</p>
       </div>
-      {!user && <GoogleAuth setUser={setUser} />}
-        {!user && <GoogleAuthLogin setUser={setUser} loading={loading} setLoading={setLoading} />}
-      {JSON.stringify(user) === '{}' && <Route component={NotFound} />}
+      {loading ? (
+        <img src={loader} alt="Loading..." />
+      ) : (
+        <>
+          {!user && <GoogleAuth setUser={setUser} />}
+          {!user && (
+            <GoogleAuthLogin
+              setUser={setUser}
+              setLoading={setLoading}
+            />
+          )}
+          {JSON.stringify(user) === '{}' && <Route component={NotFound} />}
+        </>
+      )}
       <NotificationContainer />
     </div>
   ) : (
@@ -195,7 +206,7 @@ function App() {
                 variant="h6"
                 noWrap
               >
-                <span style={{fontSize:'1.5rem'}}>Ironfolio</span>
+                <span style={{ fontSize: '1.5rem' }}>Ironfolio</span>
                 <div style={{ display: 'flex' }}>
                   <span style={{ paddingRight: '20px' }}>{user?.name}</span>
                   <Avatar src={user?.imageUrl} />
@@ -287,7 +298,6 @@ function App() {
                 </ListItem>
               </Link>
             </List>
-
           </Drawer>
           <main className={classes.content}>
             <div className={classes.toolbar} />

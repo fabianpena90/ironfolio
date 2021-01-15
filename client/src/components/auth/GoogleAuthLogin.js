@@ -1,11 +1,9 @@
-import React from "react";
-import "./GoogleBtn.css";
-import actions from "../../api/index";
-import { GoogleLogin } from "react-google-login";
-import loader from "./loader.gif";
+import React from 'react';
+import './GoogleBtn.css';
+import actions from '../../api/index';
+import { GoogleLogin } from 'react-google-login';
 
 const responseGoogle = (props) => {
-
   const onResponse = (response) => {
     props.setLoading(true);
     //console.log(response);
@@ -22,14 +20,14 @@ const responseGoogle = (props) => {
       .catch((response) => console.error(response));
   };
   return (
-    props.loading? <img src={loader} alt="Loading..." />  : <GoogleLogin
+    <GoogleLogin
       className="loginBtn"
       clientId={process.env.REACT_APP_GOOGLEID}
       buttonText="Sign in with Google"
       onSuccess={onResponse}
       onFailure={onResponse}
-      cookiePolicy={"single_host_origin"}
-      />
+      cookiePolicy={'single_host_origin'}
+    />
   );
 };
 

@@ -3,9 +3,7 @@ import './AddNew.css';
 import actions from '../api/index';
 import TheContext from '../TheContext';
 import * as yup from 'yup';
-import {
-  NotificationManager,
-} from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,10 +38,10 @@ const AddNew = (props) => {
     description: yup.string().max(255),
     website: yup.string().url(),
   });
-  
-  String.prototype.capitalize = function() {
+
+  String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
-}
+  };
 
   function addProjects() {
     projectSchema
@@ -53,11 +51,17 @@ const AddNew = (props) => {
         website,
       })
       .then((data) => {
+        NotificationManager.success('Project Submitted', 'Success', 4000, true);
         actions.addProject(data);
         history.push('/');
       })
       .catch((err) => {
-        NotificationManager.error(err.errors[0].capitalize(), 'Error', 4000, true);
+        NotificationManager.error(
+          err.errors[0].capitalize(),
+          'Error',
+          4000,
+          true
+        );
         console.log(err.errors[0]);
       });
   }
