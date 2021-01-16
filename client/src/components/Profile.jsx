@@ -81,7 +81,6 @@ function Profile(props) {
   const [selectClass, setSelectClass] = useState([]);
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
-  console.log(projects);
   useEffect(() => {
     async function getClasses() {
       let res = await actions.getAllClasses();
@@ -94,10 +93,9 @@ function Profile(props) {
     getClasses();
   }, []);
 
-  //console.log(props);
+  console.log(assignClass);
   function handleSubmit(e) {
     actions.setClass({ assignClass });
-    NotificationManager.success('Cohort Selected', 'Success', 4000, true);
   }
   function handleDelete(value) {
     actions.deleteProject({ deleteProject: value });
@@ -165,6 +163,7 @@ function Profile(props) {
             </InputLabel>
             <Select
               native
+              required
               onChange={(e) => {
                 //console.log(e.target.value);
                 setAssignClass(e.target.value);
@@ -175,7 +174,7 @@ function Profile(props) {
                 id: 'outlined-SelectYourCohort-native-simple',
               }}
             >
-              <option aria-label="" value="Test" />
+              <option />
               {showClass()}
             </Select>
 
