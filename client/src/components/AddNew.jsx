@@ -45,8 +45,6 @@ const AddNew = (props) => {
   const [website, setWebsite] = useState();
   const [trigger, setTrigger] = useState(false);
 
-  console.log(user);
-
   useEffect(() => {
     async function getData() {
       let result = await actions.getStudentList({ class: user.class });
@@ -72,7 +70,7 @@ const AddNew = (props) => {
         projectName,
         description,
         website,
-        teamMembers,
+        // teamMembers,
       })
       .then((data) => {
         console.log(data);
@@ -177,7 +175,7 @@ const AddNew = (props) => {
             </Button>
           </Grid>
         </form>
-        <FormGroup row>
+        {/* <FormGroup row>
           <FormControlLabel
             control={
               <Switch
@@ -189,8 +187,8 @@ const AddNew = (props) => {
             }
             label="Have Team Member?"
           />
-        </FormGroup>
-        {trigger ? (
+        </FormGroup> */}
+        {/* {trigger ? (
           <List id="studentName" dense className={classes.root}>
             <h3>Select Student</h3>
             {classMate.map((eachMate) => {
@@ -229,7 +227,7 @@ const AddNew = (props) => {
               );
             })}
           </List>
-        ) : null}
+        ) : null} */}
       </div>
     </div>
   );

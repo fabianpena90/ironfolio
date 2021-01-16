@@ -122,27 +122,24 @@ router.post("/newProject", verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      let project = new Project(req.body)
-      project.save().then((project) => {
-        res.status(200).json(project)
-      })
+      let project = new Projects(req.body);
+      project.studentsID = authData.user._id;
+      project.save().then((newProject) => {
+        User.findByIdAndUpdate(
+          authData.user._id,
+          {
+            $push: { projects: newProject._id },
+          },
+          { new: true }
+        ).then((project) => {
+          res.json({ project });
+        });
+      });
       }
   });
 });
 
-// let project = new Projects(req.body);
-//       project.studentsID = authData.user._id;
-//       project.save().then((newProject) => {
-//         User.findByIdAndUpdate(
-//           authData.user._id,
-//           {
-//             $push: { projects: newProject._id },
-//           },
-//           { new: true }
-//         ).then((project) => {
-//           res.json({ project });
-//         });
-//       });
+
     
 
 // Edit project by student
