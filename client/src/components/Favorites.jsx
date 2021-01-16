@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
-import "./Favorites.css";
+import React, { useEffect, useState } from 'react';
+import './Favorites.css';
 // Material UI
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import IconButton from "@material-ui/core/IconButton";
-import actions from "../api/index";
-import TheContext from "../TheContext";
-import Favorite from "@material-ui/icons/Favorite";
-import Link from "@material-ui/core/Link";
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import actions from '../api/index';
+import TheContext from '../TheContext';
+import Favorite from '@material-ui/icons/Favorite';
+import Link from '@material-ui/core/Link';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -28,22 +27,21 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    "&:nth-of-type(odd)": {
+    '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
   },
 }))(TableRow);
-
 
 function Favorites(props) {
   const { user, history } = React.useContext(TheContext);
   const [favorites, setFavorites] = useState([]);
 
   if (!user.email) {
-    history.push("/login");
+    history.push('/login');
   }
-  if (props.user.class === "Test") {
-    history.push("/");
+  if (props.user.class === 'Test') {
+    history.push('/');
   }
 
   useEffect(() => {

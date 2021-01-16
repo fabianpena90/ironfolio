@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
     baseURL = `/api`; //Heroku or 5000
   }
 } else {
-  baseURL = `https://ironfolio.herokuapp.com/api` //http://localhost:5000/api
+  baseURL = `http://localhost:5000/api` //http://localhost:5000/apihttps://ironfolio.herokuapp.com/api
 }
 
 export default baseURL;

@@ -5,8 +5,7 @@ import './FormUpdate.css';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -18,8 +17,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Paper from '@material-ui/core/Paper';
-import Fade from '@material-ui/core/Fade';
+import { NotificationManager } from 'react-notifications';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -59,20 +57,22 @@ function FormUpdate(props) {
       setDescription(result.data?.valueField.description);
       setWebsite(result.data?.valueField.website);
       setTeamMembers(result.data.valueField.studentsID);
+
       let result2 = await actions.getStudentList({ class: user.class });
       setClassMate(result2?.data?.nameList);
     }
     getData();
   }, []);
-  console.log(classMate);
+
   async function editProjects() {
-    let res2 = await actions.editProject({
+    await actions.editProject({
       projectId: props.match.params.id,
       projectName,
       description,
       website,
       teamMembers,
     });
+    NotificationManager.info('Project Updated', 'Success', 4000, true);
     // console.log(res2, "Fabian & Rabiul are the shit!");
   }
 
@@ -110,7 +110,7 @@ function FormUpdate(props) {
             onChange={(e) => setProjectName(e.target.value)}
             id="outlined-basic"
             //label="Project Name"
-            placeholder={projectName}
+            value={projectName}
             variant="outlined"
           />
           <TextField
@@ -119,7 +119,7 @@ function FormUpdate(props) {
             onChange={(e) => setWebsite(e.target.value)}
             id="outlined-basic"
             //label="Website"
-            placeholder={website}
+            value={website}
             variant="outlined"
           />
         </FormControl>
@@ -128,21 +128,23 @@ function FormUpdate(props) {
           onChange={(e) => setDescription(e.target.value)}
           id="outlined-multiline-static"
           multiline
-          rows={4}
+          rows={8}
           variant="outlined"
           fullWidth
           // label="Description"
-          placeholder={description}
+          value={description}
         />
-        <Button
-          className="btnUpdate"
-          size="large"
-          variant="contained"
-          color="secondary"
-          type="submit"
-        >
-          Update
-        </Button>
+        <Grid container justify="center">
+          <Button
+            color="secondary"
+            className="btnUpdate"
+            size="large"
+            variant="contained"
+            type="submit"
+          >
+            Update
+          </Button>
+        </Grid>
       </form>
       <FormGroup row>
         <FormControlLabel
@@ -152,12 +154,12 @@ function FormUpdate(props) {
               onChange={handleSwitch}
             />
           }
-          label="Have Team Member?"
+          label="Add or Remove Collaborator?"
         />
       </FormGroup>
       {trigger ? (
         <List id="studentName" dense className={classes.root}>
-          <h3>Select Student</h3>
+          <h3>Select Collaborator</h3>
           {classMate.map((eachMate) => {
             return eachMate._id === user._id ? (
               <ListItem className="eachName" key={eachMate._id} button>

@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from "react";
-import "./Archive.css";
-import { Link as RouterLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Paper from "@material-ui/core/Paper";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import TheContext from "../TheContext";
-import actions from "../api/index";
+import React, { useState, useEffect } from 'react';
+import './Archive.css';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
+import TheContext from '../TheContext';
+import actions from '../api/index';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -28,7 +27,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === "desc"
+  return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -45,10 +44,10 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "name",
+    id: 'name',
     numeric: false,
     disablePadding: true,
-    label: "Web Dev Classes",
+    label: 'Web Dev Classes',
   },
 ];
 
@@ -64,19 +63,19 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "default"}
+            align={headCell.numeric ? 'right' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
+              direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <span className={classes.visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
             </TableSortLabel>
@@ -92,23 +91,22 @@ const useStyles = makeStyles((theme) => ({
     // width: "50vw",
   },
   paper: {
-  
     marginBottom: theme.spacing(2),
   },
   visuallyHidden: {
     border: 0,
-    clip: "rect(0 0 0 0)",
+    clip: 'rect(0 0 0 0)',
     height: 1,
     margin: -1,
-    overflow: "hidden",
+    overflow: 'hidden',
     padding: 0,
-    position: "absolute",
+    position: 'absolute',
     top: 20,
     width: 1,
   },
   head: {
     backgroundColor: theme.palette.common.black,
-    color: "#eeeeee",
+    color: '#eeeeee',
   },
   body: {
     fontSize: 14,
@@ -117,8 +115,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Archive(props) {
   const classes = useStyles();
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("");
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -126,10 +124,10 @@ function Archive(props) {
   const { user, history } = React.useContext(TheContext);
   //console.log(user, history);
   if (!user.email) {
-    history.push("/login");
+    history.push('/login');
   }
-  if (props.user.class === "Test") {
-    history.push("/");
+  if (props.user.class === 'Test') {
+    history.push('/');
   }
   let rows = [];
 
@@ -146,11 +144,11 @@ function Archive(props) {
     rows.push(
       createData(
         `${eachClass.location}` +
-          "-" +
+          '-' +
           `${eachClass.month}` +
-          "-" +
+          '-' +
           `${eachClass.year}` +
-          "-" +
+          '-' +
           `${eachClass.classType}`
       )
     );
@@ -160,8 +158,8 @@ function Archive(props) {
   }
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -217,7 +215,6 @@ function Archive(props) {
                             <Link
                               component={RouterLink}
                               className="listItem"
-                              component={RouterLink}
                               to={`/archive/${row.name}`}
                             >
                               {row.name}

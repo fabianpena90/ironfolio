@@ -70,7 +70,7 @@ const AddNew = (props) => {
         projectName,
         description,
         website,
-        // teamMembers,
+        teamMembers,
       })
       .then((data) => {
         console.log(data);
@@ -124,8 +124,8 @@ const AddNew = (props) => {
             <TextField
               autoFocus
               className="addNewForm"
-              fullWidth="true"
-              required="true"
+              fullWidth
+              required
               onChange={(e) => {
                 setProjectName(e.target.value);
               }}
@@ -136,8 +136,8 @@ const AddNew = (props) => {
             />
             <TextField
               className="addNewForm"
-              fullWidth="true"
-              required="true"
+              fullWidth
+              required
               onChange={(e) => {
                 setWebsite(e.target.value);
               }}
@@ -158,7 +158,7 @@ const AddNew = (props) => {
               setDescription(e.target.value);
             }}
             variant="outlined"
-            required="true"
+            required
             placeholder="max 255 characters..."
             fullWidth
             rows={8}
@@ -175,22 +175,22 @@ const AddNew = (props) => {
             </Button>
           </Grid>
         </form>
-        {/* <FormGroup row>
+        <FormGroup row>
           <FormControlLabel
             control={
               <Switch
                 // color="secondary"
                 onChange={() => {
-                  setTrigger(true);
+                  setTrigger(!trigger);
                 }}
               />
             }
-            label="Have Team Member?"
+            label="Have Collaborator?"
           />
-        </FormGroup> */}
-        {/* {trigger ? (
+        </FormGroup>
+        {trigger ? (
           <List id="studentName" dense className={classes.root}>
-            <h3>Select Student</h3>
+            <h3>Select Collaborator</h3>
             {classMate.map((eachMate) => {
               return eachMate._id === user._id ? (
                 <ListItem className="eachName" key={eachMate._id} button>
@@ -227,7 +227,7 @@ const AddNew = (props) => {
               );
             })}
           </List>
-        ) : null} */}
+        ) : null}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import React, { Component, Fragment, useState, useEffect } from 'react';
-import { Switch, Route, NavLink, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
 //Importing Components
 import Footer from './components/Footer';
@@ -8,7 +8,6 @@ import Archive from './components/Archive';
 import ArchiveDetail from './components/ArchiveDetail';
 import Favorites from './components/Favorites';
 import AddNew from './components/AddNew';
-import Header from './components/Header';
 import Profile from './components/Profile';
 import NotFound from './components/404/NotFound';
 import FormUpdate from './components/FormUpdate';
@@ -21,7 +20,6 @@ import GoogleAuth from './components/auth/GoogleAuth';
 import GoogleAuthLogin from './components/auth/GoogleAuthLogin';
 import {
   NotificationContainer,
-  NotificationManager,
 } from 'react-notifications';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -141,7 +139,7 @@ function App() {
   };
 
   const logOut = async () => {
-    let res = await actions.logOut();
+    await actions.logOut();
     // window.confirm("Are you sure you want to log out?");
     setUser(null);
     history.push('/');
