@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from "react";
-import actions from "../api/index";
-import TheContext from "../TheContext";
-import "./FormUpdate.css";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import FormControl from "@material-ui/core/FormControl";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Checkbox from "@material-ui/core/Checkbox";
-import Avatar from "@material-ui/core/Avatar";
-import Switch from "@material-ui/core/Switch";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Paper from "@material-ui/core/Paper";
-import Fade from "@material-ui/core/Fade";
+import React, { useState, useEffect, useContext } from 'react';
+import actions from '../api/index';
+import TheContext from '../TheContext';
+import './FormUpdate.css';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Checkbox from '@material-ui/core/Checkbox';
+import Avatar from '@material-ui/core/Avatar';
+import Switch from '@material-ui/core/Switch';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Paper from '@material-ui/core/Paper';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -35,22 +35,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function FormUpdate(props) {
-  const { history, user } = React.useContext(TheContext);
+  const { history, user } = useContext(TheContext);
   const classes = useStyles();
-  const [project, setProject] = useState([]);
   const [projectName, setProjectName] = useState([]);
   const [description, setDescription] = useState([]);
   const [website, setWebsite] = useState([]);
   const [teamMembers, setTeamMembers] = useState([]);
   const [classMate, setClassMate] = useState([]);
   const [trigger, setTrigger] = useState(false);
-  const [checked, setChecked] = useState(false);
-
   if (!user.email) {
-    history.push("/login");
+    history.push('/login');
   }
-  if (props.user.class === "Test") {
-    history.push("/");
+  if (props.user.class === 'Test') {
+    history.push('/');
   }
 
   useEffect(() => {
@@ -67,6 +64,7 @@ function FormUpdate(props) {
     }
     getData();
   }, []);
+  console.log(classMate);
   async function editProjects() {
     let res2 = await actions.editProject({
       projectId: props.match.params.id,
@@ -80,7 +78,7 @@ function FormUpdate(props) {
 
   const handleSubmit = (e) => {
     editProjects();
-    history.push("/");
+    history.push('/');
     e.preventDefault();
   };
   const handleChange = (e) => {
