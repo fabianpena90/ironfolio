@@ -73,9 +73,8 @@ const AddNew = (props) => {
         teamMembers,
       })
       .then((data) => {
-        console.log(data);
-        NotificationManager.success('Project Submitted', 'Success', 4000, true);
         actions.addProject(data);
+        NotificationManager.success('Project Submitted', 'Success', 4000, true);
         history.push('/');
       })
       .catch((err) => {
@@ -85,7 +84,6 @@ const AddNew = (props) => {
           4000,
           true
         );
-        console.log(err.errors[0]);
       });
   }
 

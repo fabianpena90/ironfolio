@@ -116,10 +116,9 @@ function App() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  // const theme = useTheme(); I DONT THINK WE NEED THEME
 
   let [user, setUser] = useState(null);
-  //console.log(user);
+
   useEffect(() => {
     async function getUser() {
       let user = await actions.getUser();

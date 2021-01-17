@@ -18,6 +18,7 @@ import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { NotificationManager } from 'react-notifications';
+import * as yup from 'yup';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -64,21 +65,54 @@ function FormUpdate(props) {
     getData();
   }, []);
 
-  async function editProjects() {
-    await actions.editProject({
-      projectId: props.match.params.id,
-      projectName,
-      description,
-      website,
-      teamMembers,
-    });
-    NotificationManager.info('Project Updated', 'Success', 4000, true);
-    // console.log(res2, "Fabian & Rabiul are the shit!");
+  const projectSchema = yup.object().shape({
+    projectName: yup.string().max(24),
+    description: yup.string().max(255),
+    website: yup.string().url(),
+  });
+
+  String.prototype.capitalize = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+  };
+
+  function editProjects() {
+    projectSchema
+      .validate({
+        projectId: props.match.params.id,
+        projectName,
+        description,
+        website,
+        teamMembers,
+      })
+      .then((data) => {
+        NotificationManager.info('Project Updated', 'Success', 4000, true);
+        actions.editProject(data);
+        history.push('/');
+      })
+      .catch((err) => {
+        NotificationManager.error(
+          err.errors[0].capitalize(),
+          'Error',
+          4000,
+          true
+        );
+      });
   }
+
+  // async function editProjects() {
+  //   await actions.editProject({
+  //     projectId: props.match.params.id,
+  //     projectName,
+  //     description,
+  //     website,
+  //     teamMembers,
+  //   });
+  //   NotificationManager.info('Project Updated', 'Success', 4000, true);
+  //   // console.log(res2, "Fabian & Rabiul are the shit!");
+  // }
 
   const handleSubmit = (e) => {
     editProjects();
-    history.push('/');
     e.preventDefault();
   };
   const handleChange = (e) => {
