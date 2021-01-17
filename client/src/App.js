@@ -18,9 +18,7 @@ import TheContext from './TheContext';
 import actions from './api/index';
 import GoogleAuth from './components/auth/GoogleAuth';
 import GoogleAuthLogin from './components/auth/GoogleAuthLogin';
-import {
-  NotificationContainer,
-} from 'react-notifications';
+import { NotificationContainer } from 'react-notifications';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
@@ -38,7 +36,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
+import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import ArchiveRoundedIcon from '@material-ui/icons/ArchiveRounded';
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
@@ -159,12 +157,9 @@ function App() {
         <img src={loader} alt="Loading..." />
       ) : (
         <>
-          {!user && <GoogleAuth setUser={setUser} />}
+          {!user && <GoogleAuth setUser={setUser} setLoading={setLoading} />}
           {!user && (
-            <GoogleAuthLogin
-              setUser={setUser}
-              setLoading={setLoading}
-            />
+            <GoogleAuthLogin setUser={setUser} setLoading={setLoading} />
           )}
           {JSON.stringify(user) === '{}' && <Route component={NotFound} />}
         </>
@@ -239,7 +234,7 @@ function App() {
               <Link component={RouterLink} to="/">
                 <ListItem button key="Profile">
                   <ListItemIcon>
-                    <AccountBoxRoundedIcon />
+                    <AccountBoxRoundedIcon style={{ color: '#120078' }} />
                   </ListItemIcon>
                   <ListItemText primary="Profile" />
                 </ListItem>
@@ -248,7 +243,7 @@ function App() {
                 <Link component={RouterLink} to="/addNewClass">
                   <ListItem button key="Add New Class">
                     <ListItemIcon>
-                      <GroupAddIcon />
+                      <GroupAddIcon style={{ color: '#0d85ef' }} />
                     </ListItemIcon>
                     <ListItemText primary="Add New Class" />
                   </ListItem>
@@ -257,7 +252,7 @@ function App() {
               <Link component={RouterLink} to="/newproject">
                 <ListItem button key="Add New Project">
                   <ListItemIcon>
-                    <AddBoxIcon />
+                    <AddBoxIcon style={{ color: '#34626c' }} />
                   </ListItemIcon>
                   <ListItemText primary="Add New Project" />
                 </ListItem>
@@ -265,7 +260,7 @@ function App() {
               <Link component={RouterLink} to="/archive">
                 <ListItem button key="Archives">
                   <ListItemIcon>
-                    <ArchiveRoundedIcon />
+                    <ArchiveRoundedIcon style={{ color: '#9088d4' }} />
                   </ListItemIcon>
                   <ListItemText primary="Archives" />
                 </ListItem>
@@ -274,7 +269,7 @@ function App() {
               <Link component={RouterLink} to="/favorites">
                 <ListItem button key="Favorites">
                   <ListItemIcon>
-                    <FavoriteBorderRoundedIcon />
+                    <FavoriteRoundedIcon style={{ color: '#f05454' }} />
                   </ListItemIcon>
                   <ListItemText primary="Favorites" />
                 </ListItem>
@@ -282,7 +277,7 @@ function App() {
               <Link href="https://iqueue.netlify.app" target="_blank">
                 <ListItem button key="iQueue">
                   <ListItemIcon>
-                    <ContactSupportRoundedIcon />
+                    <ContactSupportRoundedIcon style={{ color: '#fecd1a' }} />
                   </ListItemIcon>
                   <ListItemText primary="iQueue" />
                 </ListItem>
@@ -290,7 +285,7 @@ function App() {
               <Link onClick={logOut}>
                 <ListItem button key="Logout">
                   <ListItemIcon>
-                    <ExitToAppRoundedIcon />
+                    <ExitToAppRoundedIcon style={{ color: '#1c2b2d' }} />
                   </ListItemIcon>
                   <ListItemText primary="Logout" />
                 </ListItem>

@@ -6,7 +6,6 @@ import { GoogleLogin } from 'react-google-login';
 const responseGoogle = (props) => {
   const onResponse = (response) => {
     props.setLoading(true);
-    //console.log(response);
     const user = {
       ...response.profileObj,
       password: response.profileObj?.googleId,
