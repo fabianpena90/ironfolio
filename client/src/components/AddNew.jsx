@@ -48,7 +48,7 @@ const AddNew = (props) => {
   useEffect(() => {
     async function getData() {
       let result = await actions.getStudentList({ class: user.class });
-      setClassMate(result?.data?.nameList);
+      setClassMate(result?.data?.nameList.filter((c) => c._id != user._id));
     }
     getData();
   }, []);
@@ -186,27 +186,11 @@ const AddNew = (props) => {
             label="Have Collaborator?"
           />
         </FormGroup>
-        {trigger ? (
+        {trigger && (
           <List id="studentName" dense className={classes.root}>
             <h3>Select Collaborator</h3>
             {classMate.map((eachMate) => {
-              return eachMate._id === user._id ? (
-                <ListItem className="eachName" key={eachMate._id} button>
-                  <ListItemAvatar>
-                    <Avatar alt="classMate" src={eachMate.imageUrl} />
-                  </ListItemAvatar>
-                  <ListItemText primary={`${eachMate?.name}`} />
-                  <ListItemSecondaryAction>
-                    <Checkbox
-                      edge="end"
-                      // onChange={(e)=>{handleChange(e)}}
-                      // value={`${eachMate._id}`}
-                      disabled
-                      checked
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ) : (
+              return (
                 <ListItem key={eachMate._id} button>
                   <ListItemAvatar>
                     <Avatar alt="classMate" src={eachMate.imageUrl} />
@@ -225,7 +209,7 @@ const AddNew = (props) => {
               );
             })}
           </List>
-        ) : null}
+        )}
       </div>
     </div>
   );
