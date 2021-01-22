@@ -45,6 +45,8 @@ import ContactSupportRoundedIcon from '@material-ui/icons/ContactSupportRounded'
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 const drawerWidth = 240;
 
@@ -233,7 +235,14 @@ function App() {
               <Link component={RouterLink} to="/">
                 <ListItem button key="Profile">
                   <ListItemIcon>
-                    <AccountBoxRoundedIcon style={{ color: '#120078' }} />
+                    <Tooltip
+                      TransitionComponent={Zoom}
+                      title="Profile"
+                      placement="right"
+                      arrow
+                    >
+                      <AccountBoxRoundedIcon style={{ color: '#120078' }} />
+                    </Tooltip>
                   </ListItemIcon>
                   <ListItemText primary="Profile" />
                 </ListItem>
@@ -242,7 +251,14 @@ function App() {
                 <Link component={RouterLink} to="/addNewClass">
                   <ListItem button key="Add New Class">
                     <ListItemIcon>
-                      <GroupAddIcon style={{ color: '#0d85ef' }} />
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title="Add New Class"
+                        placement="right"
+                        arrow
+                      >
+                        <GroupAddIcon style={{ color: '#0d85ef' }} />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary="Add New Class" />
                   </ListItem>
@@ -251,7 +267,14 @@ function App() {
               <Link component={RouterLink} to="/newproject">
                 <ListItem button key="Add New Project">
                   <ListItemIcon>
-                    <AddBoxIcon style={{ color: '#34626c' }} />
+                    <Tooltip
+                      TransitionComponent={Zoom}
+                      title="Add New Project"
+                      placement="right"
+                      arrow
+                    >
+                      <AddBoxIcon style={{ color: '#34626c' }} />
+                    </Tooltip>
                   </ListItemIcon>
                   <ListItemText primary="Add New Project" />
                 </ListItem>
@@ -259,32 +282,52 @@ function App() {
               <Link component={RouterLink} to="/archive">
                 <ListItem button key="Archives">
                   <ListItemIcon>
-                    <ArchiveRoundedIcon style={{ color: '#9088d4' }} />
+                    <Tooltip
+                      TransitionComponent={Zoom}
+                      title="Archives"
+                      placement="right"
+                      arrow
+                    >
+                      <ArchiveRoundedIcon style={{ color: '#9088d4' }} />
+                    </Tooltip>
                   </ListItemIcon>
                   <ListItemText primary="Archives" />
                 </ListItem>
               </Link>
-
               <Link component={RouterLink} to="/favorites">
                 <ListItem button key="Favorites">
                   <ListItemIcon>
-                    <FavoriteRoundedIcon style={{ color: '#f05454' }} />
+                    <Tooltip
+                      TransitionComponent={Zoom}
+                      title="Favorites"
+                      placement="right"
+                      arrow
+                    >
+                      <FavoriteRoundedIcon style={{ color: '#f05454' }} />
+                    </Tooltip>
                   </ListItemIcon>
                   <ListItemText primary="Favorites" />
                 </ListItem>
               </Link>
-              <Link href="https://iqueue.netlify.app" target="_blank">
+              {/* <Link href="https://iqueue.netlify.app" target="_blank">
                 <ListItem button key="iQueue">
                   <ListItemIcon>
                     <ContactSupportRoundedIcon style={{ color: '#fecd1a' }} />
                   </ListItemIcon>
                   <ListItemText primary="iQueue" />
                 </ListItem>
-              </Link>
+              </Link> */}
               <Link onClick={logOut}>
                 <ListItem button key="Logout">
                   <ListItemIcon>
-                    <ExitToAppRoundedIcon style={{ color: '#1c2b2d' }} />
+                    <Tooltip
+                      TransitionComponent={Zoom}
+                      title="Logout"
+                      placement="right"
+                      arrow
+                    >
+                      <ExitToAppRoundedIcon style={{ color: '#1c2b2d' }} />
+                    </Tooltip>
                   </ListItemIcon>
                   <ListItemText primary="Logout" />
                 </ListItem>
