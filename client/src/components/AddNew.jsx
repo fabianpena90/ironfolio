@@ -44,7 +44,8 @@ const AddNew = (props) => {
   const [teamMembers, setTeamMembers] = useState([user._id]);
   const [website, setWebsite] = useState();
   const [trigger, setTrigger] = useState(false);
-
+  const errorState = { website: false, projectName: false, description: false };
+  const [errorIndicator, setErrorIndicator] = useState(errorState);
   useEffect(() => {
     async function getData() {
       let result = await actions.getStudentList({ class: user.class });
@@ -54,7 +55,7 @@ const AddNew = (props) => {
   }, []);
 
   const projectSchema = yup.object().shape({
-    projectName: yup.string().max(24),
+    projectName: yup.string().max(30),
     description: yup.string().max(255),
     website: yup.string().url(),
   });
@@ -78,6 +79,8 @@ const AddNew = (props) => {
         history.push('/');
       })
       .catch((err) => {
+        let keyWord = err.errors[0].split(' ')[0];
+        setErrorIndicator({ ...errorState, [keyWord]: true });
         NotificationManager.error(
           err.errors[0].capitalize(),
           'Error',
@@ -86,7 +89,6 @@ const AddNew = (props) => {
         );
       });
   }
-
   if (props.user.class === 'Test') {
     history.push('/');
   }
@@ -117,9 +119,10 @@ const AddNew = (props) => {
             id="formControl"
             className={classes.formControl}
             variant="outlined"
-            onSubmit={handleSubmit}
           >
             <TextField
+              inputProps={{ maxLength: 30 }}
+              error={errorIndicator.projectName}
               autoFocus
               className="addNewForm"
               fullWidth
@@ -133,6 +136,7 @@ const AddNew = (props) => {
               variant="outlined"
             />
             <TextField
+              error={errorIndicator.website}
               className="addNewForm"
               fullWidth
               required
@@ -147,6 +151,8 @@ const AddNew = (props) => {
             />
           </FormControl>
           <TextField
+            inputProps={{ maxLength: 255 }}
+            error={errorIndicator.description}
             className="addNewForm"
             id="outlined-multiline-static"
             label="Description"

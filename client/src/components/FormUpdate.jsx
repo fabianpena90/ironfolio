@@ -42,6 +42,8 @@ function FormUpdate(props) {
   const [teamMembers, setTeamMembers] = useState([]);
   const [classMate, setClassMate] = useState([]);
   const [trigger, setTrigger] = useState(false);
+  const errorState = { website: false, projectName: false, description: false };
+  const [errorIndicator, setErrorIndicator] = useState(errorState);
   if (!user.email) {
     history.push('/login');
   }
@@ -66,7 +68,7 @@ function FormUpdate(props) {
   }, []);
 
   const projectSchema = yup.object().shape({
-    projectName: yup.string().max(24),
+    projectName: yup.string().max(30),
     description: yup.string().max(255),
     website: yup.string().url(),
   });
@@ -90,6 +92,8 @@ function FormUpdate(props) {
         history.push('/');
       })
       .catch((err) => {
+        let keyWord = err.errors[0].split(' ')[0];
+        setErrorIndicator({ ...errorState, [keyWord]: true });
         NotificationManager.error(
           err.errors[0].capitalize(),
           'Error',
@@ -98,18 +102,6 @@ function FormUpdate(props) {
         );
       });
   }
-
-  // async function editProjects() {
-  //   await actions.editProject({
-  //     projectId: props.match.params.id,
-  //     projectName,
-  //     description,
-  //     website,
-  //     teamMembers,
-  //   });
-  //   NotificationManager.info('Project Updated', 'Success', 4000, true);
-  //   // console.log(res2, "Fabian & Rabiul are the shit!");
-  // }
 
   const handleSubmit = (e) => {
     editProjects();
@@ -133,31 +125,30 @@ function FormUpdate(props) {
         <h2 className="editHeader">Edit Projects</h2>
       </div>
       <form onSubmit={handleSubmit}>
-        <FormControl
-          className={classes.formControl}
-          variant="outlined"
-          onSubmit={handleSubmit}
-        >
+        <FormControl className={classes.formControl} variant="outlined">
           <TextField
+            inputProps={{ maxLength: 30 }}
+            error={errorIndicator.projectName}
             fullWidth
             className="editField"
             onChange={(e) => setProjectName(e.target.value)}
             id="outlined-basic"
-            //label="Project Name"
             value={projectName}
             variant="outlined"
           />
           <TextField
+            error={errorIndicator.website}
             fullWidth
             className="editField"
             onChange={(e) => setWebsite(e.target.value)}
             id="outlined-basic"
-            //label="Website"
             value={website}
             variant="outlined"
           />
         </FormControl>
         <TextField
+          inputProps={{ maxLength: 255 }}
+          error={errorIndicator.description}
           className="editField"
           onChange={(e) => setDescription(e.target.value)}
           id="outlined-multiline-static"
@@ -165,7 +156,6 @@ function FormUpdate(props) {
           rows={8}
           variant="outlined"
           fullWidth
-          // label="Description"
           value={description}
         />
         <Grid container justify="center">
