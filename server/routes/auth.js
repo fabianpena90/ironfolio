@@ -7,6 +7,26 @@ const Classes = require('../models/Class');
 const Projects = require('../models/Projects');
 const chalk = require('chalk');
 
+// Verify Token
+function verifyToken(req, res, next) {
+  // Get auth header value
+  const bearerHeader = req.headers['authorization'];
+  // Check if bearer is undefined
+  if (typeof bearerHeader !== 'undefined') {
+    // Split at the space
+    const bearer = bearerHeader.split(' ');
+    // Get token from array
+    const bearerToken = bearer[1];
+    // Set the token
+    req.token = bearerToken;
+    // Next middleware
+    next();
+  } else {
+    // Forbidden
+    res.status(403); //.json({err:'not logged in'});
+  }
+}
+
 // SignUp
 router.post('/signup', (req, res, next) => {
   User.register(req.body, req.body.password)
@@ -51,39 +71,16 @@ router.get('/logout', (req, res, next) => {
   res.status(200).json({ msg: 'Logged out' });
 });
 
-function isAuth(req, res, next) {
-  req.isAuthenticated()
-    ? next()
-    : res.status(401).json({ msg: 'Log in first' });
-}
-
-// Verify Token
-function verifyToken(req, res, next) {
-  // Get auth header value
-  const bearerHeader = req.headers['authorization'];
-  // Check if bearer is undefined
-  if (typeof bearerHeader !== 'undefined') {
-    // Split at the space
-    const bearer = bearerHeader.split(' ');
-    // Get token from array
-    const bearerToken = bearer[1];
-    // Set the token
-    req.token = bearerToken;
-    // Next middleware
-    next();
-  } else {
-    // Forbidden
-    res.status(403); //.json({err:'not logged in'});
-  }
-}
-
 // Put all routes below here:
 
 // Get Classes from profile page
 router.get('/getAllClasses', (req, res) => {
-  Classes.find().sort({createdAt: -1}).then((selectClass) => {
-    res.json({ selectClass });
-  });
+  Classes.find()
+    .lean()
+    .sort({ createdAt: -1 })
+    .then((selectClass) => {
+      res.json({ selectClass });
+    });
 });
 
 // Create a class (only admin)
@@ -188,6 +185,7 @@ router.get('/getStudentProjects', verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       User.findById(authData.user._id)
+        .lean()
         .populate('projects')
         .then((allProjects) => {
           res.json({ allProjects });
@@ -203,6 +201,8 @@ router.post('/getAllClassProjects', verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       Projects.find({ class: req.body.class })
+        .lean()
+        .sort({ createdAt: -1 })
         .populate('studentsID')
         .then((allProjects) => {
           res.json({ allProjects });
@@ -254,9 +254,11 @@ router.post('/getStudentList', verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      User.find(req.body).then((nameList) => {
-        res.json({ nameList });
-      });
+      User.find(req.body)
+        .lean()
+        .then((nameList) => {
+          res.json({ nameList });
+        });
     }
   });
 });
@@ -267,9 +269,11 @@ router.post('/getEditProject', verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      Projects.findById(req.body.projectId).then((valueField) => {
-        res.json({ valueField });
-      });
+      Projects.findById(req.body.projectId)
+        .lean()
+        .then((valueField) => {
+          res.json({ valueField });
+        });
     }
   });
 });
@@ -345,6 +349,7 @@ router.post('/getAllFavoriteProjects', verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       Projects.find()
+        .lean()
         .where('_id')
         .in(req.body.favorites)
         .populate('studentsID')
@@ -377,6 +382,7 @@ router.get('/favoriteSection', verifyToken, (req, res, next) => {
       res.status(403).json(err);
     } else {
       User.findById(authData.user._id)
+        .lean()
         .populate({ path: 'favorites', populate: { path: 'studentsID' } })
         .populate('projects')
         .then((user) => {
