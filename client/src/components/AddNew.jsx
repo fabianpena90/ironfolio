@@ -49,7 +49,7 @@ const AddNew = (props) => {
   useEffect(() => {
     async function getData() {
       let result = await actions.getStudentList({ class: user.class });
-      setClassMate(result?.data?.nameList.filter((c) => c._id != user._id));
+      setClassMate(result?.data?.nameList.filter((c) => c._id !== user._id));
     }
     getData();
   }, []);
