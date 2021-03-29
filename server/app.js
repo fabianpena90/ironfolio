@@ -50,8 +50,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(cookieParser());
-// app.use(logger("dev"));
+
 
 const index = require('./routes/index');
 const auth = require('./routes/auth');
