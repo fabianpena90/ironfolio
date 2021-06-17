@@ -39,7 +39,7 @@ const AddNew = (props) => {
   const classes = useStyles();
   const { user, history } = useContext(TheContext);
   const [projectName, setProjectName] = useState();
-  const [description, setDescription] = useState();
+  const [description, setDescription] = useState([]);
   const [classMate, setClassMate] = useState([]);
   const [teamMembers, setTeamMembers] = useState([user._id]);
   const [website, setWebsite] = useState();
@@ -157,6 +157,7 @@ const AddNew = (props) => {
             id="outlined-multiline-static"
             label="Description"
             name="description"
+            helperText={`You have entered ${description.length} out of 255 characters.`}
             multiline
             onChange={(e) => {
               setDescription(e.target.value);

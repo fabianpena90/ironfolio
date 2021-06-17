@@ -151,6 +151,7 @@ function FormUpdate(props) {
           error={errorIndicator.description}
           className="editField"
           onChange={(e) => setDescription(e.target.value)}
+          helperText={`You have entered ${description.length} out of 255 characters.`}
           id="outlined-multiline-static"
           multiline
           rows={8}
