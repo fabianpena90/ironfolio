@@ -5,6 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 // Material UI
 import Link from '@material-ui/core/Link';
+import AlertDialog from './AlertDialog';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -247,16 +248,7 @@ function Profile(props) {
                       </Link>
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      <Button
-                        onClick={() => handleDelete(row._id)}
-                        value={row._id}
-                        variant="contained"
-                        color="secondary"
-                        className={classes.button}
-                        startIcon={<DeleteIcon />}
-                      >
-                        Delete
-                      </Button>
+                      <AlertDialog handleDelete={handleDelete} id={row._id} />
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
