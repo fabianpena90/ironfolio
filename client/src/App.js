@@ -41,12 +41,12 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import ArchiveRoundedIcon from '@material-ui/icons/ArchiveRounded';
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
-import ContactSupportRoundedIcon from '@material-ui/icons/ContactSupportRounded';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
+import SlideInAlert from './components/SlideInAlert';
 
 const drawerWidth = 240;
 
@@ -138,6 +138,7 @@ function App() {
   };
 
   const logOut = async () => {
+    console.log('Logout');
     await actions.logOut();
     // window.confirm("Are you sure you want to log out?");
     setUser(null);
@@ -309,29 +310,7 @@ function App() {
                   <ListItemText primary="Favorites" />
                 </ListItem>
               </Link>
-              {/* <Link href="https://iqueue.netlify.app" target="_blank">
-                <ListItem button key="iQueue">
-                  <ListItemIcon>
-                    <ContactSupportRoundedIcon style={{ color: '#fecd1a' }} />
-                  </ListItemIcon>
-                  <ListItemText primary="iQueue" />
-                </ListItem>
-              </Link> */}
-              <Link onClick={logOut}>
-                <ListItem button key="Logout">
-                  <ListItemIcon>
-                    <Tooltip
-                      TransitionComponent={Zoom}
-                      title="Logout"
-                      placement="right"
-                      arrow
-                    >
-                      <ExitToAppRoundedIcon style={{ color: '#1c2b2d' }} />
-                    </Tooltip>
-                  </ListItemIcon>
-                  <ListItemText primary="Logout" />
-                </ListItem>
-              </Link>
+              <SlideInAlert logOut={logOut} />
             </List>
           </Drawer>
           <main className={classes.content}>

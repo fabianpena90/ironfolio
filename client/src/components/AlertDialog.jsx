@@ -9,7 +9,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 export default function AlertDialog({ handleDelete, id }) {
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
