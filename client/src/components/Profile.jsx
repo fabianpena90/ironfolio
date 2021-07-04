@@ -81,12 +81,11 @@ function Profile(props) {
   const [selectClass, setSelectClass] = useState([]);
   const [assignClass, setAssignClass] = useState([]);
   const [projects, setProjects] = useState([]);
+
   useEffect(() => {
     async function getClasses() {
       let res = await actions.getAllClasses();
       setSelectClass(res?.data.selectClass.slice(0, 3));
-      // console.log(res.data);
-
       let res2 = await actions.getStudentProject();
       setProjects(res2?.data.allProjects.projects);
     }

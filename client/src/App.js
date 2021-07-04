@@ -15,6 +15,7 @@ import AddNewClass from './components/AddNewClass';
 import loader from './loader.gif';
 // Auth Components
 import TheContext from './TheContext';
+import { SocketProvider } from './SocketContext';
 import actions from './api/index';
 import GoogleAuth from './components/auth/GoogleAuth';
 import GoogleAuthLogin from './components/auth/GoogleAuthLogin';
@@ -47,7 +48,6 @@ import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import SlideInAlert from './components/SlideInAlert';
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -118,7 +118,6 @@ function App() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-
   let [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -138,9 +137,7 @@ function App() {
   };
 
   const logOut = async () => {
-    console.log('Logout');
     await actions.logOut();
-    // window.confirm("Are you sure you want to log out?");
     setUser(null);
     history.push('/');
   };
@@ -170,189 +167,190 @@ function App() {
     </div>
   ) : (
     <div style={{ minHeight: '100vh', position: 'relative' }}>
-      <TheContext.Provider value={{ history, user, setUser }}>
-        <div className={classes.root} style={{ paddingBottom: '20px' }}>
-          <CssBaseline />
-          <AppBar
-            position="fixed"
-            className={clsx(classes.appBar, {
-              [classes.appBarShift]: open,
-            })}
-          >
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                className={clsx(classes.menuButton, {
-                  [classes.hide]: open,
-                })}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  width: '100%',
-                }}
-                variant="h6"
-                noWrap
-              >
-                <span style={{ fontSize: '1.5rem' }}>Ironfolio</span>
-                <div style={{ display: 'flex' }}>
-                  <span style={{ paddingRight: '20px' }}>{user?.name}</span>
-                  <Avatar src={user?.imageUrl} />
-                </div>
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <Drawer
-            variant="permanent"
-            className={clsx(classes.drawer, {
-              [classes.drawerOpen]: open,
-              [classes.drawerClose]: !open,
-            })}
-            classes={{
-              paper: clsx({
+      <SocketProvider id={user._id} name={user.name} imageUrl={user.imageUrl}>
+        <TheContext.Provider value={{ history, user, setUser }}>
+          <div className={classes.root} style={{ paddingBottom: '20px' }}>
+            <CssBaseline />
+            <AppBar
+              position="fixed"
+              className={clsx(classes.appBar, {
+                [classes.appBarShift]: open,
+              })}
+            >
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleDrawerOpen}
+                  edge="start"
+                  className={clsx(classes.menuButton, {
+                    [classes.hide]: open,
+                  })}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    width: '100%',
+                  }}
+                  variant="h6"
+                  noWrap
+                >
+                  <span style={{ fontSize: '1.5rem' }}>Ironfolio</span>
+                  <div style={{ display: 'flex' }}>
+                    <span style={{ paddingRight: '20px' }}>{user?.name}</span>
+                    <Avatar src={user?.imageUrl} />
+                  </div>
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <Drawer
+              variant="permanent"
+              className={clsx(classes.drawer, {
                 [classes.drawerOpen]: open,
                 [classes.drawerClose]: !open,
-              }),
-            }}
-          >
-            <div className={classes.toolbar}>
-              <IconButton onClick={handleDrawerClose}>
-                {theme.direction === 'rtl' ? (
-                  <ChevronRightIcon />
-                ) : (
-                  <ChevronLeftIcon />
-                )}
-              </IconButton>
-            </div>
-            <Divider />
-            <List>
-              <Link component={RouterLink} to="/">
-                <ListItem button key="Profile">
-                  <ListItemIcon>
-                    <Tooltip
-                      TransitionComponent={Zoom}
-                      title="Profile"
-                      placement="right"
-                      arrow
-                    >
-                      <AccountBoxRoundedIcon style={{ color: '#120078' }} />
-                    </Tooltip>
-                  </ListItemIcon>
-                  <ListItemText primary="Profile" />
-                </ListItem>
-              </Link>
-              {user.userType === 'admin' ? (
-                <Link component={RouterLink} to="/addNewClass">
-                  <ListItem button key="Add New Class">
+              })}
+              classes={{
+                paper: clsx({
+                  [classes.drawerOpen]: open,
+                  [classes.drawerClose]: !open,
+                }),
+              }}
+            >
+              <div className={classes.toolbar}>
+                <IconButton onClick={handleDrawerClose}>
+                  {theme.direction === 'rtl' ? (
+                    <ChevronRightIcon />
+                  ) : (
+                    <ChevronLeftIcon />
+                  )}
+                </IconButton>
+              </div>
+              <Divider />
+              <List>
+                <Link component={RouterLink} to="/">
+                  <ListItem button key="Profile">
                     <ListItemIcon>
                       <Tooltip
                         TransitionComponent={Zoom}
-                        title="Add New Class"
+                        title="Profile"
                         placement="right"
                         arrow
                       >
-                        <GroupAddIcon style={{ color: '#0d85ef' }} />
+                        <AccountBoxRoundedIcon style={{ color: '#120078' }} />
                       </Tooltip>
                     </ListItemIcon>
-                    <ListItemText primary="Add New Class" />
+                    <ListItemText primary="Profile" />
                   </ListItem>
                 </Link>
-              ) : null}
-              <Link component={RouterLink} to="/newproject">
-                <ListItem button key="Add New Project">
-                  <ListItemIcon>
-                    <Tooltip
-                      TransitionComponent={Zoom}
-                      title="Add New Project"
-                      placement="right"
-                      arrow
-                    >
-                      <AddBoxIcon style={{ color: '#34626c' }} />
-                    </Tooltip>
-                  </ListItemIcon>
-                  <ListItemText primary="Add New Project" />
-                </ListItem>
-              </Link>
-              <Link component={RouterLink} to="/archive">
-                <ListItem button key="Archives">
-                  <ListItemIcon>
-                    <Tooltip
-                      TransitionComponent={Zoom}
-                      title="Archives"
-                      placement="right"
-                      arrow
-                    >
-                      <ArchiveRoundedIcon style={{ color: '#9088d4' }} />
-                    </Tooltip>
-                  </ListItemIcon>
-                  <ListItemText primary="Archives" />
-                </ListItem>
-              </Link>
-              <Link component={RouterLink} to="/favorites">
-                <ListItem button key="Favorites">
-                  <ListItemIcon>
-                    <Tooltip
-                      TransitionComponent={Zoom}
-                      title="Favorites"
-                      placement="right"
-                      arrow
-                    >
-                      <FavoriteRoundedIcon style={{ color: '#f05454' }} />
-                    </Tooltip>
-                  </ListItemIcon>
-                  <ListItemText primary="Favorites" />
-                </ListItem>
-              </Link>
-              <SlideInAlert logOut={logOut} />
-            </List>
-          </Drawer>
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <Switch>
-              <Route exact path="/" render={() => <Profile user={user} />} />
-              <Route
-                exact
-                path="/addNewClass"
-                render={() => <AddNewClass user={user} />}
-              />
-              <Route
-                exact
-                path="/editProject/:id"
-                render={(props) => <FormUpdate {...props} user={user} />}
-              />
-              <Route
-                exact
-                path="/newproject"
-                render={() => <AddNew user={user} />}
-              />
-              <Route
-                exact
-                path="/archive"
-                render={(props) => <Archive {...props} user={user} />}
-              />
-              <Route
-                exact
-                path="/archive/:id"
-                render={(props) => <ArchiveDetail {...props} user={user} />}
-              />
-              <Route
-                exact
-                path="/favorites"
-                render={(props) => <Favorites {...props} user={user} />}
-              />
-            </Switch>
-          </main>
-        </div>
-      </TheContext.Provider>
+                {user.userType === 'admin' ? (
+                  <Link component={RouterLink} to="/addNewClass">
+                    <ListItem button key="Add New Class">
+                      <ListItemIcon>
+                        <Tooltip
+                          TransitionComponent={Zoom}
+                          title="Add New Class"
+                          placement="right"
+                          arrow
+                        >
+                          <GroupAddIcon style={{ color: '#0d85ef' }} />
+                        </Tooltip>
+                      </ListItemIcon>
+                      <ListItemText primary="Add New Class" />
+                    </ListItem>
+                  </Link>
+                ) : null}
+                <Link component={RouterLink} to="/newproject">
+                  <ListItem button key="Add New Project">
+                    <ListItemIcon>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title="Add New Project"
+                        placement="right"
+                        arrow
+                      >
+                        <AddBoxIcon style={{ color: '#34626c' }} />
+                      </Tooltip>
+                    </ListItemIcon>
+                    <ListItemText primary="Add New Project" />
+                  </ListItem>
+                </Link>
+                <Link component={RouterLink} to="/archive">
+                  <ListItem button key="Archives">
+                    <ListItemIcon>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title="Archives"
+                        placement="right"
+                        arrow
+                      >
+                        <ArchiveRoundedIcon style={{ color: '#9088d4' }} />
+                      </Tooltip>
+                    </ListItemIcon>
+                    <ListItemText primary="Archives" />
+                  </ListItem>
+                </Link>
+                <Link component={RouterLink} to="/favorites">
+                  <ListItem button key="Favorites">
+                    <ListItemIcon>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title="Favorites"
+                        placement="right"
+                        arrow
+                      >
+                        <FavoriteRoundedIcon style={{ color: '#f05454' }} />
+                      </Tooltip>
+                    </ListItemIcon>
+                    <ListItemText primary="Favorites" />
+                  </ListItem>
+                </Link>
+                <SlideInAlert logOut={logOut} />
+              </List>
+            </Drawer>
+            <main className={classes.content}>
+              <div className={classes.toolbar} />
+              <Switch>
+                <Route exact path="/" render={() => <Profile user={user} />} />
+                <Route
+                  exact
+                  path="/addNewClass"
+                  render={() => <AddNewClass user={user} />}
+                />
+                <Route
+                  exact
+                  path="/editProject/:id"
+                  render={(props) => <FormUpdate {...props} user={user} />}
+                />
+                <Route
+                  exact
+                  path="/newproject"
+                  render={() => <AddNew user={user} />}
+                />
+                <Route
+                  exact
+                  path="/archive"
+                  render={(props) => <Archive {...props} user={user} />}
+                />
+                <Route
+                  exact
+                  path="/archive/:id"
+                  render={(props) => <ArchiveDetail {...props} user={user} />}
+                />
+                <Route
+                  exact
+                  path="/favorites"
+                  render={(props) => <Favorites {...props} user={user} />}
+                />
+              </Switch>
+            </main>
+          </div>
+        </TheContext.Provider>
+      </SocketProvider>
       <Footer />
-
       <NotificationContainer />
     </div>
   );

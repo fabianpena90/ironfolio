@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
 import TheContext from '../TheContext';
+import { useSocket } from '../SocketContext';
+import UserList from './UserList';
 import actions from '../api/index';
 import {
   campuses,
@@ -35,11 +37,11 @@ function AddNewClass(props) {
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
   const [classType, setClassType] = useState();
+  const users = useSocket();
 
   if (user.userType !== 'admin') {
     history.push('/');
   }
-
   async function createClass() {
     await actions.createClass({
       classType,
@@ -69,7 +71,11 @@ function AddNewClass(props) {
           >
             <MenuItem value=""></MenuItem>
             {campuses.map((c) => {
-              return <MenuItem value={c.code}>{c.campus}</MenuItem>;
+              return (
+                <MenuItem key={c.code} value={c.code}>
+                  {c.campus}
+                </MenuItem>
+              );
             })}
           </Select>
           <FormHelperText>Required</FormHelperText>
@@ -84,7 +90,11 @@ function AddNewClass(props) {
           >
             <MenuItem value=""></MenuItem>
             {months.map((m) => {
-              return <MenuItem value={m.code}>{m.month}</MenuItem>;
+              return (
+                <MenuItem key={m.code} value={m.code}>
+                  {m.month}
+                </MenuItem>
+              );
             })}
           </Select>
           <FormHelperText>Required</FormHelperText>
@@ -99,7 +109,11 @@ function AddNewClass(props) {
           >
             <MenuItem value=""></MenuItem>
             {years.map((y) => {
-              return <MenuItem value={y.year}>{y.year}</MenuItem>;
+              return (
+                <MenuItem key={y.year} value={y.year}>
+                  {y.year}
+                </MenuItem>
+              );
             })}
           </Select>
           <FormHelperText>Required</FormHelperText>
@@ -114,7 +128,11 @@ function AddNewClass(props) {
           >
             <MenuItem value=""></MenuItem>
             {classTypes.map((c) => {
-              return <MenuItem value={c.code}>{c.type}</MenuItem>;
+              return (
+                <MenuItem key={c.code} value={c.code}>
+                  {c.type}
+                </MenuItem>
+              );
             })}
           </Select>
           <FormHelperText>Required</FormHelperText>
@@ -131,6 +149,7 @@ function AddNewClass(props) {
           </Button>
         </Grid>
       </form>
+      {users && <UserList users={users} />}
     </div>
   );
 }

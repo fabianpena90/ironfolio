@@ -6,6 +6,11 @@ const jwt = require('jsonwebtoken');
 const Classes = require('../models/Class');
 const Projects = require('../models/Projects');
 const chalk = require('chalk');
+const io = require('socket.io')(5001, {
+  cors: {
+    origin: ['https://iron-folio.netlify.app'],
+  },
+});
 
 // Verify Token
 function verifyToken(req, res, next) {
@@ -26,6 +31,22 @@ function verifyToken(req, res, next) {
     res.status(403); //.json({err:'not logged in'});
   }
 }
+
+//Socket Connection
+let userList = {};
+
+io.on('connection', (socket) => {
+  let userId;
+  socket.on('user', ({ id, name, imageUrl }) => {
+    userId = id;
+    userList[id] = [name, imageUrl];
+    io.emit('users', userList);
+  });
+  socket.on('disconnect', () => {
+    delete userList[userId];
+    if (userList) io.emit('users', userList);
+  });
+});
 
 // SignUp
 router.post('/signup', (req, res, next) => {
