@@ -51,7 +51,7 @@ app.get('*', (req, res, next) => {
   console.log('weird', req.headers.host, 'peach', req.url);
 
   if (req.headers.host.includes('heroku')) {
-    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
   } else {
     next();
   }
