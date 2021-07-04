@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -34,23 +33,13 @@ app.use(
   })
 );
 
-// app.use(
-//   session({
-//     resave: false,
-//     saveUninitialized: true,
-//     secret: "secret",
-//     cookie: { maxAge: 1000 * 60 * 60 },
-//   })
-// );
-
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 const index = require('./routes/index');
 const auth = require('./routes/auth');
