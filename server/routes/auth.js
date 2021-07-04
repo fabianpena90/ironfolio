@@ -1,4 +1,7 @@
 const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
 const router = express.Router();
 const User = require('../models/User');
 const passport = require('../config/passport');
@@ -6,9 +9,9 @@ const jwt = require('jsonwebtoken');
 const Classes = require('../models/Class');
 const Projects = require('../models/Projects');
 const chalk = require('chalk');
-const io = require('socket.io')(5001, {
+const io = require('socket.io')(server, {
   cors: {
-    origin: ['https://iron-folio.netlify.app'],
+    origin: ['https://iron-folio.netlify.app', 'http://localhost:3000'],
   },
 });
 
@@ -36,6 +39,7 @@ function verifyToken(req, res, next) {
 let userList = {};
 
 io.on('connection', (socket) => {
+  console.log('connection');
   let userId;
   socket.on('user', ({ id, name, imageUrl }) => {
     userId = id;

@@ -12,11 +12,13 @@ export function SocketProvider({ id, name, imageUrl, children }) {
   const [users, setUsers] = useState();
 
   useEffect(() => {
-    const newSocket = io('https://ironfolio.herokuapp.com:5001');
+    const newSocket = io();
+    console.dir(newSocket);
     newSocket.emit('user', { id, name, imageUrl });
     setSocket(newSocket);
     newSocket.on('users', (list) => {
       setUsers(list);
+      console.dir(list);
     });
     return () => newSocket.close();
   }, [id]);

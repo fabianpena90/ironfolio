@@ -17,5 +17,6 @@
   "bugs": {
     "url": "https://github.com/fabianpena90/ironfolio/issues"
   },
-  "homepage": "https://github.com/fabianpena90/ironfolio#readme"
+  "homepage": "https://github.com/fabianpena90/ironfolio#readme",
+  "dependencies": {}
 }
