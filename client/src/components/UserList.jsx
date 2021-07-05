@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 export default function UserList({ users }) {
   const classes = useStyles();
   const { user } = useContext(TheContext);
-  console.dir(user);
   return (
     <Container maxWidth="sm" style={{ marginTop: '100px' }}>
       <Divider />

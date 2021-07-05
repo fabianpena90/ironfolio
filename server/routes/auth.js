@@ -1,18 +1,10 @@
 const express = require('express');
-const app = express();
-// const http = require('http');
-// const server = http.createServer(app);
 const router = express.Router();
 const User = require('../models/User');
 const passport = require('../config/passport');
 const jwt = require('jsonwebtoken');
 const Classes = require('../models/Class');
 const Projects = require('../models/Projects');
-const io = require('socket.io')(process.env.PORT || 5001, {
-  cors: {
-    origin: ['https://iron-folio.netlify.app', 'http://localhost:3000'],
-  },
-});
 
 // Verify Token
 function verifyToken(req, res, next) {
@@ -33,23 +25,6 @@ function verifyToken(req, res, next) {
     res.status(403); //.json({err:'not logged in'});
   }
 }
-
-//Socket Connection
-let userList = {};
-
-io.on('connection', (socket) => {
-  console.log('connection');
-  let userId;
-  socket.on('user', ({ id, name, imageUrl }) => {
-    userId = id;
-    userList[id] = [name, imageUrl];
-    io.emit('users', userList);
-  });
-  socket.on('disconnect', () => {
-    delete userList[userId];
-    if (userList) io.emit('users', userList);
-  });
-});
 
 // SignUp
 router.post('/signup', (req, res, next) => {

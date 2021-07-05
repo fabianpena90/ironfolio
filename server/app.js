@@ -5,6 +5,28 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 const passport = require('./config/passport');
+const http = require('http');
+const app = express();
+const server = http.createServer(app);
+const socketIo = require('socket.io');
+
+server.on('error', (error) => {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+  switch (error.code) {
+    case 'EACCES':
+      console.error(`Port ${process.env.PORT} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`Port ${process.env.PORT} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+});
 
 const MONGODB_URI =
   process.env.MONGODB_URI || 'mongodb://localhost/ironfolioExample';
@@ -21,8 +43,6 @@ const app_name = require('./package.json').name;
 const debug = require('debug')(
   `${app_name}:${path.basename(__filename).split('.')[0]}`
 );
-
-const app = express();
 
 app.use(
   cors({
@@ -55,4 +75,28 @@ app.get('*', (req, res, next) => {
   }
 });
 
-module.exports = app;
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+  console.log(`Listening on http://localhost:${PORT}`);
+});
+
+let userList = {};
+
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  },
+});
+io.on('connection', (socket) => {
+  console.log('connection');
+  let userId;
+  socket.on('user', ({ id, name, imageUrl }) => {
+    userId = id;
+    userList[id] = [name, imageUrl];
+    io.emit('users', userList);
+  });
+  socket.on('disconnect', () => {
+    delete userList[userId];
+    if (userList) io.emit('users', userList);
+  });
+});

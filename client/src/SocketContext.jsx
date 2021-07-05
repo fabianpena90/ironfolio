@@ -15,7 +15,7 @@ export function SocketProvider({ id, name, imageUrl, children }) {
     const newSocket = io(
       process.env.NODE_ENV === 'production'
         ? 'https://ironfolio.herokuapp.com/'
-        : 'http://localhost:5001'
+        : 'http://localhost:5000'
     );
     console.dir(newSocket);
     newSocket.emit('user', { id, name, imageUrl });
