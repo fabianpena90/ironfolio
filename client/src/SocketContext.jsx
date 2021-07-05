@@ -12,7 +12,11 @@ export function SocketProvider({ id, name, imageUrl, children }) {
   const [users, setUsers] = useState();
 
   useEffect(() => {
-    const newSocket = io();
+    const newSocket = io(
+      process.env.NODE_ENV === 'production'
+        ? 'https://ironfolio.herokuapp.com/'
+        : 'http://localhost:5001'
+    );
     console.dir(newSocket);
     newSocket.emit('user', { id, name, imageUrl });
     setSocket(newSocket);

@@ -1,15 +1,14 @@
 const express = require('express');
 const app = express();
-const http = require('http');
-const server = http.createServer(app);
+// const http = require('http');
+// const server = http.createServer(app);
 const router = express.Router();
 const User = require('../models/User');
 const passport = require('../config/passport');
 const jwt = require('jsonwebtoken');
 const Classes = require('../models/Class');
 const Projects = require('../models/Projects');
-const chalk = require('chalk');
-const io = require('socket.io')(server, {
+const io = require('socket.io')(process.env.PORT || 5001, {
   cors: {
     origin: ['https://iron-folio.netlify.app', 'http://localhost:3000'],
   },
