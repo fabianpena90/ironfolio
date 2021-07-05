@@ -17,12 +17,10 @@ export function SocketProvider({ id, name, imageUrl, children }) {
         ? 'https://ironfolio.herokuapp.com/'
         : 'http://localhost:5000'
     );
-    console.dir(newSocket);
     newSocket.emit('user', { id, name, imageUrl });
     setSocket(newSocket);
     newSocket.on('users', (list) => {
       setUsers(list);
-      console.dir(list);
     });
     return () => newSocket.close();
   }, [id]);

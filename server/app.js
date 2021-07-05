@@ -88,13 +88,13 @@ const io = require('socket.io')(server, {
   },
 });
 io.on('connection', (socket) => {
-  console.log('connection');
   let userId;
   socket.on('user', ({ id, name, imageUrl }) => {
     userId = id;
     userList[id] = [name, imageUrl];
     io.emit('users', userList);
   });
+
   socket.on('disconnect', () => {
     delete userList[userId];
     if (userList) io.emit('users', userList);
