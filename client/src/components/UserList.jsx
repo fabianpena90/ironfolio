@@ -26,7 +26,7 @@ export default function UserList({ users }) {
     <Container maxWidth="sm" style={{ marginTop: '100px' }}>
       <Divider />
       <Typography variant="h3" gutterBottom>
-        Active Users
+        Active Users (*)
       </Typography>
 
       <List dense className={classes.root}>
