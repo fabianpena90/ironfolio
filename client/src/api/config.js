@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
     baseURL = `/api`; //Heroku or 5000
   }
 } else {
-  baseURL = `http://localhost:5000/api`; //http://localhost:5000/apihttps://ironfolio.herokuapp.com/api
+  baseURL = `http://44.192.254.67:5000/api`; //http://localhost:5000/apihttps://ironfolio.herokuapp.com/api
 }
 // baseURL = `https://pacific-river-72403.herokuapp.com/api`;
 
