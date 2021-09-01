@@ -1,7 +1,7 @@
 let baseURL;
 if (process.env.NODE_ENV === 'production') {
   if (process.env.REACT_APP_API) {
-    baseURL = `${process.env.REACT_APP_API}/api`; //Netlify
+    baseURL = `http://44.192.254.67:5000/api`; //Netlify
   } else {
     baseURL = `/api`; //Heroku or 5000
   }
