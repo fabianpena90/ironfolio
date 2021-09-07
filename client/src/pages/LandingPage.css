@@ -1,0 +1,32 @@
+.landingPage {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 45vw;
+  height: 45vh;
+  filter: drop-shadow(0 15px 10px #333);
+  padding-bottom: 1rem;
+}
+.name {
+  text-shadow: 0 5px 5px #333;
+  box-shadow: 0.5rem 0 0 rgba(51, 51, 51, 0.75);
+  overflow: hidden;
+  animation: texttyping 5s steps(9) infinite;
+}
+
+@keyframes texttyping {
+  0%,
+  90%,
+  100% {
+    width: 1px;
+  }
+  30%,
+  60% {
+    width: 211px;
+  }
+}

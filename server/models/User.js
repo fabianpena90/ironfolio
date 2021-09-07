@@ -1,5 +1,4 @@
-const { Schema, model } = require("mongoose");
-const PLM = require("passport-local-mongoose");
+const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema(
   {
@@ -7,15 +6,15 @@ const userSchema = new Schema(
     name: String,
     googleId: String,
     imageUrl: String,
-    class: { type: String, default: "Test" },
+    class: { type: String, default: 'Test' },
+    classID: { type: Schema.Types.ObjectId, ref: 'Classes' },
     userType: {
       type: String,
-      enum: ["student", "admin"],
-      default: "student",
+      enum: ['student', 'admin'],
+      default: 'student',
     },
-    projects: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
-    favorites: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
-    // cohort: [{ type: Schema.Types.ObjectId, ref: "Class" }],
+    projects: [{ type: Schema.Types.ObjectId, ref: 'Projects' }],
+    favorites: [{ type: Schema.Types.ObjectId, ref: 'Projects' }],
   },
 
   {
@@ -24,8 +23,4 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.plugin(PLM, {
-  usernameField: "email",
-});
-
-module.exports = model("User", userSchema);
+module.exports = model('User', userSchema);

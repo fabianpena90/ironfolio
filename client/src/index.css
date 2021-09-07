@@ -1,14 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+html {
+  min-height: 100vh;
+}
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #eeeeee;
+  height: max-content;
+  background: -webkit-linear-gradient(
+    300deg,
+    rgba(250, 250, 250, 1) 44%,
+    rgba(43, 197, 249, 1) 60%,
+    rgba(42, 39, 82, 1) 90%
+  );
+  background-repeat: no-repeat !important;
+}
+* {
+  text-decoration: none !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+.MuiPaper-root {
+  background-color: rgba(250, 250, 250, 0.5) !important;
+  backdrop-filter: blur(2px) !important;
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.3) !important;
+}
+.MuiFormGroup-root {
+  justify-content: center !important;
+}
+.MuiDialog-paper {
+  background-color: #fafafa !important;
+}
+.MuiAppBar-colorPrimary {
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e) !important;
+}
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.MuiInputBase-input {
+  font-size: 1.2rem !important;
+  font-family: 'Montserrat' !important;
 }

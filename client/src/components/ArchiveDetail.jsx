@@ -5,7 +5,7 @@ import TheContext from '../TheContext';
 import Link from '@material-ui/core/Link';
 
 // Material UI Components
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,6 +21,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -39,7 +40,15 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    padding: '2%',
+  },
+});
+
 function ArchiveDetail(props) {
+  const classes = useStyles();
   const [allProjects, setAllProjects] = useState([]);
   const [favorites, setFavorites] = useState(props.user.favorites);
   const { user, history } = React.useContext(TheContext);
@@ -63,7 +72,6 @@ function ArchiveDetail(props) {
     }
     getProjects();
   }, []);
-
   async function handleDeleteFavorites(targetProject) {
     let res = await actions.deleteFavoritesArchive({ targetProject });
     setFavorites(res?.data.favorites);
@@ -75,24 +83,46 @@ function ArchiveDetail(props) {
   }
 
   return (
-    <div className="archiveDetail">
-      <h2>Projects</h2>
+    <Paper className={classes.root}>
+      <Typography variant="h2" gutterBottom>
+        Projects
+      </Typography>
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
               {/* <StyledTableCell>Project #</StyledTableCell> */}
-              <StyledTableCell align="center">Student</StyledTableCell>
-              <StyledTableCell align="center">Project Name</StyledTableCell>
-              <StyledTableCell align="center">Description</StyledTableCell>
-              <StyledTableCell align="center">Website</StyledTableCell>
-              <StyledTableCell align="center">Favorites</StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="" gutterBottom>
+                  Student
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="body1" gutterBottom>
+                  Project Name
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="body1" gutterBottom>
+                  Description
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="body1" gutterBottom>
+                  Website
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="body1" gutterBottom>
+                  Favorites
+                </Typography>
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {allProjects?.map((eachRow) => {
               return (
-                <StyledTableRow key={eachRow._id}>
+                <StyledTableRow>
                   {/* <StyledTableCell component="th" scope="row">
                     {eachRow.project}
                   </StyledTableCell> */}
@@ -104,17 +134,23 @@ function ArchiveDetail(props) {
                             <ListItemAvatar>
                               <Avatar src={studentName.imageUrl}></Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={studentName.name} />
+                            <Typography variant="body1" gutterBottom>
+                              <ListItemText primary={studentName.name} />
+                            </Typography>
                           </ListItem>
                         </List>
                       );
                     })}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    {eachRow.projectName}
+                    <Typography variant="body1" gutterBottom>
+                      {eachRow.projectName}
+                    </Typography>
                   </StyledTableCell>
                   <StyledTableCell align="justify">
-                    {eachRow.description}
+                    <Typography variant="body1" gutterBottom>
+                      {eachRow.description}
+                    </Typography>
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     <Link
@@ -122,7 +158,9 @@ function ArchiveDetail(props) {
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      Website
+                      <Typography variant="body1" gutterBottom>
+                        Website
+                      </Typography>
                     </Link>
                   </StyledTableCell>
                   <StyledTableCell align="center">
@@ -150,7 +188,7 @@ function ArchiveDetail(props) {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Paper>
   );
 }
 export default ArchiveDetail;

@@ -21,8 +21,14 @@ import Avatar from '@material-ui/core/Avatar';
 import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    padding: '2%',
+  },
   formControl: {
     margin: theme.spacing(5),
     display: 'flex',
@@ -36,8 +42,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddNew = (props) => {
+  const { user, history, setProjects, projects } = useContext(TheContext);
+  if (user.class === 'Test') {
+    history.push('/');
+  }
+  if (!user.email) {
+    history.push('/login');
+  }
   const classes = useStyles();
-  const { user, history } = useContext(TheContext);
   const [projectName, setProjectName] = useState();
   const [description, setDescription] = useState([]);
   const [classMate, setClassMate] = useState([]);
@@ -51,6 +63,7 @@ const AddNew = (props) => {
       let result = await actions.getStudentList({ class: user.class });
       setClassMate(result?.data?.nameList.filter((c) => c._id !== user._id));
     }
+
     getData();
   }, []);
 
@@ -63,19 +76,22 @@ const AddNew = (props) => {
   String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
   };
-
   function addProjects() {
     projectSchema
       .validate({
         class: user.class,
+        classID: user.classID,
         projectName,
         description,
         website,
         teamMembers,
       })
-      .then((data) => {
-        actions.addProject(data);
+      .then(async (projectData) => {
+        let res = await actions.addProject(projectData);
         NotificationManager.success('Project Submitted', 'Success', 4000, true);
+        projects
+          ? setProjects([...projects, res.data.updated])
+          : setProjects([res.data.updated]);
         history.push('/');
       })
       .catch((err) => {
@@ -88,12 +104,6 @@ const AddNew = (props) => {
           true
         );
       });
-  }
-  if (props.user.class === 'Test') {
-    history.push('/');
-  }
-  if (!user.email) {
-    history.push('/login');
   }
 
   const handleChange = (e) => {
@@ -109,9 +119,11 @@ const AddNew = (props) => {
   };
 
   return (
-    <div>
+    <Paper className={classes.root}>
       <div>
-        <h2>Add Your Project</h2>
+        <Typography variant="h2" gutterBottom>
+          Add New Project
+        </Typography>
       </div>
       <div>
         <form id="add-new" onSubmit={handleSubmit}>
@@ -168,6 +180,43 @@ const AddNew = (props) => {
             fullWidth
             rows={8}
           />
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Switch
+                  // color="secondary"
+                  onChange={() => {
+                    setTrigger(!trigger);
+                  }}
+                />
+              }
+              label="Have Collaborator?"
+            />
+          </FormGroup>
+          {trigger && (
+            <List id="studentName" dense className={classes.root}>
+              <h3>Select Collaborator</h3>
+              {classMate.map((eachMate) => {
+                return (
+                  <ListItem key={eachMate._id} button>
+                    <ListItemAvatar>
+                      <Avatar alt="classMate" src={eachMate.imageUrl} />
+                    </ListItemAvatar>
+                    <ListItemText primary={`${eachMate?.name}`} />
+                    <ListItemSecondaryAction>
+                      <Checkbox
+                        edge="end"
+                        onChange={(e) => {
+                          handleChange(e);
+                        }}
+                        value={`${eachMate._id}`}
+                      />
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                );
+              })}
+            </List>
+          )}
           <Grid container justify="center">
             <Button
               color="secondary"
@@ -180,45 +229,8 @@ const AddNew = (props) => {
             </Button>
           </Grid>
         </form>
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Switch
-                // color="secondary"
-                onChange={() => {
-                  setTrigger(!trigger);
-                }}
-              />
-            }
-            label="Have Collaborator?"
-          />
-        </FormGroup>
-        {trigger && (
-          <List id="studentName" dense className={classes.root}>
-            <h3>Select Collaborator</h3>
-            {classMate.map((eachMate) => {
-              return (
-                <ListItem key={eachMate._id} button>
-                  <ListItemAvatar>
-                    <Avatar alt="classMate" src={eachMate.imageUrl} />
-                  </ListItemAvatar>
-                  <ListItemText primary={`${eachMate?.name}`} />
-                  <ListItemSecondaryAction>
-                    <Checkbox
-                      edge="end"
-                      onChange={(e) => {
-                        handleChange(e);
-                      }}
-                      value={`${eachMate._id}`}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            })}
-          </List>
-        )}
       </div>
-    </div>
+    </Paper>
   );
 };
 

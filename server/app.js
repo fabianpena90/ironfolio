@@ -4,11 +4,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
-const passport = require('./config/passport');
 const http = require('http');
 const app = express();
 const server = http.createServer(app);
-const socketIo = require('socket.io');
 
 server.on('error', (error) => {
   if (error.syscall !== 'listen') {
@@ -50,9 +48,6 @@ app.use(
     origin: ['http://localhost:3000', 'https://iron-folio.netlify.app'],
   })
 );
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 

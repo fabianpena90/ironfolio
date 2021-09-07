@@ -31,8 +31,8 @@ const actions = {
     window.localStorage.setItem('token', res?.data?.token);
     return res;
   },
-  logIn: async (user) => {
-    let res = await API.post('/login', user, resetHead());
+  logIn: async (tokenId) => {
+    let res = await API.post('/login', tokenId);
     window.localStorage.setItem('token', res?.data?.token);
     return res;
   },

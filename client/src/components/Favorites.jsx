@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Favorites.css';
 // Material UI
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,6 +14,7 @@ import actions from '../api/index';
 import TheContext from '../TheContext';
 import Favorite from '@material-ui/icons/Favorite';
 import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -33,7 +34,15 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    padding: '2%',
+  },
+});
+
 function Favorites(props) {
+  const classes = useStyles();
   const { user, history } = React.useContext(TheContext);
   const [favorites, setFavorites] = useState([]);
 
@@ -59,32 +68,64 @@ function Favorites(props) {
   }
 
   return (
-    <div className="archiveDetail">
-      <h2>Your Favorites</h2>
+    <Paper className={classes.root}>
+      <Typography variant="h2" gutterBottom>
+        Favorites
+      </Typography>
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="center">Cohort</StyledTableCell>
-              <StyledTableCell align="center">Student Name</StyledTableCell>
-              <StyledTableCell align="center">Project Name</StyledTableCell>
-              <StyledTableCell align="center">URL</StyledTableCell>
-              <StyledTableCell align="center">Favorites</StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="body1" gutterBottom>
+                  Cohort
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="body1" gutterBottom>
+                  Student Name
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="body1" gutterBottom>
+                  Project Name
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="body1" gutterBottom>
+                  URL
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography variant="body1" gutterBottom>
+                  Favorites
+                </Typography>
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {favorites?.map((row) => (
               <StyledTableRow key={row?._id}>
                 <StyledTableCell align="center" component="th" scope="row">
-                  {row?.studentsID?.[0].class}
+                  <Typography variant="body1" gutterBottom>
+                    {row?.studentsID?.[0].class}
+                  </Typography>
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {row?.studentsID.map((eachName) => {
-                    return <p>{eachName?.name}</p>;
+                    return (
+                      <p>
+                        <Typography variant="body1" gutterBottom>
+                          {eachName?.name}
+                        </Typography>
+                      </p>
+                    );
                   })}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row?.projectName}
+                  <Typography variant="body1" gutterBottom>
+                    {row?.projectName}
+                  </Typography>
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <Link
@@ -92,7 +133,9 @@ function Favorites(props) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Website
+                    <Typography variant="body1" gutterBottom>
+                      Website
+                    </Typography>
                   </Link>
                 </StyledTableCell>
                 <StyledTableCell align="center">
@@ -109,7 +152,7 @@ function Favorites(props) {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Paper>
   );
 }
 

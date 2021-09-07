@@ -19,6 +19,8 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { NotificationManager } from 'react-notifications';
 import * as yup from 'yup';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -30,43 +32,50 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   root: {
-    backgroundColor: theme.palette.background.paper,
+    width: '100%',
+    padding: '2%',
   },
 }));
 function FormUpdate(props) {
-  const { history, user } = useContext(TheContext);
-  const classes = useStyles();
-  const [projectName, setProjectName] = useState([]);
-  const [description, setDescription] = useState([]);
-  const [website, setWebsite] = useState([]);
-  const [teamMembers, setTeamMembers] = useState([]);
-  const [classMate, setClassMate] = useState([]);
-  const [trigger, setTrigger] = useState(false);
-  const errorState = { website: false, projectName: false, description: false };
-  const [errorIndicator, setErrorIndicator] = useState(errorState);
+  const { history, user, projects, setProjects } = useContext(TheContext);
   if (!user.email) {
     history.push('/login');
   }
   if (props.user.class === 'Test') {
     history.push('/');
   }
+  const classes = useStyles();
+  const [projectName, setProjectName] = useState([]);
+  const [description, setDescription] = useState([]);
+  const [website, setWebsite] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [newTeamMembers, setNewTeamMembers] = useState([]);
+  const [classMate, setClassMate] = useState([]);
+  const [trigger, setTrigger] = useState(false);
+  const errorState = { website: false, projectName: false, description: false };
+  const [errorIndicator, setErrorIndicator] = useState(errorState);
+  const [updatedMemberList, setUpdatedMemberList] = useState({
+    deletedMember: [],
+    addedMember: [],
+  });
 
   useEffect(() => {
     async function getData() {
       let result = await actions.getEditProject({
         projectId: props.match.params.id,
       });
+
       setProjectName(result.data?.valueField.projectName);
       setDescription(result.data?.valueField.description);
       setWebsite(result.data?.valueField.website);
       setTeamMembers(result.data.valueField.studentsID);
+      setNewTeamMembers(result.data.valueField.studentsID);
 
       let result2 = await actions.getStudentList({ class: user.class });
       setClassMate(result2?.data?.nameList);
     }
     getData();
   }, []);
-
   const projectSchema = yup.object().shape({
     projectName: yup.string().max(30),
     description: yup.string().max(255),
@@ -84,11 +93,16 @@ function FormUpdate(props) {
         projectName,
         description,
         website,
-        teamMembers,
+        updatedMemberList,
+        newTeamMembers,
       })
-      .then((data) => {
+      .then(async (data) => {
         NotificationManager.info('Project Updated', 'Success', 4000, true);
-        actions.editProject(data);
+        const res = await actions.editProject(data);
+        let newProjects = [...projects].filter((eachProject) => {
+          return eachProject._id !== res.data.updated._id;
+        });
+        setProjects([...newProjects, res.data.updated]);
         history.push('/');
       })
       .catch((err) => {
@@ -102,28 +116,43 @@ function FormUpdate(props) {
         );
       });
   }
+  const handleUpdatememberlist = () => {
+    const deletedMember = teamMembers.filter(
+      (member) => newTeamMembers.indexOf(member) === -1
+    );
+    const addedMember = newTeamMembers.filter(
+      (member) => teamMembers.indexOf(member) === -1
+    );
+    setUpdatedMemberList({
+      deletedMember,
+      addedMember,
+    });
+  };
+
+  useEffect(() => {
+    handleUpdatememberlist();
+  }, [newTeamMembers]);
 
   const handleSubmit = (e) => {
     editProjects();
     e.preventDefault();
   };
   const handleChange = (e) => {
-    setTeamMembers(
-      teamMembers.includes(e.target.value)
-        ? teamMembers.filter((m) => m !== e.target.value)
-        : [...teamMembers, e.target.value]
+    setNewTeamMembers(
+      newTeamMembers.includes(e.target.value)
+        ? newTeamMembers.filter((m) => m !== e.target.value)
+        : [...newTeamMembers, e.target.value]
     );
-    // (e.target.checked)?setTeamMembers([...teamMembers, e.target.value]):(teamMembers.splice(teamMembers.indexOf(e.target.value),1))
   };
   const handleSwitch = () => {
     setTrigger(!trigger);
   };
 
   return (
-    <div className="formUpdate">
-      <div>
-        <h2 className="editHeader">Edit Projects</h2>
-      </div>
+    <Paper className={classes.root}>
+      <Typography variant="h2" gutterBottom>
+        Edit Project
+      </Typography>
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.formControl} variant="outlined">
           <TextField
@@ -159,6 +188,79 @@ function FormUpdate(props) {
           fullWidth
           value={description}
         />
+        <FormGroup row>
+          <FormControlLabel
+            control={
+              <Switch
+                // color="secondary"
+                onChange={handleSwitch}
+              />
+            }
+            label="Add or Remove Collaborator?"
+          />
+        </FormGroup>
+        {trigger ? (
+          <List id="studentName" dense className={classes.root}>
+            <h3>Select Collaborator</h3>
+            {classMate.map((eachMate) => {
+              return eachMate._id === user._id ? (
+                <ListItem className="eachName" key={eachMate._id} button>
+                  <ListItemAvatar>
+                    <Avatar alt="classMate" src={eachMate.imageUrl} />
+                  </ListItemAvatar>
+                  <ListItemText primary={`${eachMate?.name}`} />
+
+                  <ListItemSecondaryAction>
+                    <Checkbox
+                      edge="end"
+                      // onChange={(e)=>{handleChange(e)}}
+                      // value={`${eachMate._id}`}
+                      disabled
+                      checked
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ) : teamMembers.includes(eachMate._id) ? (
+                <ListItem key={eachMate._id} button>
+                  <ListItemAvatar>
+                    <Avatar alt="classMate" src={eachMate.imageUrl} />
+                  </ListItemAvatar>
+                  <ListItemText primary={`${eachMate?.name}`} />
+                  <ListItemSecondaryAction>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          edge="end"
+                          onChange={(e) => {
+                            handleChange(e);
+                          }}
+                          value={`${eachMate._id}`}
+                          defaultChecked
+                        />
+                      }
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ) : (
+                <ListItem key={eachMate._id} button>
+                  <ListItemAvatar>
+                    <Avatar alt="classMate" src={eachMate.imageUrl} />
+                  </ListItemAvatar>
+                  <ListItemText primary={`${eachMate?.name}`} />
+                  <ListItemSecondaryAction>
+                    <Checkbox
+                      edge="end"
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                      value={`${eachMate._id}`}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              );
+            })}
+          </List>
+        ) : null}
         <Grid container justify="center">
           <Button
             color="secondary"
@@ -171,79 +273,7 @@ function FormUpdate(props) {
           </Button>
         </Grid>
       </form>
-      <FormGroup row>
-        <FormControlLabel
-          control={
-            <Switch
-              // color="secondary"
-              onChange={handleSwitch}
-            />
-          }
-          label="Add or Remove Collaborator?"
-        />
-      </FormGroup>
-      {trigger ? (
-        <List id="studentName" dense className={classes.root}>
-          <h3>Select Collaborator</h3>
-          {classMate.map((eachMate) => {
-            return eachMate._id === user._id ? (
-              <ListItem className="eachName" key={eachMate._id} button>
-                <ListItemAvatar>
-                  <Avatar alt="classMate" src={eachMate.imageUrl} />
-                </ListItemAvatar>
-                <ListItemText primary={`${eachMate?.name}`} />
-                <ListItemSecondaryAction>
-                  <Checkbox
-                    edge="end"
-                    // onChange={(e)=>{handleChange(e)}}
-                    // value={`${eachMate._id}`}
-                    disabled
-                    checked
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            ) : teamMembers.includes(eachMate._id) ? (
-              <ListItem key={eachMate._id} button>
-                <ListItemAvatar>
-                  <Avatar alt="classMate" src={eachMate.imageUrl} />
-                </ListItemAvatar>
-                <ListItemText primary={`${eachMate?.name}`} />
-                <ListItemSecondaryAction>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        edge="end"
-                        onChange={(e) => {
-                          handleChange(e);
-                        }}
-                        value={`${eachMate._id}`}
-                        defaultChecked
-                      />
-                    }
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            ) : (
-              <ListItem key={eachMate._id} button>
-                <ListItemAvatar>
-                  <Avatar alt="classMate" src={eachMate.imageUrl} />
-                </ListItemAvatar>
-                <ListItemText primary={`${eachMate?.name}`} />
-                <ListItemSecondaryAction>
-                  <Checkbox
-                    edge="end"
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                    value={`${eachMate._id}`}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          })}
-        </List>
-      ) : null}
-    </div>
+    </Paper>
   );
 }
 export default FormUpdate;

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const passport = require('../config/passport');
 const jwt = require('jsonwebtoken');
 const Classes = require('../models/Class');
 const Projects = require('../models/Projects');
+const axios = require('axios');
 
 // Verify Token
 function verifyToken(req, res, next) {
@@ -26,22 +26,61 @@ function verifyToken(req, res, next) {
   }
 }
 
-// SignUp
-router.post('/signup', (req, res, next) => {
-  User.register(req.body, req.body.password)
-    .then((user) => {
-      jwt.sign({ user }, 'secretkey', { expiresIn: '30min' }, (err, token) => {
-        req.login(user, function (err, result) {
-          res.status(201).json({ ...user._doc, token });
-        });
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+const googleapi = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=';
+
+router.post('/login', async (req, res, next) => {
+  console.log('login');
+  const { tokenId } = req.body;
+  if (!tokenId) {
+    res.status(401).json({ msg: 'Missing google JWT' });
+  } else {
+    let gres;
+    try {
+      gres = await axios.get(googleapi + encodeURI(tokenId));
+    } catch (e) {
+      console.error('Error when verifying user with google', e);
+      res.status(500).json({ msg: 'Error validating with google' });
+    }
+    const { email, email_verified, picture, name, sub, error_description } =
+      gres.data;
+
+    if (!email || error_description || !email_verified) {
+      res.status(401).json({ msg: 'Email not verified with google' });
+    } else {
+      const userData = {
+        email,
+        name,
+        googleId: sub,
+        imageUrl: picture,
+      };
+      let user = await User.findOne({ email });
+
+      if (!user) {
+        user = User.create(userData);
+      }
+      try {
+        jwt.sign(
+          { user },
+          'secretkey',
+          { expiresIn: '30min' },
+          (err, token) => {
+            res.status(201).json({ user, token });
+          }
+        );
+      } catch (error) {
+        res.status(500).json(err);
+      }
+    }
+  }
 });
 
+// LogOut
+router.get('/logout', (req, res, next) => {
+  // req.logout();
+  res.status(200).json({ msg: 'Logged out' });
+});
+
+// Put all routes below here:
 router.get('/user', verifyToken, (req, res, next) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
@@ -55,22 +94,6 @@ router.get('/user', verifyToken, (req, res, next) => {
     }
   });
 });
-
-// LogIn
-router.post('/login', passport.authenticate('local'), (req, res, next) => {
-  const { user } = req;
-  jwt.sign({ user }, 'secretkey', { expiresIn: '30min' }, (err, token) => {
-    res.status(200).json({ ...user._doc, token });
-  });
-});
-
-// LogOut
-router.get('/logout', (req, res, next) => {
-  req.logout();
-  res.status(200).json({ msg: 'Logged out' });
-});
-
-// Put all routes below here:
 
 // Get Classes from profile page
 router.get('/getAllClasses', (req, res) => {
@@ -102,17 +125,21 @@ router.post('/addClass', verifyToken, (req, res) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      User.findByIdAndUpdate(
-        authData.user._id,
-        { class: req.body.assignClass },
-        { new: true }
-      ).then((user) => {
-        res.json({ user });
-      });
+      User.findByIdAndUpdate(authData.user._id, {
+        class: req.body.assignClass,
+        classID: req.body.selectedClassId,
+      })
+        .then(async () => {
+          await Classes.findByIdAndUpdate(req.body.selectedClassId, {
+            $addToSet: { studentsID: authData.user._id },
+          });
+        })
+        .then(() => {
+          res.json({ message: 'Successfull' });
+        });
     }
   });
 });
-
 // New project by student
 router.post('/newProject', verifyToken, (req, res) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -121,69 +148,80 @@ router.post('/newProject', verifyToken, (req, res) => {
     } else {
       let project = {
         class: req.body.class,
+        classID: req.body.classID,
         studentsID: req.body.teamMembers,
         projectName: req.body.projectName,
         description: req.body.description,
         website: req.body.website,
       };
-      Projects.create(project).then((updated) => {
-        req.body.teamMembers.forEach((member) => {
-          User.findByIdAndUpdate(member, {
-            $addToSet: { projects: updated._id },
-          })
-            .then((response) => {
-              res.status(200).json({ updated });
-            })
-            .catch((err) => {
-              console.error(err);
+      Projects.create(project)
+        .then(async (updated) => {
+          req.body.teamMembers.forEach(async (member) => {
+            await User.findByIdAndUpdate(member, {
+              $addToSet: { projects: updated._id },
             });
+          });
+          await Classes.findByIdAndUpdate(req.body.classID, {
+            $addToSet: { projectsID: updated._id },
+          });
+          res.status(200).json({ updated });
+        })
+        .catch((err) => {
+          console.error(err);
         });
-      });
     }
   });
 });
 
 // Edit project by student
 router.post('/formUpdate', verifyToken, (req, res) => {
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
+  jwt.verify(req.token, 'secretkey', async (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      Projects.findByIdAndUpdate(
+      await Projects.findByIdAndUpdate(
         { _id: req.body.projectId },
         {
           $set: {
-            studentsID: req.body.teamMembers,
+            studentsID: req.body.newTeamMembers,
             projectName: req.body.projectName,
             description: req.body.description,
             website: req.body.website,
           },
         },
-        { multi: true }
-      ).then((updated) => {
-        req.body.teamMembers.forEach((member) => {
-          User.findByIdAndUpdate(member, {
-            $addToSet: { projects: req.body.projectId },
-          })
-            .then((response) => {
-              res.json({ updated });
-            })
-            .catch((err) => {
-              console.log(err);
+        { new: true }
+      )
+        .then((updated) => {
+          if (req.body.updatedMemberList.addedMember.length > 0) {
+            req.body.updatedMemberList.addedMember.forEach(async (member) => {
+              await User.findByIdAndUpdate(member, {
+                $addToSet: { projects: req.body.projectId },
+              });
             });
+          }
+          if (req.body.updatedMemberList.deletedMember.length > 0) {
+            req.body.updatedMemberList.deletedMember.forEach(async (member) => {
+              await User.findByIdAndUpdate(member, {
+                $pull: { projects: req.body.projectId },
+              });
+            });
+          }
+          res.json({ updated });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      });
     }
   });
 });
 
 // Get students projects from profile
 router.get('/getStudentProjects', verifyToken, (req, res) => {
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
+  jwt.verify(req.token, 'secretkey', async (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      User.findById(authData.user._id)
+      await User.findById(authData.user._id)
         .lean()
         .populate('projects')
         .then((allProjects) => {
@@ -223,9 +261,12 @@ router.post('/deleteProject', verifyToken, (req, res) => {
         },
 
         { new: true }
-      ).then((delProject) => {
+      ).then(() => {
         Projects.findByIdAndRemove(req.body.deleteProject).then(
-          (delProject) => {
+          async (delProject) => {
+            await Classes.findByIdAndUpdate(delProject.classID, {
+              $pull: { projectsID: delProject._id },
+            });
             res.json({ delProject });
           }
         );
@@ -254,6 +295,7 @@ router.post('/getStudentList', verifyToken, (req, res) => {
       res.status(403).json(err);
     } else {
       User.find(req.body)
+        .select({ name: 1, imageUrl: 1, _id: 1 })
         .lean()
         .then((nameList) => {
           res.json({ nameList });

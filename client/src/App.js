@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
-import './App.css';
 //Importing Components
 import Footer from './components/Footer';
 
-import Archive from './components/Archive';
+import Archive from './components/ArchiveTable';
 import ArchiveDetail from './components/ArchiveDetail';
 import Favorites from './components/Favorites';
 import AddNew from './components/AddNew';
 import Profile from './components/Profile';
-import NotFound from './components/404/NotFound';
 import FormUpdate from './components/FormUpdate';
 import AddNewClass from './components/AddNewClass';
-import loader from './loader.gif';
 // Auth Components
 import TheContext from './TheContext';
 import { SocketProvider } from './SocketContext';
 import actions from './api/index';
-import GoogleAuth from './components/auth/GoogleAuth';
-import GoogleAuthLogin from './components/auth/GoogleAuthLogin';
 import { NotificationContainer } from 'react-notifications';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -42,12 +37,12 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import ArchiveRoundedIcon from '@material-ui/icons/ArchiveRounded';
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
-import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import SlideInAlert from './components/SlideInAlert';
+import LandingPage from './pages/LandingPage';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -114,11 +109,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-  const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  let [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
+  const [projects, setProjects] = useState(null);
 
   useEffect(() => {
     async function getUser() {
@@ -139,6 +134,7 @@ function App() {
   const logOut = async () => {
     await actions.logOut();
     setUser(null);
+    setProjects(null);
     history.push('/');
   };
 
@@ -147,28 +143,13 @@ function App() {
   return user === null || // if statement to see if user is register or not. if it is page will go to the profile
     user === undefined || // if not, 404 will display
     JSON.stringify(user) === '{}' ? (
-    <div className="google">
-      <div className="header">
-        <h1>IRONFOLIO</h1>
-        <p>Where you can explore and collaborate...</p>
-      </div>
-      {loading ? (
-        <img src={loader} alt="Loading..." />
-      ) : (
-        <>
-          {!user && <GoogleAuth setUser={setUser} setLoading={setLoading} />}
-          {!user && (
-            <GoogleAuthLogin setUser={setUser} setLoading={setLoading} />
-          )}
-          {JSON.stringify(user) === '{}' && <Route component={NotFound} />}
-        </>
-      )}
-      <NotificationContainer />
-    </div>
+    <LandingPage user={user} setUser={setUser} history={history} />
   ) : (
     <div style={{ minHeight: '100vh', position: 'relative' }}>
       <SocketProvider id={user._id} name={user.name} imageUrl={user.imageUrl}>
-        <TheContext.Provider value={{ history, user, setUser }}>
+        <TheContext.Provider
+          value={{ history, user, setUser, projects, setProjects }}
+        >
           <div className={classes.root} style={{ paddingBottom: '20px' }}>
             <CssBaseline />
             <AppBar
@@ -196,12 +177,19 @@ function App() {
                     alignItems: 'center',
                     width: '100%',
                   }}
-                  variant="h6"
+                  variant="inherit"
                   noWrap
                 >
-                  <span style={{ fontSize: '1.5rem' }}>Ironfolio</span>
+                  <Typography variant="h4">Ironfolio</Typography>
+
                   <div style={{ display: 'flex' }}>
-                    <span style={{ paddingRight: '20px' }}>{user?.name}</span>
+                    <span
+                      style={{
+                        paddingRight: '20px',
+                      }}
+                    >
+                      <Typography variant="h6">{user?.name}</Typography>
+                    </span>
                     <Avatar src={user?.imageUrl} />
                   </div>
                 </Typography>
@@ -330,11 +318,7 @@ function App() {
                   path="/newproject"
                   render={() => <AddNew user={user} />}
                 />
-                <Route
-                  exact
-                  path="/archive"
-                  render={(props) => <Archive {...props} user={user} />}
-                />
+                <Route exact path="/archive" render={(props) => <Archive />} />
                 <Route
                   exact
                   path="/archive/:id"

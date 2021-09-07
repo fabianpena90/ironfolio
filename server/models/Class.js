@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const classSchema = new Schema(
@@ -8,11 +8,11 @@ const classSchema = new Schema(
     year: String,
     classType: {
       type: String,
-      enum: ["FT", "PT"],
-      default: "FT",
+      enum: ['FT', 'PT'],
+      default: 'FT',
     },
-    // studentsID: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    // projectsID: [{ type: Schema.Types.ObjectId, ref: "Projects" }],
+    studentsID: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    projectsID: [{ type: Schema.Types.ObjectId, ref: 'Projects' }],
   },
   {
     timestamps: true,
@@ -20,5 +20,5 @@ const classSchema = new Schema(
   }
 );
 
-const Classes = mongoose.model("Classes", classSchema);
+const Classes = mongoose.model('Classes', classSchema);
 module.exports = Classes;

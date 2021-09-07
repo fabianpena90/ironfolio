@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import './Profile.css';
+import React, { useEffect, useState, useContext } from 'react';
 import actions from '../api/index';
 import { Link as RouterLink } from 'react-router-dom';
+import TheContext from '../TheContext';
 
 // Material UI
 import Link from '@material-ui/core/Link';
@@ -25,6 +25,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import StarIcon from '@material-ui/icons/Star';
 import { NotificationManager } from 'react-notifications';
+import Typography from '@material-ui/core/Typography';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -46,7 +47,11 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // width: "50vw",
+    width: '100%',
+    padding: '2%',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   paper: {
     // width: "60%",
@@ -80,27 +85,31 @@ function Profile(props) {
   const classes = useStyles();
   const [selectClass, setSelectClass] = useState([]);
   const [assignClass, setAssignClass] = useState([]);
-  const [projects, setProjects] = useState([]);
+  const [selectedClassId, setSelectedClassId] = useState(null);
+  const { projects, setProjects } = useContext(TheContext);
 
   useEffect(() => {
     async function getClasses() {
-      let res = await actions.getAllClasses();
-      setSelectClass(res?.data.selectClass.slice(0, 3));
-      let res2 = await actions.getStudentProject();
-      setProjects(res2?.data.allProjects.projects);
+      if (props.user?.class === 'Test') {
+        let res = await actions.getAllClasses();
+        setSelectClass(res?.data.selectClass.slice(0, 3));
+      } else if (!projects) {
+        let res2 = await actions.getStudentProject();
+        setProjects(res2?.data.allProjects.projects);
+      }
     }
     getClasses();
   }, []);
 
   function handleSubmit(e) {
-    actions.setClass({ assignClass });
+    actions.setClass({ assignClass, selectedClassId });
   }
   function handleDelete(value) {
     actions.deleteProject({ deleteProject: value });
-    let newProject = [...projects].filter((eachProject) => {
+    let newProjects = [...projects].filter((eachProject) => {
       return eachProject._id !== value;
     });
-    setProjects(newProject);
+    setProjects(newProjects);
     NotificationManager.success('Project Deleted', 'Success', 4000, true);
   }
 
@@ -108,7 +117,7 @@ function Profile(props) {
   function showClass() {
     return selectClass?.map((eachClass) => {
       return (
-        <option key={eachClass._id}>
+        <option key={eachClass._id} id={eachClass._id}>
           {eachClass.location}
           {'-'}
           {eachClass.month}
@@ -123,8 +132,10 @@ function Profile(props) {
 
   if (props.user?.class === 'Test') {
     return (
-      <div className="instructions">
-        <h1>Welcome Ironhackers</h1>
+      <Paper className={classes.root}>
+        <Typography variant="h1" gutterBottom>
+          Welcome Ironhackers!
+        </Typography>
         <ul>
           <List component="nav" className={classes.root} aria-label="contacts">
             <ListItem>
@@ -163,7 +174,10 @@ function Profile(props) {
               native
               required
               onChange={(e) => {
-                //console.log(e.target.value);
+                setSelectedClassId(
+                  e.target.childNodes[e.target.selectedIndex].getAttribute('id')
+                );
+
                 setAssignClass(e.target.value);
               }}
               label="SelectYourCohort"
@@ -186,15 +200,19 @@ function Profile(props) {
             </Button>
           </FormControl>
         </form>
-      </div>
+      </Paper>
     );
   } else {
     return (
-      <div id="projects">
-        <h2>My Projects</h2>
+      <Paper className={classes.root}>
+        <Typography variant="h2" gutterBottom>
+          My Projects
+        </Typography>
 
         {projects?.length === 0 ? (
-          <p style={{ textAlign: 'center' }}>No projects!</p>
+          <Typography align="center" variant="h6" gutterBottom>
+            No projects!
+          </Typography>
         ) : (
           <TableContainer component={Paper}>
             <Table
@@ -204,21 +222,45 @@ function Profile(props) {
             >
               <TableHead>
                 <TableRow>
-                  <StyledTableCell align="center">Project Name</StyledTableCell>
-                  <StyledTableCell align="center">Description</StyledTableCell>
-                  <StyledTableCell>Website / URL</StyledTableCell>
-                  <StyledTableCell align="center">Edit</StyledTableCell>
-                  <StyledTableCell align="center">Delete</StyledTableCell>
+                  <StyledTableCell align="center">
+                    <Typography align="center" variant="body1" gutterBottom>
+                      Project Name
+                    </Typography>
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <Typography align="center" variant="body1" gutterBottom>
+                      Description
+                    </Typography>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <Typography align="center" variant="body1" gutterBottom>
+                      Link
+                    </Typography>
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <Typography align="center" variant="body1" gutterBottom>
+                      Edit
+                    </Typography>
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <Typography align="center" variant="body1" gutterBottom>
+                      Delete
+                    </Typography>
+                  </StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {projects?.map((row) => (
                   <StyledTableRow key={row._id}>
                     <StyledTableCell component="th" scope="row" align="center">
-                      {row.projectName}
+                      <Typography align="center" variant="body1" gutterBottom>
+                        {row.projectName}
+                      </Typography>
                     </StyledTableCell>
                     <StyledTableCell align="justify">
-                      {row.description}
+                      <Typography align="center" variant="body1" gutterBottom>
+                        {row.description}
+                      </Typography>
                     </StyledTableCell>
                     <StyledTableCell align="justify">
                       <Link
@@ -226,7 +268,9 @@ function Profile(props) {
                         rel="noopener noreferrer"
                         target="_blank"
                       >
-                        Website
+                        <Typography align="center" variant="body1" gutterBottom>
+                          Website
+                        </Typography>
                       </Link>
                     </StyledTableCell>
                     <StyledTableCell align="center">
@@ -254,7 +298,7 @@ function Profile(props) {
             </Table>
           </TableContainer>
         )}
-      </div>
+      </Paper>
     );
   }
 }
