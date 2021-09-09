@@ -109,7 +109,7 @@ function ArchiveDetail(props) {
               </StyledTableCell>
               <StyledTableCell align="center">
                 <Typography variant="body1" gutterBottom>
-                  Website
+                  Link
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="center">

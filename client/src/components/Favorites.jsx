@@ -93,7 +93,7 @@ function Favorites(props) {
               </StyledTableCell>
               <StyledTableCell align="center">
                 <Typography variant="body1" gutterBottom>
-                  URL
+                  Link
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="center">

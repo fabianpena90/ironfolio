@@ -29,7 +29,6 @@ function verifyToken(req, res, next) {
 const googleapi = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=';
 
 router.post('/login', async (req, res, next) => {
-  console.log('login');
   const { tokenId } = req.body;
   if (!tokenId) {
     res.status(401).json({ msg: 'Missing google JWT' });
@@ -56,7 +55,7 @@ router.post('/login', async (req, res, next) => {
       let user = await User.findOne({ email });
 
       if (!user) {
-        user = User.create(userData);
+        user = await User.create(userData);
       }
       try {
         jwt.sign(

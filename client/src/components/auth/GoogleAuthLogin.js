@@ -4,11 +4,11 @@ import actions from '../../api/index';
 import { GoogleLogin } from 'react-google-login';
 
 const responseGoogle = (props) => {
-  const onSuccessResponse = (response) => {
+  const onSuccessResponse = async (response) => {
     props.setLoading(true);
     const { tokenId } = response;
 
-    actions
+    await actions
       .logIn({ tokenId })
       .then((user) => {
         props.setLoading(false);
