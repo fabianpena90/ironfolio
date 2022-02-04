@@ -17,17 +17,13 @@ import Typography from '@material-ui/core/Typography';
 
 const columns = [
   { id: 'name', label: 'Class', align: 'center' },
-  { id: 'students', label: 'Students', align: 'center' },
+  { id: 'students', label: 'Student', align: 'center' },
   {
     id: 'projects',
     label: 'Projects',
     align: 'center',
   },
 ];
-
-function createData(name, students, projects) {
-  return { name, students, projects };
-}
 
 const useStyles = makeStyles({
   root: {

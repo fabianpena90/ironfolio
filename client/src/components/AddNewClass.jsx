@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddNewClass(props) {
+function AddNewClass() {
   const classes = useStyles();
   const { user, history } = useContext(TheContext);
   const [location, setLocation] = useState();
@@ -72,7 +72,11 @@ function AddNewClass(props) {
             <MenuItem value=""></MenuItem>
             {campuses.map((c) => {
               return (
-                <MenuItem key={c.code} value={c.code}>
+                <MenuItem
+                  key={c.code}
+                  value={c.code}
+                  style={{ backgroundColor: 'white' }}
+                >
                   {c.campus}
                 </MenuItem>
               );
@@ -91,7 +95,11 @@ function AddNewClass(props) {
             <MenuItem value=""></MenuItem>
             {months.map((m) => {
               return (
-                <MenuItem key={m.code} value={m.code}>
+                <MenuItem
+                  key={m.code}
+                  value={m.code}
+                  style={{ backgroundColor: 'white' }}
+                >
                   {m.month}
                 </MenuItem>
               );
@@ -110,8 +118,12 @@ function AddNewClass(props) {
             <MenuItem value=""></MenuItem>
             {years.map((y) => {
               return (
-                <MenuItem key={y.year} value={y.year}>
-                  {y.year}
+                <MenuItem
+                  key={y}
+                  value={y}
+                  style={{ backgroundColor: 'white' }}
+                >
+                  {y}
                 </MenuItem>
               );
             })}
@@ -129,7 +141,11 @@ function AddNewClass(props) {
             <MenuItem value=""></MenuItem>
             {classTypes.map((c) => {
               return (
-                <MenuItem key={c.code} value={c.code}>
+                <MenuItem
+                  key={c.code}
+                  value={c.code}
+                  style={{ backgroundColor: 'white' }}
+                >
                   {c.type}
                 </MenuItem>
               );

@@ -52,6 +52,7 @@ function FormUpdate(props) {
   const [newTeamMembers, setNewTeamMembers] = useState([]);
   const [classMate, setClassMate] = useState([]);
   const [trigger, setTrigger] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
   const errorState = { website: false, projectName: false, description: false };
   const [errorIndicator, setErrorIndicator] = useState(errorState);
   const [updatedMemberList, setUpdatedMemberList] = useState({
@@ -98,12 +99,15 @@ function FormUpdate(props) {
       })
       .then(async (data) => {
         NotificationManager.info('Project Updated', 'Success', 4000, true);
+        setDisableBtn(true);
         const res = await actions.editProject(data);
         let newProjects = [...projects].filter((eachProject) => {
           return eachProject._id !== res.data.updated._id;
         });
         setProjects([...newProjects, res.data.updated]);
-        history.push('/');
+        await setTimeout(() => {
+          history.push('/');
+        }, 2000);
       })
       .catch((err) => {
         let keyWord = err.errors[0].split(' ')[0];
@@ -268,6 +272,7 @@ function FormUpdate(props) {
             size="large"
             variant="contained"
             type="submit"
+            disabled={disableBtn}
           >
             Update
           </Button>

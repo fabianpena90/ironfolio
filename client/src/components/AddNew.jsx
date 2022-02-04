@@ -1,9 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import './AddNew.css';
 import actions from '../api/index';
 import TheContext from '../TheContext';
 import * as yup from 'yup';
 import { NotificationManager } from 'react-notifications';
+//Confetti
+import Confetti from 'react-confetti';
 
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -56,8 +58,22 @@ const AddNew = (props) => {
   const [teamMembers, setTeamMembers] = useState([user._id]);
   const [website, setWebsite] = useState();
   const [trigger, setTrigger] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
+
+  //confetti
+  const [confettiHeight, setConfettiHeight] = useState(null);
+  const [confettiWidth, setConfettiWidth] = useState(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const confettiRef = useRef();
+
+  useEffect(() => {
+    setConfettiWidth(confettiRef.current.clientWidth);
+    setConfettiHeight(confettiRef.current.clientHeight);
+  }, [confettiRef]);
+
   const errorState = { website: false, projectName: false, description: false };
   const [errorIndicator, setErrorIndicator] = useState(errorState);
+
   useEffect(() => {
     async function getData() {
       let result = await actions.getStudentList({ class: user.class });
@@ -89,10 +105,14 @@ const AddNew = (props) => {
       .then(async (projectData) => {
         let res = await actions.addProject(projectData);
         NotificationManager.success('Project Submitted', 'Success', 4000, true);
+        setShowConfetti(true);
+        setDisableBtn(true);
         projects
           ? setProjects([...projects, res.data.updated])
           : setProjects([res.data.updated]);
-        history.push('/');
+        await setTimeout(() => {
+          history.push('/');
+        }, 5000);
       })
       .catch((err) => {
         let keyWord = err.errors[0].split(' ')[0];
@@ -119,10 +139,16 @@ const AddNew = (props) => {
   };
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} ref={confettiRef}>
+      <Confetti
+        run={showConfetti}
+        numberOfPieces={80}
+        width={confettiWidth}
+        height={confettiHeight}
+      />
       <div>
         <Typography variant="h2" gutterBottom>
-          Add New Project
+          Add New Projects
         </Typography>
       </div>
       <div>
@@ -224,6 +250,7 @@ const AddNew = (props) => {
               size="large"
               variant="contained"
               type="submit"
+              disabled={disableBtn}
             >
               Submit
             </Button>
