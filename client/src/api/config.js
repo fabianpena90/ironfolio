@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
     baseURL = `/api`; //Heroku or 5000
   }
 } else {
-  const Server = AWS_SERVER || 'localhost';
+  const Server = 'localhost';
   baseURL = `http://${Server}:5000/api`; //http://localhost:5000/apihttps://ironfolio.herokuapp.com/api
 }
 // baseURL = `https://pacific-river-72403.herokuapp.com/api`;
